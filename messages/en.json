@@ -1,0 +1,13 @@
+{
+    "general": {
+        "theme": {
+            "light": "Light",
+            "dark": "Dark",
+            "system": "System"
+        }
+    },
+    "footer": {
+        "allRightsReserved": "© {year} All rights reserved.",
+        "developedBy": "Developed by"
+    }
+}

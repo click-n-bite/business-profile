@@ -1,0 +1,13 @@
+{
+    "general": {
+        "theme": {
+            "light": "فاتح",
+            "dark": "داكن",
+            "system": "النظام"
+        }
+    },
+    "footer": {
+        "allRightsReserved": "© {year} جميع الحقوق محفوظة.",
+        "developedBy": "تم التطوير بواسطة"
+    }
+}
