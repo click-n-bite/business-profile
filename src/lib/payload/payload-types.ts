@@ -268,12 +268,13 @@ export interface BusinessProfile {
 export interface BusinessTheme {
   id: string;
   tenant?: (string | null) | Tenant;
-  name: string;
+  name?: string | null;
   lightBackground?: {
     type?: ('color' | 'image') | null;
     color?: ('#FFFFFF' | '#F9FAFB' | '#F3F4F6') | null;
     image?: (string | null) | Media;
   };
+  themeType: 'business' | 'personal';
   darkBackground: {
     type: 'color' | 'image';
     color?: ('#000000' | '#111827') | null;
@@ -292,7 +293,6 @@ export interface BusinessTheme {
 export interface AboutBusiness {
   id: string;
   tenant?: (string | null) | Tenant;
-  title: string;
   description: string;
   updatedAt: string;
   createdAt: string;
@@ -340,8 +340,34 @@ export interface ContactDepartment {
 export interface SocialLink {
   id: string;
   tenant?: (string | null) | Tenant;
-  platform: 'website' | 'instagram' | 'tiktok' | 'telegram' | 'facebook' | 'linkedin' | 'youtube' | 'twitter';
-  label?: string | null;
+  platform:
+    | 'website'
+    | 'instagram'
+    | 'tiktok'
+    | 'telegram'
+    | 'facebook'
+    | 'linkedin'
+    | 'youtube'
+    | 'twitter'
+    | 'portfolio'
+    | 'pinterest'
+    | 'github'
+    | 'whatsapp'
+    | 'threads'
+    | 'snapchat'
+    | 'discord'
+    | 'reddit'
+    | 'twitch'
+    | 'spotify'
+    | 'behance'
+    | 'dribbble'
+    | 'figma'
+    | 'newsletter'
+    | 'email'
+    | 'phone'
+    | 'linktree'
+    | 'calendly';
+  label: string;
   url: string;
   order?: number | null;
   updatedAt: string;
@@ -646,6 +672,7 @@ export interface BusinessThemesSelect<T extends boolean = true> {
         color?: T;
         image?: T;
       };
+  themeType?: T;
   darkBackground?:
     | T
     | {
@@ -665,7 +692,6 @@ export interface BusinessThemesSelect<T extends boolean = true> {
  */
 export interface AboutBusinessSelect<T extends boolean = true> {
   tenant?: T;
-  title?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;

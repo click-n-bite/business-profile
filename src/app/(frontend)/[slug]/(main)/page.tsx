@@ -27,7 +27,7 @@ export default async function TenantPage({ params }: PageProps) {
 	return (
 		<div className='flex justify-center md:px-6 md:py-10'>
 			<SectionBubbles theme={theme} className='flex w-full max-w-3xl flex-col items-center gap-10 py-10'>
-				{data.businessProfile && <Hero businessProfile={data.businessProfile} theme={theme} />}
+				{data.businessProfile && <Hero businessProfile={data.businessProfile} />}
 
 				{data.aboutBusiness && (
 					<div className='w-full max-w-xl'>
@@ -45,7 +45,7 @@ export default async function TenantPage({ params }: PageProps) {
 
 				{data.contactDepartments.length > 0 && (
 					<div className='w-full md:max-w-xl'>
-						<div className='flex flex-col gap-4'>
+						<div className='flex flex-col'>
 							<SectionTitle title={data.sectionTitles?.contact || "Contact Us"} />
 							{data.contactDepartments.map((dept) => (
 								<ContactDepartmentCard
@@ -78,7 +78,7 @@ export default async function TenantPage({ params }: PageProps) {
 
 				{data.businessLocations.length > 0 && (
 					<div className='w-full max-w-xl'>
-						<section className='grid grid-cols-1 gap-4'>
+						<section className='grid grid-cols-1'>
 							<SectionTitle title={data.sectionTitles?.locations || "Our Locations"} />
 							{data.businessLocations.map((loc, idx) => (
 								<LocationCard

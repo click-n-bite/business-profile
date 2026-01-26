@@ -10,7 +10,18 @@ import {
 	Linkedin,
 	Twitter,
 	MessageCircle,
-	Bookmark
+	Bookmark,
+	Camera,
+	MessageSquare,
+	MessageSquareText,
+	GamepadIcon,
+	Music2Icon,
+	Palette,
+	Code,
+	Phone,
+	SquareStack,
+	Calendar,
+	Mail
 } from "lucide-react"
 import type { SocialLink as PayloadSocialLink } from "@/lib/payload/payload-types"
 
@@ -25,8 +36,8 @@ interface SocialLinksSectionProps {
 }
 
 const iconMap: Record<string, React.ElementType> = {
-	instagram: Instagram,
 	website: Globe,
+	instagram: Instagram,
 	tiktok: Video,
 	telegram: Send,
 	youtube: Youtube,
@@ -35,7 +46,23 @@ const iconMap: Record<string, React.ElementType> = {
 	twitter: Twitter,
 	whatsapp: MessageCircle,
 	pinterest: Bookmark,
-	threads: Send
+	threads: Send,
+	snapchat: Camera,
+	discord: MessageSquare,
+	reddit: MessageSquareText,
+	twitch: GamepadIcon,
+	spotify: Music2Icon,
+	behance: Palette,
+	dribbble: Palette,
+	figma: Palette,
+	github: Code,
+	portfolio: Globe,
+
+	newsletter: Mail,
+	email: Mail,
+	phone: Phone,
+	linktree: SquareStack,
+	calendly: Calendar
 }
 
 export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksSectionProps) => {

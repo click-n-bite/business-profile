@@ -3,10 +3,6 @@ import { CollectionConfig } from "payload"
 export const AboutSections: CollectionConfig = {
 	slug: "about_business",
 
-	admin: {
-		useAsTitle: "title"
-	},
-
 	hooks: {
 		beforeValidate: [
 			async ({ data, req, operation }) => {
@@ -27,11 +23,6 @@ export const AboutSections: CollectionConfig = {
 	},
 
 	fields: [
-		{
-			name: "title",
-			type: "text",
-			required: true
-		},
 		{
 			name: "description",
 			type: "textarea",

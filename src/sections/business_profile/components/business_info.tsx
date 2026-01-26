@@ -11,7 +11,7 @@ interface HeroProps {
 	}
 }
 
-export const Hero = ({ businessProfile, theme }: HeroProps) => {
+export const Hero = ({ businessProfile }: HeroProps) => {
 	if (!businessProfile) return null
 
 	const businessName = businessProfile.businessName ?? null
