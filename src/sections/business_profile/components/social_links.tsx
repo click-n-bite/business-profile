@@ -1,71 +1,9 @@
 "use client"
 
-import {
-	Instagram,
-	Globe,
-	Video,
-	Send,
-	Youtube,
-	Facebook,
-	Linkedin,
-	Twitter,
-	MessageCircle,
-	Bookmark,
-	Camera,
-	MessageSquare,
-	MessageSquareText,
-	GamepadIcon,
-	Music2Icon,
-	Palette,
-	Code,
-	Phone,
-	SquareStack,
-	Calendar,
-	Mail
-} from "lucide-react"
-import type { SocialLink as PayloadSocialLink } from "@/lib/payload/payload-types"
+import { iconMap } from "../../utils"
+import { SocialLinksProps } from "@/sections/types"
 
-interface SocialLinksSectionProps {
-	socialLinks: PayloadSocialLink[]
-	theme?: {
-		primaryColor?: string
-		secondaryColor?: string
-		accentColor?: string
-	}
-	title?: string
-}
-
-const iconMap: Record<string, React.ElementType> = {
-	website: Globe,
-	instagram: Instagram,
-	tiktok: Video,
-	telegram: Send,
-	youtube: Youtube,
-	facebook: Facebook,
-	linkedin: Linkedin,
-	twitter: Twitter,
-	whatsapp: MessageCircle,
-	pinterest: Bookmark,
-	threads: Send,
-	snapchat: Camera,
-	discord: MessageSquare,
-	reddit: MessageSquareText,
-	twitch: GamepadIcon,
-	spotify: Music2Icon,
-	behance: Palette,
-	dribbble: Palette,
-	figma: Palette,
-	github: Code,
-	portfolio: Globe,
-
-	newsletter: Mail,
-	email: Mail,
-	phone: Phone,
-	linktree: SquareStack,
-	calendly: Calendar
-}
-
-export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksSectionProps) => {
+export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksProps) => {
 	const primary = theme?.primaryColor || "#3B82F6"
 
 	const activeLinks = socialLinks.sort((a, b) => (a.order || 0) - (b.order || 0)) || []
@@ -75,7 +13,7 @@ export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksSectionPro
 	return (
 		<section className='grid w-full grid-cols-2 gap-4 md:max-w-xl'>
 			{activeLinks.map((link) => {
-				const Icon = iconMap[link.platform.toLowerCase()] || Globe
+				const Icon = iconMap[link.platform.toLowerCase()]
 
 				const label = link.label || link.platform
 

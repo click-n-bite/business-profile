@@ -1,16 +1,5 @@
 import { SectionBubbles } from "@/components/common/bubble-design"
-
-interface AboutProps {
-	aboutBusiness?: {
-		title?: string
-		description?: string
-	}
-	theme?: {
-		primaryColor?: string
-		secondaryColor?: string
-		accentColor?: string
-	}
-}
+import { AboutProps } from "@/sections/types"
 
 export const About = ({ aboutBusiness, theme }: AboutProps) => {
 	if (!aboutBusiness) {

@@ -280,9 +280,96 @@ export interface BusinessTheme {
     color?: ('#000000' | '#111827') | null;
     image?: (string | null) | Media;
   };
-  primaryColor: '#3B82F6' | '#136c36' | '#c30811' | '#FACC15' | '#8B5CF6' | '#EC4899' | '#6B7280';
-  secondaryColor?: ('#3B82F6' | '#136c36' | '#c30811' | '#FACC15' | '#8B5CF6' | '#EC4899' | '#6B7280') | null;
-  accentColor?: ('#3B82F6' | '#136c36' | '#c30811' | '#FACC15' | '#8B5CF6' | '#EC4899' | '#6B7280') | null;
+  primaryColor:
+    | '#3B82F6'
+    | '#136c36'
+    | '#c30811'
+    | '#FACC15'
+    | '#8B5CF6'
+    | '#EC4899'
+    | '#6B7280'
+    | '#FCE7F3'
+    | '#DBEAFE'
+    | '#D1FAE5'
+    | '#E9D5FF'
+    | '#FFEDD5'
+    | '#E0F2FE'
+    | '#F3F4F6'
+    | '#FEF3C7'
+    | '#FECDD3'
+    | '#CCFBF1'
+    | '#1E40AF'
+    | '#4B5563'
+    | '#065F46'
+    | '#EA580C'
+    | '#7C3AED'
+    | '#0D9488'
+    | '#B45309'
+    | '#1F2937'
+    | '#2563EB'
+    | '#15803D';
+  secondaryColor?:
+    | (
+        | '#3B82F6'
+        | '#136c36'
+        | '#c30811'
+        | '#FACC15'
+        | '#8B5CF6'
+        | '#EC4899'
+        | '#6B7280'
+        | '#FCE7F3'
+        | '#DBEAFE'
+        | '#D1FAE5'
+        | '#E9D5FF'
+        | '#FFEDD5'
+        | '#E0F2FE'
+        | '#F3F4F6'
+        | '#FEF3C7'
+        | '#FECDD3'
+        | '#CCFBF1'
+        | '#1E40AF'
+        | '#4B5563'
+        | '#065F46'
+        | '#EA580C'
+        | '#7C3AED'
+        | '#0D9488'
+        | '#B45309'
+        | '#1F2937'
+        | '#2563EB'
+        | '#15803D'
+      )
+    | null;
+  accentColor?:
+    | (
+        | '#3B82F6'
+        | '#136c36'
+        | '#c30811'
+        | '#FACC15'
+        | '#8B5CF6'
+        | '#EC4899'
+        | '#6B7280'
+        | '#FCE7F3'
+        | '#DBEAFE'
+        | '#D1FAE5'
+        | '#E9D5FF'
+        | '#FFEDD5'
+        | '#E0F2FE'
+        | '#F3F4F6'
+        | '#FEF3C7'
+        | '#FECDD3'
+        | '#CCFBF1'
+        | '#1E40AF'
+        | '#4B5563'
+        | '#065F46'
+        | '#EA580C'
+        | '#7C3AED'
+        | '#0D9488'
+        | '#B45309'
+        | '#1F2937'
+        | '#2563EB'
+        | '#15803D'
+      )
+    | null;
   updatedAt: string;
   createdAt: string;
 }

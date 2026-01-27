@@ -37,26 +37,18 @@ export const plugins: Plugin[] = [
 	...(process.env.BLOB_READ_WRITE_TOKEN
 		? [
 				vercelBlobStorage({
-					collections: { ["media"]: true },
-					token: process.env.BLOB_READ_WRITE_TOKEN || ""
+					collections: {
+						media: {
+							disableLocalStorage: true,
+							generateFileURL: ({ filename }) => {
+								const generatedUrl = `${process.env.BLOB_URL}/${filename}`
+
+								return generatedUrl
+							}
+						}
+					},
+					token: process.env.BLOB_READ_WRITE_TOKEN!
 				})
 			]
 		: [])
-	// ...(process.env.BLOB_READ_WRITE_TOKEN
-	// 	? [
-	// 			vercelBlobStorage({
-	// 				collections: {
-	// 					media: {
-	// 						disableLocalStorage: true,
-	// 						generateFileURL: ({ filename }) => {
-	// 							const generatedUrl = `${process.env.BLOB_URL}/${filename}`
-
-	// 							return generatedUrl
-	// 						}
-	// 					}
-	// 				},
-	// 				token: process.env.BLOB_READ_WRITE_TOKEN!
-	// 			})
-	// 		]
-	// 	: [])
 ]

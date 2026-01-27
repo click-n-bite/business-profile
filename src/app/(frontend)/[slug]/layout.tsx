@@ -1,7 +1,7 @@
 import { TenantFooter } from "@/components/tenant/tenant-footer"
 import { TenantHeader } from "@/components/tenant/tenant-header"
 import { TenantTheme } from "@/components/tenant/tenant-theme"
-import { fetchTenantData } from "@/sections/business_profile/service"
+import { fetchTenantData } from "@/sections/service"
 
 interface TenantLayoutProps {
 	children: React.ReactNode
@@ -24,7 +24,7 @@ export default async function TenantLayout({ children, params }: TenantLayoutPro
 			<TenantTheme theme={theme} />
 			<main className='relative flex min-h-screen flex-col'>
 				<TenantHeader />
-				<div className='flex-1 pt-[50px] md:pt-[100px]'>{children}</div>
+				<div className='flex-1 pt-[68px] md:pt-[100px]'>{children}</div>
 				<TenantFooter />
 			</main>
 		</>

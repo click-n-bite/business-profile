@@ -1,22 +1,10 @@
 "use client"
 
+import { ContactDepartment } from "@/sections/types"
 import { formatPhoneNumberSimple, quickSaveContact } from "@/utils/contact-utils"
 import { Phone, MessageCircle, Save, Send } from "lucide-react"
 
-interface DeptProps {
-	title: string
-	phone: string
-	whatsapp: boolean
-	telegram: boolean
-	telephone: boolean
-	theme?: {
-		primaryColor?: string
-		secondaryColor?: string
-		accentColor?: string
-	}
-}
-
-export const ContactDepartmentCard = ({ title, phone, whatsapp, telegram, telephone, theme }: DeptProps) => {
+export const ContactDepartmentCard = ({ title, phone, whatsapp, telegram, telephone, theme }: ContactDepartment) => {
 	const handleSaveContact = () => {
 		quickSaveContact(title, phone)
 	}
