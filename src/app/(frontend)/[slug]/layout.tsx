@@ -5,13 +5,13 @@ import { fetchTenantData } from "@/sections/service"
 
 interface TenantLayoutProps {
 	children: React.ReactNode
-	params: {
+	params: Promise<{
 		slug: string
-	}
+	}>
 }
 
 export default async function TenantLayout({ children, params }: TenantLayoutProps) {
-	const { slug } = params
+	const { slug } = await params
 
 	const data = await fetchTenantData(slug)
 
