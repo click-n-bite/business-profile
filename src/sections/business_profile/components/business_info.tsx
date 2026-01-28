@@ -57,7 +57,7 @@ export const Hero = ({ businessProfile }: HeroProps) => {
 			)}
 
 			{businessName && (
-				<h1 className='font-display text-4xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-white'>
+				<h1 className='font-display text-4xl font-bold tracking-tight text-slate-900 uppercase italic md:text-5xl dark:text-white'>
 					{businessName}
 				</h1>
 			)}

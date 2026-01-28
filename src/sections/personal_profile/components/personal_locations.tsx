@@ -16,22 +16,22 @@ export const PersonalLocationCard = ({ title, address, googleMapLink, theme }: P
 
 	const content = (
 		<div
-			className='group flex items-center w-full justify-between rounded-lg border bg-white p-4 transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-900'
+			className='group flex w-full items-center justify-between rounded-lg  bg-white p-4 transition-all hover:shadow-md  dark:bg-[#1a1a1aa3]'
 			style={{
-				borderColor: primary ? `${primary}20` : undefined,
-				backgroundColor: primary ? `${primary}05` : undefined
+				// borderColor: primary ? `${primary}20` : undefined
+				// backgroundColor: primary ? `#3434354a` : undefined
 			}}>
-			<div className='flex items-center gap-4 w-full'>
+			<div className='flex w-full items-center gap-4'>
 				<div
 					className='flex h-10 w-10 items-center justify-center rounded-md'
 					style={{
-						backgroundColor: primary ? `${primary}15` : undefined
+						backgroundColor: primary ? `${primary}35` : undefined
 					}}>
 					<MapPin className='h-5 w-5' style={{ color: primary }} />
 				</div>
 				<div className='text-left'>
-					<h3 className='text-lg font-medium text-gray-900 dark:text-white'>{title}</h3>
-					<p className='mt-0.5 text-sm text-gray-600 dark:text-gray-400'>{address}</p>
+					<h3 className='text-lg font-medium text-gray-900 uppercase italic dark:text-white'>{title}</h3>
+					<p className='mt-0.5 text-sm text-gray-600 capitalize dark:text-gray-400'>{address}</p>
 				</div>
 			</div>
 			{googleMapLink && <span className='text-sm text-gray-500 dark:text-gray-400'>↗</span>}

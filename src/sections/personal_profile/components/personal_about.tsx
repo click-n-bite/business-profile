@@ -12,8 +12,8 @@ export function PersonalAbout({ aboutBusiness, theme }: AboutProps) {
 		<div
 			className='px-6'
 			style={{
-				borderColor: theme?.primaryColor ? `${theme.primaryColor}20` : undefined,
-				backgroundColor: theme?.primaryColor ? `${theme.primaryColor}05` : undefined
+				// borderColor: theme?.primaryColor ? `${theme.primaryColor}20` : undefined
+				// backgroundColor: theme?.primaryColor ? `#3434354a` : undefined
 			}}>
 			<p className='text-lg leading-relaxed text-gray-600 dark:text-gray-300'>{description}</p>
 		</div>

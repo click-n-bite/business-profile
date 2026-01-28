@@ -63,7 +63,7 @@ export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayout
 				)}
 
 				{data.businessPartners?.length > 0 && (
-					<div className='w-full max-w-xl px-4'>
+					<div className='w-full max-w-xl px-4 pb-4'>
 						<PartnersCarousel partners={data.businessPartners} />
 					</div>
 				)}
