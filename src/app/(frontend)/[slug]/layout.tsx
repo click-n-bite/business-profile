@@ -1,7 +1,7 @@
 import { TenantFooter } from "@/components/tenant/tenant-footer"
 import { TenantHeader } from "@/components/tenant/tenant-header"
 import { TenantTheme } from "@/components/tenant/tenant-theme"
-import { fetchTenantData } from "@/sections/service"
+import { fetchTenantData } from "@/Profiles/service"
 
 interface TenantLayoutProps {
 	children: React.ReactNode

@@ -1,6 +1,6 @@
-import { BusinessLayout } from "@/sections/business_profile/business_layout"
-import { PersonalPortfolioLayout } from "@/sections/personal_profile/personal_layout"
-import { fetchTenantData } from "@/sections/service"
+import { BusinessLayout } from "@/Profiles/business_profile/business_layout"
+import { PersonalPortfolioLayout } from "@/Profiles/personal_profile/personal_layout"
+import { fetchTenantData } from "@/Profiles/service"
 
 interface PageProps {
 	params: Promise<{ slug: string }>
