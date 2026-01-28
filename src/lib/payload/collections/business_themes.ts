@@ -31,51 +31,39 @@ const BRAND_COLORS = [
 	{ label: "Eco Green", value: "#15803D" }
 ]
 
+const createColorOptions = () => {
+	return BRAND_COLORS.map((color) => ({
+		label: `${color.label} (${color.value})`,
+		value: color.value
+	}))
+}
+
 export const BusinessThemes: CollectionConfig = {
 	slug: "business_themes",
 	admin: {
-		useAsTitle: "name"
+		useAsTitle: "name",
+		defaultColumns: ["name", "themeType", "primaryColor", "secondaryColor"],
+		hideAPIURL: true
+	},
+	access: {
+		create: async ({ req }) => {
+			const count = await req.payload.count({
+				collection: "business_themes"
+			})
+
+			return count.totalDocs === 0
+		},
+		delete: () => false
 	},
 	fields: [
 		{
 			name: "name",
 			type: "text",
-			required: false
-		},
-		{
-			name: "lightBackground",
-			type: "group",
-			fields: [
-				{
-					name: "type",
-					type: "select",
-					options: [
-						{ label: "Color", value: "color" },
-						{ label: "Image", value: "image" }
-					],
-					defaultValue: "color"
-				},
-				{
-					name: "color",
-					type: "select",
-					options: [
-						{ label: "White", value: "#FFFFFF" },
-						{ label: "Gray 50", value: "#F9FAFB" },
-						{ label: "Gray 100", value: "#F3F4F6" }
-					],
-					admin: {
-						condition: (_: any, siblingData: { type?: string }) => siblingData.type === "color"
-					}
-				},
-				{
-					name: "image",
-					type: "upload",
-					relationTo: "media",
-					admin: {
-						condition: (_: any, siblingData: { type?: string }) => siblingData.type === "image"
-					}
-				}
-			]
+			required: true,
+			label: "Theme Name",
+			admin: {
+				description: "Give your theme a descriptive name"
+			}
 		},
 		{
 			name: "themeType",
@@ -83,6 +71,9 @@ export const BusinessThemes: CollectionConfig = {
 			label: "Theme Type",
 			required: true,
 			defaultValue: "business",
+			admin: {
+				description: "Choose the purpose of this theme"
+			},
 			options: [
 				{
 					label: "👔 Business / Professional",
@@ -95,14 +86,16 @@ export const BusinessThemes: CollectionConfig = {
 			]
 		},
 		{
-			name: "darkBackground",
+			name: "lightBackground",
 			type: "group",
+			label: "Light Mode Background",
 			fields: [
 				{
 					name: "type",
 					type: "select",
+					label: "Background Type",
 					options: [
-						{ label: "Color", value: "color" },
+						{ label: "Solid Color", value: "color" },
 						{ label: "Image", value: "image" }
 					],
 					defaultValue: "color",
@@ -111,10 +104,8 @@ export const BusinessThemes: CollectionConfig = {
 				{
 					name: "color",
 					type: "select",
-					options: [
-						{ label: "Black", value: "#000000" },
-						{ label: "Gray 900", value: "#111827" }
-					],
+					label: "Background Color",
+					options: createColorOptions(),
 					admin: {
 						condition: (_: any, siblingData: { type?: string }) => siblingData?.type === "color"
 					}
@@ -122,6 +113,43 @@ export const BusinessThemes: CollectionConfig = {
 				{
 					name: "image",
 					type: "upload",
+					label: "Background Image",
+					relationTo: "media",
+					admin: {
+						condition: (_: any, siblingData: { type?: string }) => siblingData?.type === "image"
+					}
+				}
+			]
+		},
+		{
+			name: "darkBackground",
+			type: "group",
+			label: "Dark Mode Background",
+			fields: [
+				{
+					name: "type",
+					type: "select",
+					label: "Background Type",
+					options: [
+						{ label: "Solid Color", value: "color" },
+						{ label: "Image", value: "image" }
+					],
+					defaultValue: "color",
+					required: true
+				},
+				{
+					name: "color",
+					type: "select",
+					label: "Background Color",
+					options: createColorOptions(),
+					admin: {
+						condition: (_: any, siblingData: { type?: string }) => siblingData?.type === "color"
+					}
+				},
+				{
+					name: "image",
+					type: "upload",
+					label: "Background Image",
 					relationTo: "media",
 					admin: {
 						condition: (_: any, siblingData: { type?: string }) => siblingData?.type === "image"
@@ -132,18 +160,21 @@ export const BusinessThemes: CollectionConfig = {
 		{
 			name: "primaryColor",
 			type: "select",
+			label: "Primary Color",
 			required: true,
-			options: BRAND_COLORS
+			admin: {
+				description: "Main brand color for buttons, links, and important elements"
+			},
+			options: createColorOptions()
 		},
 		{
 			name: "secondaryColor",
 			type: "select",
-			options: BRAND_COLORS
-		},
-		{
-			name: "accentColor",
-			type: "select",
-			options: BRAND_COLORS
+			label: "Secondary Color",
+			admin: {
+				description: "Supporting color for backgrounds, borders, and secondary elements"
+			},
+			options: createColorOptions()
 		}
 	]
 }

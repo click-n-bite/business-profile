@@ -42,12 +42,8 @@ export interface ContactDepartment {
 	whatsapp?: boolean
 	telegram?: boolean
 	telephone?: boolean
+	sms?: boolean
 	email?: string
-	theme?: {
-		primaryColor?: string
-		secondaryColor?: string
-		accentColor?: string
-	}
 }
 
 export interface PersonalContactProps {

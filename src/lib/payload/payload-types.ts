@@ -268,18 +268,87 @@ export interface BusinessProfile {
 export interface BusinessTheme {
   id: string;
   tenant?: (string | null) | Tenant;
-  name?: string | null;
-  lightBackground?: {
-    type?: ('color' | 'image') | null;
-    color?: ('#FFFFFF' | '#F9FAFB' | '#F3F4F6') | null;
+  /**
+   * Give your theme a descriptive name
+   */
+  name: string;
+  /**
+   * Choose the purpose of this theme
+   */
+  themeType: 'business' | 'personal';
+  lightBackground: {
+    type: 'color' | 'image';
+    color?:
+      | (
+          | '#3B82F6'
+          | '#136c36'
+          | '#c30811'
+          | '#FACC15'
+          | '#8B5CF6'
+          | '#EC4899'
+          | '#6B7280'
+          | '#FCE7F3'
+          | '#DBEAFE'
+          | '#D1FAE5'
+          | '#E9D5FF'
+          | '#FFEDD5'
+          | '#E0F2FE'
+          | '#F3F4F6'
+          | '#FEF3C7'
+          | '#FECDD3'
+          | '#CCFBF1'
+          | '#1E40AF'
+          | '#4B5563'
+          | '#065F46'
+          | '#EA580C'
+          | '#7C3AED'
+          | '#0D9488'
+          | '#B45309'
+          | '#1F2937'
+          | '#2563EB'
+          | '#15803D'
+        )
+      | null;
     image?: (string | null) | Media;
   };
-  themeType: 'business' | 'personal';
   darkBackground: {
     type: 'color' | 'image';
-    color?: ('#000000' | '#111827') | null;
+    color?:
+      | (
+          | '#3B82F6'
+          | '#136c36'
+          | '#c30811'
+          | '#FACC15'
+          | '#8B5CF6'
+          | '#EC4899'
+          | '#6B7280'
+          | '#FCE7F3'
+          | '#DBEAFE'
+          | '#D1FAE5'
+          | '#E9D5FF'
+          | '#FFEDD5'
+          | '#E0F2FE'
+          | '#F3F4F6'
+          | '#FEF3C7'
+          | '#FECDD3'
+          | '#CCFBF1'
+          | '#1E40AF'
+          | '#4B5563'
+          | '#065F46'
+          | '#EA580C'
+          | '#7C3AED'
+          | '#0D9488'
+          | '#B45309'
+          | '#1F2937'
+          | '#2563EB'
+          | '#15803D'
+        )
+      | null;
     image?: (string | null) | Media;
   };
+  /**
+   * Main brand color for buttons, links, and important elements
+   */
   primaryColor:
     | '#3B82F6'
     | '#136c36'
@@ -308,38 +377,10 @@ export interface BusinessTheme {
     | '#1F2937'
     | '#2563EB'
     | '#15803D';
+  /**
+   * Supporting color for backgrounds, borders, and secondary elements
+   */
   secondaryColor?:
-    | (
-        | '#3B82F6'
-        | '#136c36'
-        | '#c30811'
-        | '#FACC15'
-        | '#8B5CF6'
-        | '#EC4899'
-        | '#6B7280'
-        | '#FCE7F3'
-        | '#DBEAFE'
-        | '#D1FAE5'
-        | '#E9D5FF'
-        | '#FFEDD5'
-        | '#E0F2FE'
-        | '#F3F4F6'
-        | '#FEF3C7'
-        | '#FECDD3'
-        | '#CCFBF1'
-        | '#1E40AF'
-        | '#4B5563'
-        | '#065F46'
-        | '#EA580C'
-        | '#7C3AED'
-        | '#0D9488'
-        | '#B45309'
-        | '#1F2937'
-        | '#2563EB'
-        | '#15803D'
-      )
-    | null;
-  accentColor?:
     | (
         | '#3B82F6'
         | '#136c36'
@@ -409,12 +450,9 @@ export interface ContactDepartment {
   tenant?: (string | null) | Tenant;
   title: string;
   phone: string;
-  /**
-   * Lucide icon name (phone, truck, building, headset, etc.)
-   */
-  icon?: string | null;
   whatsapp?: boolean | null;
   telegram?: boolean | null;
+  sms?: boolean | null;
   telephone?: boolean | null;
   order?: number | null;
   updatedAt: string;
@@ -752,6 +790,7 @@ export interface BusinessProfileSelect<T extends boolean = true> {
 export interface BusinessThemesSelect<T extends boolean = true> {
   tenant?: T;
   name?: T;
+  themeType?: T;
   lightBackground?:
     | T
     | {
@@ -759,7 +798,6 @@ export interface BusinessThemesSelect<T extends boolean = true> {
         color?: T;
         image?: T;
       };
-  themeType?: T;
   darkBackground?:
     | T
     | {
@@ -769,7 +807,6 @@ export interface BusinessThemesSelect<T extends boolean = true> {
       };
   primaryColor?: T;
   secondaryColor?: T;
-  accentColor?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -806,9 +843,9 @@ export interface ContactDepartmentsSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
   phone?: T;
-  icon?: T;
   whatsapp?: T;
   telegram?: T;
+  sms?: T;
   telephone?: T;
   order?: T;
   updatedAt?: T;

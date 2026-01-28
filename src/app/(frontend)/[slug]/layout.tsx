@@ -17,8 +17,6 @@ export default async function TenantLayout({ children, params }: TenantLayoutPro
 
 	const theme = data.businessThemes
 
-	console.log("theme", theme)
-
 	return (
 		<>
 			<TenantTheme theme={theme} />

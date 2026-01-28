@@ -6,15 +6,6 @@ export const ContactDepartments: CollectionConfig = {
 	fields: [
 		{ name: "title", type: "text", required: true },
 		{ name: "phone", type: "text", required: true },
-
-		{
-			name: "icon",
-			type: "text",
-			admin: {
-				description: "Lucide icon name (phone, truck, building, headset, etc.)"
-			}
-		},
-
 		{
 			name: "whatsapp",
 			type: "checkbox",
@@ -25,6 +16,12 @@ export const ContactDepartments: CollectionConfig = {
 			name: "telegram",
 			type: "checkbox",
 			label: "Available on Telegram",
+			defaultValue: false
+		},
+		{
+			name: "sms",
+			type: "checkbox",
+			label: "Available SMS",
 			defaultValue: false
 		},
 		{

@@ -30,7 +30,7 @@ export function PartnersCarousel({ partners }: { partners: BusinessPartner[] }) 
 			<div ref={emblaRef}>
 				<div className='flex'>
 					{partners.map((partner, index) => (
-						<div key={`${partner.id || "partner"}-${index}`} className='min-w-0 flex-[0_0_50%] px-2 md:flex-[0_0_40%]'>
+						<div key={`${partner.id || "partner"}-${index}`} className='min-w-0 flex-[0_0_50%] px-2 md:flex-[0_0_33%]'>
 							<PartnerCard {...partner} />
 						</div>
 					))}

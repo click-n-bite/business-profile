@@ -53,7 +53,6 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 									whatsapp={!!dept.whatsapp}
 									telegram={!!dept.telegram}
 									telephone={!!dept.telephone}
-									theme={theme}
 								/>
 							))}
 						</div>

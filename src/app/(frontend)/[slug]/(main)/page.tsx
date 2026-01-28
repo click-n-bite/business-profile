@@ -13,8 +13,7 @@ export default async function TenantPage({ params }: PageProps) {
 
 	const theme = {
 		primaryColor: data.businessThemes?.primaryColor || "",
-		secondaryColor: data.businessThemes?.secondaryColor || "",
-		accentColor: data.businessThemes?.accentColor || ""
+		secondaryColor: data.businessThemes?.secondaryColor || ""
 	}
 
 	const isPersonalTheme = data.businessThemes?.themeType === "personal"

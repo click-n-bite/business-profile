@@ -5,7 +5,7 @@ import { formatPhoneNumberSimple, quickSaveContact } from "@/utils/contact-utils
 import { Phone } from "lucide-react"
 import Image from "next/image"
 
-export const ContactDepartmentCard = ({ title, phone, whatsapp, telegram, telephone }: ContactDepartment) => {
+export const ContactDepartmentCard = ({ title, phone, whatsapp, telegram, telephone, sms }: ContactDepartment) => {
 	const handleSaveContact = () => {
 		quickSaveContact(title, phone)
 	}
@@ -13,7 +13,7 @@ export const ContactDepartmentCard = ({ title, phone, whatsapp, telegram, teleph
 	return (
 		<div className='dark:bg-card/40 dark:bg-card/40 relative mb-4 flex w-full cursor-pointer flex-col rounded-xl border border-slate-200 bg-slate-100 bg-white p-4 text-black transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-white/5 dark:bg-white/5 dark:text-white'>
 			<div className='flex items-center gap-4'>
-				<div className='rounded-lg bg-[#191919] p-3'>
+				<div className='rounded-lg bg-[#e9e9e9] p-3 dark:bg-[#191919]'>
 					<Phone className='h-5 w-5' />
 				</div>
 				<div className='flex-1'>
@@ -24,12 +24,14 @@ export const ContactDepartmentCard = ({ title, phone, whatsapp, telegram, teleph
 
 			<div className='mt-4 flex items-center justify-between border-t border-slate-100 pt-3 dark:border-white/5'>
 				<div className='flex gap-2'>
-					<a
-						href={`sms:${phone}`}
-						className='flex items-center justify-center rounded-lg bg-slate-100 p-2 text-slate-500 transition-colors hover:bg-blue-100 hover:text-blue-600 dark:bg-white/5 dark:text-slate-400 dark:hover:bg-blue-500/20 dark:hover:text-blue-500'
-						aria-label='Send SMS message'>
-						<Image src='/images/sms.png' alt='SMS' width={20} height={20} className='h-5 w-5' />
-					</a>
+					{sms && (
+						<a
+							href={`sms:${phone}`}
+							className='flex items-center justify-center rounded-lg bg-slate-100 p-2 text-slate-500 transition-colors hover:bg-blue-100 hover:text-blue-600 dark:bg-white/5 dark:text-slate-400 dark:hover:bg-blue-500/20 dark:hover:text-blue-500'
+							aria-label='Send SMS message'>
+							<Image src='/images/sms.png' alt='SMS' width={20} height={20} className='h-5 w-5' />
+						</a>
+					)}
 
 					{whatsapp && (
 						<a

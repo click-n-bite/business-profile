@@ -2,7 +2,7 @@ import { getServerLocale } from "@/lib/i18n/get-server-locale"
 import { notFound } from "next/navigation"
 import { getPayload } from "@/lib/payload/utils"
 import { TenantsSelect } from "@payload-types"
-import { FetchedTenantData } from "./types"
+import { ContactDepartment, FetchedTenantData, SocialLink } from "./types"
 
 export const fetchTenantData = async (slug: string): Promise<FetchedTenantData> => {
 	const locale = await getServerLocale()
@@ -122,8 +122,8 @@ export const fetchTenantData = async (slug: string): Promise<FetchedTenantData> 
 		businessThemes: businessThemes.docs[0] || [],
 		aboutBusiness: aboutBusiness.docs[0] || null,
 		imageGalleries: imageGalleries.docs || [],
-		contactDepartments: contactDepartments.docs || [],
-		socialLinks: socialLinks.docs || [],
+		contactDepartments: contactDepartments.docs as ContactDepartment[],
+		socialLinks: socialLinks.docs as SocialLink[],
 		businessPartners: businessPartners.docs || [],
 		businessLocations: businessLocations.docs || [],
 		sectionTitles: sectionTitlesMap

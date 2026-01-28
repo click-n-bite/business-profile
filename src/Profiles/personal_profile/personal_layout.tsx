@@ -3,11 +3,11 @@
 
 import { PersonalAbout } from "./components/personal_about"
 import { PersonalSocialLinks } from "./components/personal_social_links"
-import { PersonalContact } from "./components/personal_contact"
 import { PersonalHero } from "./components/hero"
 import { PersonalLocationCard } from "./components/personal_locations"
 import { PartnersCarousel } from "../business_profile/components/partners-carousel"
 import { Gallery } from "../business_profile/components/business_gallery"
+import { ContactDepartmentCard } from "../business_profile/components/contact_departments"
 
 interface PersonalPortfolioLayoutProps {
 	data: any
@@ -23,7 +23,7 @@ export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayout
 		<div className='flex min-h-screen justify-center'>
 			<div className='flex w-full max-w-4xl max-w-xl flex-col items-center'>
 				{data.imageGalleries?.[0]?.images && (
-					<div className='mb-6 w-full max-w-xl px-2'>
+					<div className='mb-6 w-full max-w-xl'>
 						<Gallery images={data.imageGalleries[0].images} />
 					</div>
 				)}
@@ -31,39 +31,50 @@ export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayout
 				{data.businessProfile && <PersonalHero businessProfile={data.businessProfile} />}
 
 				{data.aboutBusiness && (
-					<div className='mb-6 flex w-full max-w-xl flex-col items-center px-4'>
+					<div className='mb-6 flex w-full max-w-xl flex-col items-center'>
 						<PersonalAbout aboutBusiness={data.aboutBusiness} />
 					</div>
 				)}
 
 				{data.contactDepartments.length > 0 && (
-					<div className='mb-6 flex w-full max-w-xl flex-col items-center px-4'>
-						<PersonalContact contactDepartments={data.contactDepartments} theme={theme} />
+					<div className='w-full md:max-w-xl'>
+						<div className='flex flex-col'>
+							{data.contactDepartments.map((dept: any) => (
+								<ContactDepartmentCard
+									id={dept.id}
+									key={dept.id}
+									title={dept.title}
+									phone={dept.phone}
+									whatsapp={!!dept.whatsapp}
+									telegram={!!dept.telegram}
+									telephone={!!dept.telephone}
+								/>
+							))}
+						</div>
 					</div>
 				)}
 
 				{data.socialLinks?.length > 0 && (
-					<div className='mb-6 flex w-full max-w-xl flex-col items-center px-4'>
+					<div className='mb-1 flex w-full max-w-xl flex-col items-center'>
 						<PersonalSocialLinks socialLinks={data.socialLinks} theme={theme} />
 					</div>
 				)}
 
 				{data.businessLocations.length > 0 && (
-					<div className='mb-6 flex w-full max-w-xl flex-col items-center px-4'>
+					<div className='mb-6 flex w-full max-w-xl flex-col items-center'>
 						{data.businessLocations.map((loc: any, idx: number) => (
 							<PersonalLocationCard
 								key={idx}
 								title={loc.title}
 								address={loc.description || ""}
 								googleMapLink={loc.googleMapLink || ""}
-								theme={theme}
 							/>
 						))}
 					</div>
 				)}
 
 				{data.businessPartners?.length > 0 && (
-					<div className='w-full max-w-xl px-4 pb-4'>
+					<div className='w-full max-w-xl pb-4'>
 						<PartnersCarousel partners={data.businessPartners} />
 					</div>
 				)}
