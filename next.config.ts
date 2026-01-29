@@ -22,16 +22,16 @@ const nextConfig: NextConfig = {
 
 				return {
 					hostname: url.hostname,
-					protocol: url.protocol.replace(":", "")
-					// pathname: "/**"
+					protocol: url.protocol.replace(":", ""),
+					pathname: "/**"
 				}
 			}),
-			{ hostname: "images.unsplash.com", protocol: "https", pathname: "/**" }
-			// {
-			// 	protocol: "https",
-			// 	hostname: "uoxbseaxesr6jabb.public.blob.vercel-storage.com",
-			// 	pathname: "/**"
-			// }
+			{ hostname: "images.unsplash.com", protocol: "https", pathname: "/**" },
+			{
+				protocol: "https",
+				hostname: "i1gc59zj6j1met54.public.blob.vercel-storage.com",
+				pathname: "/**"
+			}
 		],
 		unoptimized: true
 	} as NextConfig["images"],
