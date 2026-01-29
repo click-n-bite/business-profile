@@ -1,43 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CollectionConfig } from "payload"
 
-const BRAND_COLORS = [
-	{ label: "Blue", value: "#3B82F6" },
-	{ label: "Green", value: "#136c36" },
-	{ label: "Red", value: "#c30811" },
-	{ label: "Yellow", value: "#FACC15" },
-	{ label: "Purple", value: "#8B5CF6" },
-	{ label: "Pink", value: "#EC4899" },
-	{ label: "Gray", value: "#6B7280" },
-	{ label: "Soft Pink", value: "#FCE7F3" },
-	{ label: "Light Blue", value: "#DBEAFE" },
-	{ label: "Mint Green", value: "#D1FAE5" },
-	{ label: "Lavender", value: "#E9D5FF" },
-	{ label: "Peach", value: "#FFEDD5" },
-	{ label: "Sky Blue", value: "#E0F2FE" },
-	{ label: "Light Gray", value: "#F3F4F6" },
-	{ label: "Beige", value: "#FEF3C7" },
-	{ label: "Rose Quartz", value: "#FECDD3" },
-	{ label: "Sea Foam", value: "#CCFBF1" },
-	{ label: "Corporate Blue", value: "#1E40AF" },
-	{ label: "Professional Gray", value: "#4B5563" },
-	{ label: "Trust Green", value: "#065F46" },
-	{ label: "Energy Orange", value: "#EA580C" },
-	{ label: "Creative Purple", value: "#7C3AED" },
-	{ label: "Innovation Teal", value: "#0D9488" },
-	{ label: "Luxury Gold", value: "#B45309" },
-	{ label: "Modern Black", value: "#1F2937" },
-	{ label: "Tech Blue", value: "#2563EB" },
-	{ label: "Eco Green", value: "#15803D" }
-]
-
-const createColorOptions = () => {
-	return BRAND_COLORS.map((color) => ({
-		label: `${color.label} (${color.value})`,
-		value: color.value
-	}))
-}
-
 export const BusinessThemes: CollectionConfig = {
 	slug: "business_themes",
 	admin: {
@@ -103,10 +66,13 @@ export const BusinessThemes: CollectionConfig = {
 				},
 				{
 					name: "color",
-					type: "select",
+					type: "text",
 					label: "Background Color",
-					options: createColorOptions(),
+					defaultValue: "#FFFFFF",
 					admin: {
+						components: {
+							Field: "@/components/payload/ColorPickerField"
+						},
 						condition: (_: any, siblingData: { type?: string }) => siblingData?.type === "color"
 					}
 				},
@@ -139,10 +105,13 @@ export const BusinessThemes: CollectionConfig = {
 				},
 				{
 					name: "color",
-					type: "select",
+					type: "text",
 					label: "Background Color",
-					options: createColorOptions(),
+					defaultValue: "#000000",
 					admin: {
+						components: {
+							Field: "@/components/payload/ColorPickerField"
+						},
 						condition: (_: any, siblingData: { type?: string }) => siblingData?.type === "color"
 					}
 				},
@@ -159,22 +128,27 @@ export const BusinessThemes: CollectionConfig = {
 		},
 		{
 			name: "primaryColor",
-			type: "select",
+			type: "text",
 			label: "Primary Color",
-			required: true,
+			defaultValue: "#3B82F6",
 			admin: {
-				description: "Main brand color for buttons, links, and important elements"
-			},
-			options: createColorOptions()
+				components: {
+					Field: "@/components/payload/ColorPickerField"
+				},
+				description: "Main brand color"
+			}
 		},
 		{
 			name: "secondaryColor",
-			type: "select",
+			type: "text",
 			label: "Secondary Color",
+			defaultValue: "#6B7280",
 			admin: {
-				description: "Supporting color for backgrounds, borders, and secondary elements"
-			},
-			options: createColorOptions()
+				components: {
+					Field: "@/components/payload/ColorPickerField"
+				},
+				description: "Supporting brand color"
+			}
 		}
 	]
 }
