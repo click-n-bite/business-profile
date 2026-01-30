@@ -13,8 +13,8 @@ export function PartnersCarousel({ partners }: { partners: BusinessPartner[] }) 
 		speed: 500,
 		autoplay: true,
 		autoplaySpeed: 5000,
-		slidesToShow: 2,
-		slidesToScroll: 2,
+		slidesToShow: 3,
+		slidesToScroll: 3,
 		arrows: false,
 		responsive: [
 			{
@@ -27,8 +27,8 @@ export function PartnersCarousel({ partners }: { partners: BusinessPartner[] }) 
 			{
 				breakpoint: 768,
 				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2
+					slidesToShow: 3,
+					slidesToScroll: 3
 				}
 			},
 			{
