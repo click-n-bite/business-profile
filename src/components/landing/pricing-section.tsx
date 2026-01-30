@@ -1,18 +1,16 @@
 "use client"
 
-//#region Import
 import { useState } from "react"
 import { MotionDiv } from "../motion/motion-div"
-import { Check, CreditCard } from "lucide-react"
+import { Check, CreditCard, Sparkles } from "lucide-react"
 import { Button } from "../ui/button"
 import { SectionBadge } from "./section-badge"
 import { slideUpVariants } from "@/lib/motion/configs"
 import { cn } from "@/utils/cn"
-import { annualDiscount, annualPrice, basePrice } from "@/constants/pricing"
+import { annualPrice, basePrice } from "@/constants/pricing"
 import { pricingPlanFeatures } from "@/data/landing"
 import { ROUTES } from "@/next.routes"
 import { useTranslations } from "next-intl"
-//#endregion
 
 export const PricingSection = () => {
 	const t = useTranslations("landing.pricing")
@@ -26,97 +24,79 @@ export const PricingSection = () => {
 	}
 
 	return (
-		<section id='pricing' className='py-20'>
-			<div className='custom-container'>
-				<div className='mb-16 text-center'>
-					<SectionBadge icon={CreditCard}>{t("sectionBadge")}</SectionBadge>
+		<section id='pricing' className='relative overflow-hidden py-10 dark:bg-black'>
+			<div className='custom-container relative z-10'>
+				<div className='mb-14 text-center'>
+					<SectionBadge
+						icon={CreditCard}
+						className='mb-8 inline-flex items-center gap-2 rounded-full border border-[#bbf451]/30 bg-gradient-to-r from-[#bbf451]/20 to-[#bbf451]/10 px-6 py-3 text-emerald-600 dark:text-white'>
+						{t("sectionBadge")}
+					</SectionBadge>
 
-					<h2 className='text-foreground mb-4 text-3xl font-bold md:text-4xl'>{t("title")}</h2>
-					<p className='text-muted-foreground mx-auto mb-8 max-w-3xl text-xl'>{t("description")}</p>
+					<h2 className='mb-4 text-3xl font-bold md:text-4xl'>{t("title")}</h2>
+					<p className='text-muted-foreground mx-auto max-w-2xl text-lg'>{t("description")}</p>
 
-					{/* Billing Toggle */}
-					<div className='mb-8 inline-flex items-center gap-1 rounded-lg bg-gray-200/70 p-1 dark:bg-gray-800'>
-						<button
-							onClick={() => setBillingCycle("monthly")}
-							data-active={billingCycle === "monthly"}
-							className={cn(
-								"transition-basic text-muted-foreground hover:bg-background/80 data-[active=true]:bg-background data-[active=true]:text-foreground cursor-pointer rounded-md px-6 py-2 text-sm font-medium data-[active=true]:cursor-default data-[active=true]:shadow-sm"
-							)}>
-							{t("billingCycle.monthly")}
-						</button>
-						<button
-							onClick={() => setBillingCycle("annually")}
-							data-active={billingCycle === "annually"}
-							className={cn(
-								"transition-basic text-muted-foreground hover:bg-background/50 data-[active=true]:bg-background data-[active=true]:text-foreground relative cursor-pointer rounded-md px-6 py-2 text-sm font-medium data-[active=true]:cursor-default data-[active=true]:shadow-sm"
-							)}>
-							{t("billingCycle.annually")}
-							<span className='absolute -end-3 -top-3.5 rounded-full bg-green-500 px-2 py-0.5 text-xs text-white'>
-								{t("billingCycle.discount", { discount: annualDiscount * 100 })}
-							</span>
-						</button>
+					<div className='mt-8 inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 p-1 dark:border-emerald-700 dark:bg-lime-900/20'>
+						{(["monthly", "annually"] as const).map((cycle) => (
+							<button
+								key={cycle}
+								onClick={() => setBillingCycle(cycle)}
+								data-active={billingCycle === cycle}
+								className={cn(
+									"rounded-full px-6 py-2 text-sm font-medium transition-all",
+									"data-[active=true]:bg-gradient-to-r data-[active=true]:from-[#06bd7a] data-[active=true]:to-lime-500",
+									"data-[active=true]:text-white data-[active=true]:shadow-md"
+								)}>
+								{t(`billingCycle.${cycle}`)}
+							</button>
+						))}
 					</div>
 				</div>
 
 				<MotionDiv
 					{...slideUpVariants}
-					className='bg-background/40 relative mx-auto max-w-lg overflow-hidden rounded-2xl p-8 shadow-xl'>
-					{/* Background gradient */}
-					<div className='absolute start-0 top-0 h-2 w-full bg-gradient-to-r from-blue-600 to-purple-600 rtl:bg-gradient-to-l'></div>
+					className='relative mx-auto max-w-md rounded-3xl border border-emerald-200 bg-white/70 p-8 backdrop-blur-xl dark:border-lime-800 dark:bg-gray-900/50'>
+					<div className='pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-[#06bd7a]/10 to-lime-500/10 blur-2xl' />
 
-					<div className='mb-8 text-center'>
-						<h3 className='text-foreground mb-2 text-2xl font-bold'>{t("plan.title")}</h3>
-						<p className='text-muted-foreground mb-6'>{t("plan.description")}</p>
+					<div className='relative z-10 text-center'>
+						<div className='mb-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#06bd7a] to-lime-500 px-4 py-1.5 text-sm font-medium text-white'>
+							<Sparkles className='size-4' />
+							{t("plan.title")}
+						</div>
 
-						<div className='mb-2 flex items-baseline justify-center'>
-							<span className='text-foreground text-5xl font-bold'>
-								{t.rich("plan.price", {
-									price: billingCycle === "monthly" ? basePrice : Math.round(annualPrice / 12),
-									span: (chunks) => <span className='text-muted-foreground ms-2 text-base font-normal'>{chunks}</span>
-								})}
-							</span>
+						<div className='mb-2 text-5xl font-extrabold'>
+							{billingCycle === "monthly" ? basePrice : Math.round(annualPrice / 12)}
+							<span className='text-muted-foreground ms-2 text-base font-medium'>/{t("plan.perMonth")}</span>
 						</div>
 
 						{billingCycle === "annually" && (
-							<p className='text-sm font-medium text-green-600 dark:text-green-400'>
+							<p className='mb-4 text-sm font-medium text-lime-600 dark:text-lime-400'>
 								{t.rich("plan.discount", {
 									price: annualPrice,
 									discount: Math.round(basePrice * 12 - annualPrice)
 								})}
 							</p>
 						)}
-					</div>
 
-					<ul className='mb-8 space-y-4'>
-						{pricingPlanFeatures.map((feature, index) => (
-							<li key={index} className='flex items-center'>
-								<Check className='me-3 size-5 flex-shrink-0 text-green-500' />
-								<span className='text-muted-foreground'>{t(feature)}</span>
-							</li>
-						))}
-					</ul>
+						<ul className='my-8 space-y-3 text-left'>
+							{pricingPlanFeatures.map((feature, index) => (
+								<li key={index} className='flex items-center gap-3'>
+									<Check className='size-5 text-lime-500' />
+									<span className='text-muted-foreground'>{t(feature)}</span>
+								</li>
+							))}
+						</ul>
 
-					<div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
 						<Button
-							onClick={() => handlePricingSelect("monthly")}
-							variant='outline'
-							className='w-full py-6 text-lg'
-							disabled={billingCycle !== "monthly"}>
-							{billingCycle === "monthly"
-								? t("plan.actions.monthly.getStarted")
-								: t("plan.actions.monthly.switchToMonthly")}
+							onClick={() => handlePricingSelect(billingCycle)}
+							size='lg'
+							variant='gradient'
+							className='w-full text-lg'>
+							{t("plan.actions.monthly.getStarted")}
 						</Button>
-						<Button
-							onClick={() => handlePricingSelect("annually")}
-							className='w-full bg-gradient-to-r from-blue-600 to-purple-600 py-6 text-lg hover:from-blue-700 hover:to-purple-700 rtl:bg-gradient-to-l'
-							disabled={billingCycle !== "annually"}>
-							{billingCycle === "annually"
-								? t("plan.actions.annually.getStarted")
-								: t("plan.actions.annually.switchToAnnual")}
-						</Button>
-					</div>
 
-					<p className='mt-4 text-center text-sm text-gray-500 dark:text-gray-400'>{t("footerMessage")}</p>
+						<p className='text-muted-foreground mt-4 text-sm'>{t("footerMessage")}</p>
+					</div>
 				</MotionDiv>
 			</div>
 		</section>

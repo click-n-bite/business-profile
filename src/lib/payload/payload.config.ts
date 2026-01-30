@@ -20,6 +20,7 @@ import { SocialLinks } from "./collections/social_links"
 import { BusinessPartners } from "./collections/business_partners"
 import { BusinessLocations } from "./collections/business_locations"
 import { SectionTitles } from "./collections/section-titles"
+import { Configuration } from "./collections/configuration"
 //#endregion
 
 const filename = fileURLToPath(import.meta.url)
@@ -74,7 +75,8 @@ export default buildConfig({
 		SocialLinks,
 		BusinessPartners,
 		BusinessLocations,
-		SectionTitles
+		SectionTitles,
+		Configuration
 	],
 	cors: [getServerSideURL()].filter(Boolean),
 	db: postgresAdapter({

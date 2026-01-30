@@ -31,7 +31,7 @@ export const LocationCard = ({
 					? `border-[${primary}] bg-[${primary}]/10 dark:border-[${primary}] dark:bg-[${primary}]/20`
 					: "dark:bg-card/40 border-slate-200 bg-white hover:bg-slate-50 dark:border-white/5 dark:hover:bg-white/5 dark:hover:shadow-lg"
 			}`}>
-			<div className={`rounded-lg bg-[#191919] p-2.5 text-black dark:text-white`}>
+			<div className={`rounded-lg bg-[#e9e9e9] p-2.5 text-black dark:bg-[#191919] dark:text-white`}>
 				<MapPin className='h-5 w-5' />
 			</div>
 			<div className='flex-1 text-left'>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { MessageCircle } from "lucide-react"
@@ -12,13 +13,13 @@ export const LandingFooter = () => {
 	const t = useTranslations("landing.application")
 
 	return (
-		<footer className='border-border/60 relative border-t bg-gradient-to-br from-gray-50 to-white pt-16 pb-8 rtl:bg-gradient-to-bl dark:from-gray-900 dark:to-gray-800'>
+		<footer className='border-border/60 relative border-t bg-gradient-to-t from-emerald-50 to-gray-50 pt-16 pb-8 dark:from-[#070707] dark:to-transparent'>
 			<div className='bg-grid-gray-100/50 dark:bg-grid-gray-800/50 absolute inset-0 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]' />
 
 			<div className='custom-container relative space-y-12'>
 				<div className='grid gap-12 lg:grid-cols-12'>
 					<div className='space-y-2 lg:col-span-5'>
-						<AppLogo />
+						{/* <AppLogo /> */}
 						<p className='text-muted-foreground max-w-md text-sm sm:text-base'>{t("footer.logoDescription")}</p>
 
 						{/* CTA Buttons */}
@@ -34,7 +35,7 @@ export const LandingFooter = () => {
 
 							<Button asChild variant='outline' className='hover:border-primary hover:text-primary border-2'>
 								<Link href={ROUTES.DEMO}>
-									<span>🎯</span>
+									{/* <span>🎯</span> */}
 									{t("actions.demo")}
 								</Link>
 							</Button>

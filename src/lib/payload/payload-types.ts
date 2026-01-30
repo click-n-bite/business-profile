@@ -79,6 +79,7 @@ export interface Config {
     business_partners: BusinessPartner;
     business_locations: BusinessLocation;
     section_titles: SectionTitle;
+    configuration: Configuration;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -98,6 +99,7 @@ export interface Config {
     business_partners: BusinessPartnersSelect<false> | BusinessPartnersSelect<true>;
     business_locations: BusinessLocationsSelect<false> | BusinessLocationsSelect<true>;
     section_titles: SectionTitlesSelect<false> | SectionTitlesSelect<true>;
+    configuration: ConfigurationSelect<false> | ConfigurationSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -423,6 +425,24 @@ export interface SectionTitle {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "configuration".
+ */
+export interface Configuration {
+  id: string;
+  tenant: string | Tenant;
+  /**
+   * Example: https://domain.com/{tenantId}
+   */
+  staticUrl: string;
+  /**
+   * Auto-generated QR URL
+   */
+  qrUrl?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -492,6 +512,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'section_titles';
         value: string | SectionTitle;
+      } | null)
+    | ({
+        relationTo: 'configuration';
+        value: string | Configuration;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -781,6 +805,17 @@ export interface SectionTitlesSelect<T extends boolean = true> {
   tenant?: T;
   sectionType?: T;
   title?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "configuration_select".
+ */
+export interface ConfigurationSelect<T extends boolean = true> {
+  tenant?: T;
+  staticUrl?: T;
+  qrUrl?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -31,20 +31,20 @@ export const Configuration: CollectionConfig = {
 			name: "staticUrl",
 			type: "text",
 			required: true,
-			label: "Static URL",
+			label: "URL",
 			admin: {
 				description: "Example: https://domain.com/{tenantId}"
 			}
 		},
-		{
-			name: "mappedUrl",
-			type: "text",
-			required: false,
-			label: "Mapped URL (optional)",
-			admin: {
-				description: "If filled, redirect will go here instead of static URL."
-			}
-		},
+		// {
+		// 	name: "mappedUrl",
+		// 	type: "text",
+		// 	required: false,
+		// 	label: "Mapped URL (optional)",
+		// 	admin: {
+		// 		description: "If filled, redirect will go here instead of static URL."
+		// 	}
+		// },
 		{
 			name: "qrUrl",
 			type: "text",

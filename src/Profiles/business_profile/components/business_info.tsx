@@ -25,7 +25,7 @@ export const Hero = ({ businessProfile }: HeroProps) => {
 	return (
 		<div className='relative z-10 flex w-full flex-col items-center gap-2 px-6 text-center md:max-w-5xl'>
 			{(hasLogoLight || hasLogoDark) && (
-				<div className='relative h-62 w-62'>
+				<div className='relative h-42 w-42 md:h-62 md:w-62'>
 					{hasLogoLight && (
 						<div className='relative h-full w-full dark:hidden'>
 							<ImageMedia

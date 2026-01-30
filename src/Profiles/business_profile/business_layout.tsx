@@ -75,7 +75,7 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 
 				{data.businessLocations.length > 0 && (
 					<div className='w-full max-w-xl'>
-						<section className='grid grid-cols-1'>
+						<section className='grid grid-cols-1 gap-2'>
 							<SectionTitle title={data.sectionTitles?.locations || "Our Locations"} />
 							{data.businessLocations.map((loc: any, idx: number) => (
 								<LocationCard

@@ -1,53 +1,44 @@
 import { ROUTES } from "@/next.routes"
 import { Media } from "@payload-types"
-import { Settings, QrCode, ShoppingCart, Share2, Smartphone, Globe, Headphones } from "lucide-react"
+import { Globe, Palette, PhoneCall, Layers, MapPin, Smartphone } from "lucide-react"
 import { v4 as uuidv4 } from "uuid"
 
 export const features = [
 	{
-		icon: Settings,
-		title: "items.enterpriseCms.title",
-		description: "items.enterpriseCms.description",
+		icon: Palette,
+		title: "items.themes.title",
+		description: "items.themes.description",
 		prominent: true,
 		gradient: "from-white to-blue-50 dark:from-gray-800 dark:to-blue-950/20",
 		border: "border-blue-200 dark:border-blue-800",
 		iconColor: "text-blue-600 dark:text-blue-400"
 	},
 	{
-		icon: QrCode,
-		title: "items.qrCodeGeneration.title",
-		description: "items.qrCodeGeneration.description",
+		icon: PhoneCall,
+		title: "items.contact.title",
+		description: "items.contact.description",
 		prominent: false,
 		gradient: "from-white to-emerald-50 dark:from-gray-800 dark:to-emerald-950/20",
 		border: "border-emerald-200 dark:border-emerald-800",
 		iconColor: "text-emerald-600 dark:text-emerald-400"
 	},
 	{
-		icon: ShoppingCart,
-		title: "items.digitalOrdering.title",
-		description: "items.digitalOrdering.description",
+		icon: Layers,
+		title: "items.dynamicData.title",
+		description: "items.dynamicData.description",
 		prominent: false,
 		gradient: "from-white to-orange-50 dark:from-gray-800 dark:to-orange-950/20",
 		border: "border-orange-200 dark:border-orange-800",
 		iconColor: "text-orange-600 dark:text-orange-400"
 	},
 	{
-		icon: Share2,
-		title: "items.orderSharing.title",
-		description: "items.orderSharing.description",
+		icon: MapPin,
+		title: "items.interactiveLocations.title",
+		description: "items.interactiveLocations.description",
 		prominent: false,
 		gradient: "from-white to-pink-50 dark:from-gray-800 dark:to-pink-950/20",
 		border: "border-pink-200 dark:border-pink-800",
 		iconColor: "text-pink-600 dark:text-pink-400"
-	},
-	{
-		icon: Smartphone,
-		title: "items.mobileOptimized.title",
-		description: "items.mobileOptimized.description",
-		prominent: false,
-		gradient: "from-white to-cyan-50 dark:from-gray-800 dark:to-cyan-950/20",
-		border: "border-cyan-200 dark:border-cyan-800",
-		iconColor: "text-cyan-600 dark:text-cyan-400"
 	},
 	{
 		icon: Globe,
@@ -59,7 +50,7 @@ export const features = [
 		iconColor: "text-indigo-600 dark:text-indigo-400"
 	},
 	{
-		icon: Headphones,
+		icon: Smartphone,
 		title: "items.247PrioritySupport.title",
 		description: "items.247PrioritySupport.description",
 		prominent: false,
@@ -194,10 +185,10 @@ export const navLinks = [
 		label: "navLinks.features",
 		href: ROUTES.FEATURES
 	},
-	{
-		label: "navLinks.pricing",
-		href: ROUTES.PRICING
-	},
+	// {
+	// 	label: "navLinks.pricing",
+	// 	href: ROUTES.PRICING
+	// },
 	{
 		label: "navLinks.testimonials",
 		href: ROUTES.TESTIMONIALS

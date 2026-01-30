@@ -27,11 +27,11 @@ export function LandingHeader() {
 	return (
 		<header
 			className={cn(
-				"sticky top-0 z-50 bg-white shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:bg-gray-900 supports-[backdrop-filter]:dark:bg-gray-900/80",
+				"sticky top-0 z-50 bg-white shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:bg-black supports-[backdrop-filter]:dark:bg-black/80",
 				isHome ? "h-20" : "h-16"
 			)}>
 			<div className='custom-container flex h-full items-center justify-between'>
-				<AppLogo />
+				{/* <AppLogo /> */}
 
 				{/* Desktop Navigation */}
 				<div className='hidden items-center gap-4 md:flex lg:gap-6'>

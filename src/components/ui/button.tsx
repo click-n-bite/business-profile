@@ -21,7 +21,9 @@ export const buttonVariants = cva(
 				link: "text-primary underline-offset-4 hover:underline",
 				quantity: "bg-transparent",
 				gradient:
-					"bg-gradient-to-r rtl:bg-gradient-to-l from-blue-600 to-purple-600 text-white bg-[length:200%_100%] bg-[position:0%_50%] hover:bg-[position:100%_50%] transition-all duration-300 ease-in-out"
+					"bg-gradient-to-r rtl:bg-gradient-to-l from-[#06bd7a] via-lime-500 to-emerald-500 text-white " +
+					"bg-[length:200%_100%] bg-[position:0%_50%] " +
+					"hover:bg-[position:100%_50%] transition-all duration-300 ease-in-out"
 			},
 			size: {
 				default: "h-8 px-3 py-2 rounded-sm",
