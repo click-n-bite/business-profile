@@ -15,7 +15,9 @@ export const PartnerCard = ({ name, logo }: PartnerCardProps) => {
 				<Image src={logo.url || ""} alt={logo.alt || name} fill className='rounded-2xl object-cover' />
 			</div>
 
-			<span className='text-[14px] font-bold tracking-widest text-white uppercase transition-colors'>{name}</span>
+			<span className='text-gary-700 text-[14px] font-bold tracking-widest uppercase transition-colors dark:text-white'>
+				{name}
+			</span>
 		</div>
 	)
 }
