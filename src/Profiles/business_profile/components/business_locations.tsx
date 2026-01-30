@@ -34,7 +34,7 @@ export const LocationCard = ({
 			<div className={`rounded-lg bg-[#e9e9e9] p-2.5 text-black dark:bg-[#191919] dark:text-white`}>
 				<MapPin className='h-5 w-5' />
 			</div>
-			<div className='flex-1 text-left'>
+			<div className='flex-1'>
 				<h3 className='text-[18px] font-semibold text-slate-900 dark:text-white'>{title}</h3>
 				<p className='mt-1 text-sm text-slate-500 dark:text-slate-400'>{address}</p>
 			</div>

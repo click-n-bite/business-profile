@@ -72,7 +72,8 @@ export const SocialLinks: CollectionConfig = {
 		{
 			name: "label",
 			type: "text",
-			required: true
+			required: true,
+			localized: true
 		},
 		{
 			name: "url",

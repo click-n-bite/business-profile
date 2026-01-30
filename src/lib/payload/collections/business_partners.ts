@@ -4,7 +4,7 @@ export const BusinessPartners: CollectionConfig = {
 	slug: "business_partners",
 
 	fields: [
-		{ name: "name", type: "text", required: true },
+		{ name: "name", type: "text", required: true, localized: true },
 		{
 			name: "logo",
 			type: "upload",

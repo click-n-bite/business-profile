@@ -11,11 +11,13 @@ export const BusinessProfiles: CollectionConfig = {
 		{
 			name: "businessName",
 			type: "text",
-			required: true
+			required: true,
+			localized: true
 		},
 		{
 			name: "slogan",
-			type: "text"
+			type: "text",
+			localized: true
 		},
 		{
 			name: "logoLight",

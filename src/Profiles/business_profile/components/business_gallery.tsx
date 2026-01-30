@@ -12,6 +12,11 @@ interface GalleryProps {
 }
 
 export function Gallery({ images }: GalleryProps) {
+	const isRTL =
+		typeof document !== "undefined"
+			? document.documentElement.dir === "rtl" || document.documentElement.getAttribute("lang") === "ar"
+			: false
+
 	const validImages = images?.filter((item) => item && item.image) || []
 
 	if (validImages.length === 0) return null
@@ -32,23 +37,24 @@ export function Gallery({ images }: GalleryProps) {
 		if (!imageUrl) return null
 
 		return (
-			<div className='overflow-hidden rounded-lg'>
-				<Image src={imageUrl} alt='Gallery' className='h-64 w-full object-cover' fill loading='lazy' />
+			<div className='relative h-50 w-full overflow-hidden rounded-lg'>
+				<Image src={imageUrl} alt='Gallery' className='object-fill' fill loading='lazy' />
 			</div>
 		)
 	}
 
 	return (
-		<ImageCarousel
-			images={validImages.map((item) => ({
-				id: item.id,
-				image: item.image
-			}))}
-			alt='Gallery'
-			className='w-full'
-			hideControls={true}
-			imageClass='h-64'
-			autoPlayDelay={3000}
-		/>
+		<div dir={isRTL ? "rtl" : "ltr"} className='w-full'>
+			<div className={isRTL ? "scale-x-[-1]" : ""}>
+				<ImageCarousel
+					images={isRTL ? [...validImages].reverse() : validImages}
+					alt='Gallery'
+					className='w-full'
+					hideControls={true}
+					imageClass={`h-50 !object-fill ${isRTL ? "scale-x-[-1]" : ""}`}
+					autoPlayDelay={3000}
+				/>
+			</div>
+		</div>
 	)
 }

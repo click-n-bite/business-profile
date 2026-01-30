@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import { useCallback, useEffect } from "react"
+import { useCallback, useEffect, useState } from "react"
 import useEmblaCarousel from "embla-carousel-react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import Autoplay from "embla-carousel-autoplay"
@@ -18,6 +18,7 @@ interface ImageCarouselProps {
 	hideControls?: boolean
 	imageClass?: string
 	autoPlayDelay?: number
+	dir?: "ltr" | "rtl"
 }
 
 export function ImageCarousel({
@@ -26,13 +27,21 @@ export function ImageCarousel({
 	className = "",
 	hideControls,
 	imageClass = "",
-	autoPlayDelay = 2000
+	autoPlayDelay = 2000,
+	dir = "ltr"
 }: ImageCarouselProps) {
+	const [key, setKey] = useState(0)
+
+	useEffect(() => {
+		setKey((prev) => prev + 1)
+	}, [dir])
+
 	const [emblaRef, emblaApi] = useEmblaCarousel(
 		{
 			active: images?.length > 1,
 			loop: true,
-			skipSnaps: true
+			skipSnaps: true,
+			direction: dir
 		},
 		[
 			Autoplay({
@@ -45,21 +54,31 @@ export function ImageCarousel({
 		]
 	)
 
-	const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi])
+	const scrollPrev = useCallback(() => {
+		if (emblaApi) {
+			emblaApi.scrollPrev()
+		}
+	}, [emblaApi])
 
-	const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi])
+	const scrollNext = useCallback(() => {
+		if (emblaApi) {
+			emblaApi.scrollNext()
+		}
+	}, [emblaApi])
 
 	const toggleAutoplay = useCallback(() => {
-		if (!emblaRef || !emblaApi) return
+		if (!emblaApi) return
 
-		const autoPlay = emblaApi?.plugins()?.autoplay
+		const autoplay = emblaApi.plugins().autoplay
 
-		if (!autoPlay) return
+		if (!autoplay) return
 
-		const isPlaying = autoPlay?.isPlaying() || false
+		const isPlaying = autoplay.isPlaying()
 
-		if (!isPlaying) autoPlay?.play()
-	}, [emblaApi, emblaRef])
+		if (!isPlaying) {
+			autoplay.play()
+		}
+	}, [emblaApi])
 
 	useEffect(() => {
 		if (emblaApi && images?.length > 1) {
@@ -71,7 +90,6 @@ export function ImageCarousel({
 		}
 	}, [emblaApi, images?.length])
 
-	// Filter valid images
 	const validImages = images?.filter((item) => item && item.image && typeof item.image !== "string") || []
 
 	if (validImages.length === 0) {
@@ -96,8 +114,10 @@ export function ImageCarousel({
 
 	return (
 		<div
+			key={key}
 			onMouseLeave={toggleAutoplay}
 			className={`relative m-auto overflow-hidden rounded-2xl ${className}`}
+			dir={dir}
 			style={
 				{
 					"--slide-height": "400px",
@@ -106,13 +126,15 @@ export function ImageCarousel({
 				} as React.CSSProperties
 			}>
 			<div ref={emblaRef} className='overflow-hidden'>
-				<div className='-ms-[var(--slide-spacing)] flex touch-pan-y touch-pinch-zoom'>
+				<div className='flex touch-pan-y touch-pinch-zoom'>
 					{validImages.map((item, index) => (
-						<div
-							key={item.id || index}
-							className='!h-full min-w-0 !flex-[0_0_var(--slide-size)] translate-x-0 translate-y-0 translate-z-0 ps-[var(--slide-spacing)]'>
+						<div key={item.id || index} className='!h-full min-w-0 !flex-[0_0_var(--slide-size)] pl-0'>
 							<div className='relative h-[var(--slide-height)] w-full overflow-hidden'>
-								<ImageMedia resource={item.image} alt={alt} className={`h-full w-full object-cover ${imageClass}`} />
+								<ImageMedia
+									resource={item.image}
+									alt={`${alt} ${index + 1}`}
+									className={`h-full w-full object-cover ${imageClass}`}
+								/>
 							</div>
 						</div>
 					))}

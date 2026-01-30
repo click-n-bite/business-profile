@@ -28,25 +28,30 @@ export const BusinessThemes: CollectionConfig = {
 				description: "Give your theme a descriptive name"
 			}
 		},
+
 		{
-			name: "themeType",
-			type: "select",
-			label: "Theme Type",
-			required: true,
-			defaultValue: "business",
+			name: "primaryColor",
+			type: "text",
+			label: "Primary Color",
+			defaultValue: "#3B82F6",
 			admin: {
-				description: "Choose the purpose of this theme"
-			},
-			options: [
-				{
-					label: "👔 Business / Professional",
-					value: "business"
+				components: {
+					Field: "@/components/payload/ColorPickerField"
 				},
-				{
-					label: "👤 Personal / Individual",
-					value: "personal"
-				}
-			]
+				description: "Main brand color"
+			}
+		},
+		{
+			name: "secondaryColor",
+			type: "text",
+			label: "Secondary Color",
+			defaultValue: "#6B7280",
+			admin: {
+				components: {
+					Field: "@/components/payload/ColorPickerField"
+				},
+				description: "Supporting brand color"
+			}
 		},
 		{
 			name: "lightBackground",
@@ -127,28 +132,24 @@ export const BusinessThemes: CollectionConfig = {
 			]
 		},
 		{
-			name: "primaryColor",
-			type: "text",
-			label: "Primary Color",
-			defaultValue: "#3B82F6",
+			name: "themeType",
+			type: "select",
+			label: "Theme Type",
+			required: true,
+			defaultValue: "business",
 			admin: {
-				components: {
-					Field: "@/components/payload/ColorPickerField"
+				description: "Choose the purpose of this theme"
+			},
+			options: [
+				{
+					label: "👔 Business / Professional",
+					value: "business"
 				},
-				description: "Main brand color"
-			}
-		},
-		{
-			name: "secondaryColor",
-			type: "text",
-			label: "Secondary Color",
-			defaultValue: "#6B7280",
-			admin: {
-				components: {
-					Field: "@/components/payload/ColorPickerField"
-				},
-				description: "Supporting brand color"
-			}
+				{
+					label: "👤 Personal / Individual",
+					value: "personal"
+				}
+			]
 		}
 	]
 }

@@ -275,9 +275,13 @@ export interface BusinessTheme {
    */
   name: string;
   /**
-   * Choose the purpose of this theme
+   * Main brand color
    */
-  themeType: 'business' | 'personal';
+  primaryColor?: string | null;
+  /**
+   * Supporting brand color
+   */
+  secondaryColor?: string | null;
   lightBackground: {
     type: 'color' | 'image';
     color?: string | null;
@@ -289,13 +293,9 @@ export interface BusinessTheme {
     image?: (string | null) | Media;
   };
   /**
-   * Main brand color
+   * Choose the purpose of this theme
    */
-  primaryColor?: string | null;
-  /**
-   * Supporting brand color
-   */
-  secondaryColor?: string | null;
+  themeType: 'business' | 'personal';
   updatedAt: string;
   createdAt: string;
 }
@@ -697,7 +697,8 @@ export interface BusinessProfileSelect<T extends boolean = true> {
 export interface BusinessThemesSelect<T extends boolean = true> {
   tenant?: T;
   name?: T;
-  themeType?: T;
+  primaryColor?: T;
+  secondaryColor?: T;
   lightBackground?:
     | T
     | {
@@ -712,8 +713,7 @@ export interface BusinessThemesSelect<T extends boolean = true> {
         color?: T;
         image?: T;
       };
-  primaryColor?: T;
-  secondaryColor?: T;
+  themeType?: T;
   updatedAt?: T;
   createdAt?: T;
 }

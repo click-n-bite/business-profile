@@ -58,7 +58,7 @@ export const ContactDepartmentCard = ({ title, phone, whatsapp, telegram, teleph
 				<div className='flex gap-2'>
 					<button
 						onClick={handleSaveContact}
-						className='flex items-center gap-2 rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10'
+						className='flex cursor-pointer items-center gap-2 rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10'
 						aria-label='Save to contacts'>
 						<Image src='/images/bookmark.png' alt='Save' width={20} height={20} className='h-5 w-5' />
 					</button>
@@ -66,7 +66,7 @@ export const ContactDepartmentCard = ({ title, phone, whatsapp, telegram, teleph
 					{telephone && (
 						<a
 							href={`tel:${phone}`}
-							className='flex items-center gap-2 rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:bg-green-100 hover:text-green-600 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-green-500/20 dark:hover:text-green-400'
+							className='flex items-center gap-2 rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:bg-yellow-100 hover:text-green-600 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-yellow-500/20 dark:hover:text-green-400'
 							aria-label='Call'>
 							<Image src='/images/phone-call.png' alt='Call' width={20} height={20} className='h-5 w-5' />
 						</a>

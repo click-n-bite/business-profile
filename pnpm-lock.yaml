@@ -191,6 +191,9 @@ importers:
       react-phone-input-2:
         specifier: ^2.15.1
         version: 2.15.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react-slick:
+        specifier: ^0.31.0
+        version: 0.31.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       resend:
         specifier: 4.6.0
         version: 4.6.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -200,6 +203,9 @@ importers:
       sharp:
         specifier: 0.34.2
         version: 0.34.2
+      slick-carousel:
+        specifier: ^1.8.1
+        version: 1.8.1(jquery@4.0.0)
       sonner:
         specifier: 2.0.6
         version: 2.0.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -4645,6 +4651,9 @@ packages:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
     engines: {node: '>=10'}
 
+  jquery@4.0.0:
+    resolution: {integrity: sha512-TXCHVR3Lb6TZdtw1l3RTLf8RBWVGexdxL6AC8/e0xZKEpBflBsjh9/8LXw+dkNFuOyW9B7iB3O1sP7hS0Kiacg==}
+
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -4676,6 +4685,9 @@ packages:
 
   json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
+
+  json2mq@0.2.0:
+    resolution: {integrity: sha512-SzoRg7ux5DWTII9J2qkrZrqV1gt+rTaoufMxEzXbS26Uid0NwaJd123HcoB80TgubEppxxIGdNxCx50fEoEWQA==}
 
   json5@1.0.2:
     resolution: {integrity: sha512-g1MWMLBiz8FKi1e4w0UyVL3w+iJceWAFBAaBnnGKOpNa5f8TLktkbre1+s6oICydWAm+HRUGTmI+//xv2hvXYA==}
@@ -5767,6 +5779,12 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
+  react-slick@0.31.0:
+    resolution: {integrity: sha512-zo6VLT8wuSBJffg/TFPbzrw2dEnfZ/cUKmYsKByh3AgatRv29m2LoFbq5vRMa3R3A4wp4d8gwbJKO2fWZFaI3g==}
+    peerDependencies:
+      react: ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   react-style-singleton@2.2.3:
     resolution: {integrity: sha512-b6jSvxvVnyptAiLjbkWLE/lOnR4lfTtDAl+eUC7RZy+QQWc6wRzIV2CE6xBuMmDxc2qIihtDCZD5NPOFl7fRBQ==}
     engines: {node: '>=10'}
@@ -5835,6 +5853,9 @@ packages:
   resend@4.6.0:
     resolution: {integrity: sha512-D5T2I82FvEUYFlrHzaDvVtr5ADHdhuoLaXgLFGABKyNtQgPWIuz0Vp2L2Evx779qjK37aF4kcw1yXJDHhA2JnQ==}
     engines: {node: '>=18'}
+
+  resize-observer-polyfill@1.5.1:
+    resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
 
   resolve-dir@1.0.1:
     resolution: {integrity: sha512-R7uiTjECzvOsWSfdM0QKFNBVFcK27aHOUwdvK53BcW8zqnGdYp0Fbj82cy54+2A4P2tFM22J5kRfe1R+lM/1yg==}
@@ -6030,6 +6051,11 @@ packages:
   slate@0.91.4:
     resolution: {integrity: sha512-aUJ3rpjrdi5SbJ5G1Qjr3arytfRkEStTmHjBfWq2A2Q8MybacIzkScSvGJjQkdTk3djCK9C9SEOt39sSeZFwTw==}
 
+  slick-carousel@1.8.1:
+    resolution: {integrity: sha512-XB9Ftrf2EEKfzoQXt3Nitrt/IPbT+f1fgqBdoxO3W/+JYvtEOW6EgxnWfr9GH6nmULv7Y2tPmEX3koxThVmebA==}
+    peerDependencies:
+      jquery: '>=1.8.0'
+
   socket.io-adapter@2.5.6:
     resolution: {integrity: sha512-DkkO/dz7MGln0dHn5bmN3pPy+JmywNICWrJqVWiVOyvXjWQFIv9c2h24JrQLLFJ2aQVQf/Cvl1vblnd4r2apLQ==}
 
@@ -6113,6 +6139,9 @@ packages:
   streamsearch@1.1.0:
     resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}
     engines: {node: '>=10.0.0'}
+
+  string-convert@0.2.1:
+    resolution: {integrity: sha512-u/1tdPl4yQnPBjnVrmdLo9gtuLvELKsAoRapekWggdiQNvvvum+jYF329d84NAa660KQw7pB2n36KrIKVoXa3A==}
 
   string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
@@ -11344,6 +11373,8 @@ snapshots:
 
   joycon@3.1.1: {}
 
+  jquery@4.0.0: {}
+
   js-tokens@4.0.0: {}
 
   js-yaml@4.1.1:
@@ -11373,6 +11404,10 @@ snapshots:
   json-schema-traverse@1.0.0: {}
 
   json-stable-stringify-without-jsonify@1.0.1: {}
+
+  json2mq@0.2.0:
+    dependencies:
+      string-convert: 0.2.1
 
   json5@1.0.2:
     dependencies:
@@ -12591,6 +12626,15 @@ snapshots:
       - '@types/react'
       - supports-color
 
+  react-slick@0.31.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
+    dependencies:
+      classnames: 2.5.1
+      json2mq: 0.2.0
+      lodash.debounce: 4.0.8
+      react: 19.2.1
+      react-dom: 19.2.1(react@19.2.1)
+      resize-observer-polyfill: 1.5.1
+
   react-style-singleton@2.2.3(@types/react@19.0.10)(react@19.0.0):
     dependencies:
       get-nonce: 1.0.1
@@ -12673,6 +12717,8 @@ snapshots:
     transitivePeerDependencies:
       - react
       - react-dom
+
+  resize-observer-polyfill@1.5.1: {}
 
   resolve-dir@1.0.1:
     dependencies:
@@ -12970,6 +13016,10 @@ snapshots:
       is-plain-object: 5.0.0
       tiny-warning: 1.0.3
 
+  slick-carousel@1.8.1(jquery@4.0.0):
+    dependencies:
+      jquery: 4.0.0
+
   socket.io-adapter@2.5.6:
     dependencies:
       debug: 4.4.3
@@ -13064,6 +13114,8 @@ snapshots:
       internal-slot: 1.1.0
 
   streamsearch@1.1.0: {}
+
+  string-convert@0.2.1: {}
 
   string-width@4.2.3:
     dependencies:

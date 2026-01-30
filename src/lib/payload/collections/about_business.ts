@@ -26,7 +26,8 @@ export const AboutSections: CollectionConfig = {
 		{
 			name: "description",
 			type: "textarea",
-			required: true
+			required: true,
+			localized: true
 		}
 	]
 }

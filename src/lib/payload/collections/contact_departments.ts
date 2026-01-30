@@ -4,8 +4,8 @@ export const ContactDepartments: CollectionConfig = {
 	slug: "contact_departments",
 
 	fields: [
-		{ name: "title", type: "text", required: true },
-		{ name: "phone", type: "text", required: true },
+		{ name: "title", type: "text", required: true, localized: true },
+		{ name: "phone", type: "text", required: true, localized: true },
 		{
 			name: "whatsapp",
 			type: "checkbox",
