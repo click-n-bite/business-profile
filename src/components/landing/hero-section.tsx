@@ -19,7 +19,7 @@ export const HeroSection = () => {
 					<MotionDiv initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
 						<SectionBadge
 							icon={Sparkles}
-							className='mb-8 inline-flex items-center gap-2 rounded-full border border-[#bbf451]/30 bg-gradient-to-r from-[#bbf451]/20 to-[#bbf451]/10 px-6 py-3 text-emerald-600 dark:text-white'>
+							className='mb-4 inline-flex items-center gap-2 rounded-full px-6 py-3 text-emerald-600 dark:text-[#06bd7a]'>
 							{t("sectionBadge")}
 						</SectionBadge>
 
@@ -52,7 +52,7 @@ export const HeroSection = () => {
 								size='lg'
 								variant='outline'
 								className='w-full border-lime-200 text-lime-700 hover:bg-lime-50 sm:w-auto dark:border-lime-700 dark:text-lime-300 dark:hover:bg-lime-900/20'>
-								<Link href={ROUTES.CONTACT}>
+								<Link href={ROUTES.CONTACT} target='_blank' rel='noopener noreferrer'>
 									<MessageCircle />
 									{t("actions.contact")}
 								</Link>

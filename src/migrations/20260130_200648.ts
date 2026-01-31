@@ -1,7 +1,7 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { MigrateUpArgs, MigrateDownArgs, sql } from "@payloadcms/db-postgres"
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    CREATE TABLE "business_profile_locales" (
   	"business_name" varchar NOT NULL,
   	"slogan" varchar,
@@ -101,7 +101,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    CREATE TYPE "public"."enum_business_themes_light_background_color" AS ENUM('#3B82F6', '#136c36', '#c30811', '#FACC15', '#8B5CF6', '#EC4899', '#6B7280', '#FCE7F3', '#DBEAFE', '#D1FAE5', '#E9D5FF', '#FFEDD5', '#E0F2FE', '#F3F4F6', '#FEF3C7', '#FECDD3', '#CCFBF1', '#1E40AF', '#4B5563', '#065F46', '#EA580C', '#7C3AED', '#0D9488', '#B45309', '#1F2937', '#2563EB', '#15803D');
   CREATE TYPE "public"."enum_business_themes_dark_background_color" AS ENUM('#3B82F6', '#136c36', '#c30811', '#FACC15', '#8B5CF6', '#EC4899', '#6B7280', '#FCE7F3', '#DBEAFE', '#D1FAE5', '#E9D5FF', '#FFEDD5', '#E0F2FE', '#F3F4F6', '#FEF3C7', '#FECDD3', '#CCFBF1', '#1E40AF', '#4B5563', '#065F46', '#EA580C', '#7C3AED', '#0D9488', '#B45309', '#1F2937', '#2563EB', '#15803D');
   CREATE TYPE "public"."enum_business_themes_primary_color" AS ENUM('#3B82F6', '#136c36', '#c30811', '#FACC15', '#8B5CF6', '#EC4899', '#6B7280', '#FCE7F3', '#DBEAFE', '#D1FAE5', '#E9D5FF', '#FFEDD5', '#E0F2FE', '#F3F4F6', '#FEF3C7', '#FECDD3', '#CCFBF1', '#1E40AF', '#4B5563', '#065F46', '#EA580C', '#7C3AED', '#0D9488', '#B45309', '#1F2937', '#2563EB', '#15803D');

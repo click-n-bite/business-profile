@@ -1,49 +1,3 @@
-// export const formatPhoneNumberSimple = (phoneNumber: string): string => {
-// 	return phoneNumber.replace(/\D/g, "")
-// }
-
-// export const saveContactSimple = (name: string, phoneNumber: string): void => {
-// 	const link = document.createElement("a")
-
-// 	const formattedPhone = formatPhoneNumberSimple(phoneNumber)
-
-// 	const encodedName = encodeURIComponent(name)
-
-// 	link.href = `tel:${formattedPhone}?add=1&name=${encodedName}`
-
-// 	link.setAttribute("data-action", "add-contact")
-// 	link.setAttribute("data-phone", formattedPhone)
-// 	link.setAttribute("data-name", name)
-
-// 	link.style.display = "none"
-// 	document.body.appendChild(link)
-// 	link.click()
-// 	document.body.removeChild(link)
-// }
-
-// export const saveContactDesktopSimple = (name: string, phoneNumber: string): void => {
-// 	const message = `To save this contact:\n\nName: ${name}\nPhone: ${phoneNumber}\n\nCopy the information and paste into your contacts app.`
-
-// 	alert(message)
-
-// 	if (navigator.clipboard) {
-// 		navigator.clipboard
-// 			.writeText(`${name}: ${phoneNumber}`)
-// 			.then(() => console.log("Copied to clipboard"))
-// 			.catch((err) => console.error("Failed to copy:", err))
-// 	}
-// }
-
-// export const quickSaveContact = (name: string, phoneNumber: string): void => {
-// 	const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-
-// 	if (isMobile) {
-// 		saveContactSimple(name, phoneNumber)
-// 	} else {
-// 		saveContactDesktopSimple(name, phoneNumber)
-// 	}
-// }
-
 export const formatPhoneNumberSimple = (phoneNumber: string): string => {
 	return phoneNumber.replace(/\D/g, "")
 }
@@ -51,7 +5,6 @@ export const formatPhoneNumberSimple = (phoneNumber: string): string => {
 export const saveContactSimple = (name: string, phoneNumber: string): void => {
 	const formattedPhone = formatPhoneNumberSimple(phoneNumber)
 
-	// Method 1: Use vCard download (works on most devices)
 	const createVCard = () => {
 		const vCardData = ["BEGIN:VCARD", "VERSION:3.0", `FN:${name}`, `TEL;TYPE=CELL:${formattedPhone}`, "END:VCARD"].join(
 			"\n"
@@ -69,7 +22,6 @@ export const saveContactSimple = (name: string, phoneNumber: string): void => {
 		document.body.appendChild(link)
 		link.click()
 
-		// Cleanup
 		setTimeout(() => {
 			document.body.removeChild(link)
 			URL.revokeObjectURL(url)
@@ -127,7 +79,7 @@ export const saveContactDesktopSimple = (name: string, phoneNumber: string): voi
 	}, 100)
 }
 
-export const quickSaveContact = (name: string, phoneNumber: string): void => {
+export const createContactVCard = (name: string, phoneNumber: string): void => {
 	const formattedPhone = formatPhoneNumberSimple(phoneNumber)
 
 	const vCardData = ["BEGIN:VCARD", "VERSION:3.0", `FN:${name}`, `TEL;TYPE=CELL:${formattedPhone}`, "END:VCARD"].join(
@@ -144,11 +96,15 @@ export const quickSaveContact = (name: string, phoneNumber: string): void => {
 	link.download = `${name.replace(/\s+/g, "_")}.vcf`
 	link.style.display = "none"
 	document.body.appendChild(link)
-	document.body.appendChild(link)
 	link.click()
 
 	setTimeout(() => {
 		document.body.removeChild(link)
 		URL.revokeObjectURL(url)
 	}, 100)
+}
+
+export const quickSaveContact = (name: string, phoneNumber: string): void => {
+	createContactVCard(name, phoneNumber)
+	alert(`Contact "${name}" saved as vCard file. Open the downloaded .vcf file to add to your contacts.`)
 }

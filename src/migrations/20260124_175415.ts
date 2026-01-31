@@ -1,7 +1,7 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { MigrateUpArgs, MigrateDownArgs, sql } from "@payloadcms/db-postgres"
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    CREATE TYPE "public"."enum_business_themes_dark_background_type" AS ENUM('color', 'image');
   CREATE TYPE "public"."enum_business_themes_dark_background_color" AS ENUM('#000000', '#111827');
   ALTER TABLE "business_themes" ADD COLUMN "dark_background_type" "enum_business_themes_dark_background_type" DEFAULT 'color' NOT NULL;
@@ -14,7 +14,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    CREATE TYPE "public"."enum_business_themes_dark_background" AS ENUM('#000000', '#111827');
   ALTER TABLE "business_themes" DROP CONSTRAINT "business_themes_dark_background_image_id_media_id_fk";
   

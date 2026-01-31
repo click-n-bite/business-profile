@@ -1,8 +1,10 @@
 import { CollectionConfig } from "payload"
 
-export const BusinessLocations: CollectionConfig = {
-	slug: "business_locations",
-
+export const BusinessServices: CollectionConfig = {
+	slug: "business_services",
+	admin: {
+		useAsTitle: "title"
+	},
 	fields: [
 		{
 			name: "title",
@@ -11,7 +13,7 @@ export const BusinessLocations: CollectionConfig = {
 			localized: true,
 			maxLength: 60,
 			admin: {
-				description: "Max 160 characters"
+				description: "Max 60 characters"
 			}
 		},
 		{
@@ -23,7 +25,12 @@ export const BusinessLocations: CollectionConfig = {
 				description: "Max 160 characters"
 			}
 		},
-		{ name: "googleMapLink", type: "text" },
-		{ name: "order", type: "number" }
+		{
+			name: "order",
+			type: "number",
+			admin: {
+				description: "Display order"
+			}
+		}
 	]
 }

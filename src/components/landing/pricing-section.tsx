@@ -11,17 +11,12 @@ import { annualPrice, basePrice } from "@/constants/pricing"
 import { pricingPlanFeatures } from "@/data/landing"
 import { ROUTES } from "@/next.routes"
 import { useTranslations } from "next-intl"
+import Link from "next/link"
 
 export const PricingSection = () => {
 	const t = useTranslations("landing.pricing")
 
 	const [billingCycle, setBillingCycle] = useState<"monthly" | "annually">("monthly")
-
-	const handlePricingSelect = (cycle: "monthly" | "annually") => {
-		const plan = cycle === "monthly" ? "Professional Monthly" : "Professional Annual"
-
-		window.location.href = `${ROUTES.CONTACT}?plan=${encodeURIComponent(plan)}`
-	}
 
 	return (
 		<section id='pricing' className='relative overflow-hidden py-10 dark:bg-black'>
@@ -29,7 +24,7 @@ export const PricingSection = () => {
 				<div className='mb-14 text-center'>
 					<SectionBadge
 						icon={CreditCard}
-						className='mb-8 inline-flex items-center gap-2 rounded-full border border-[#bbf451]/30 bg-gradient-to-r from-[#bbf451]/20 to-[#bbf451]/10 px-6 py-3 text-emerald-600 dark:text-white'>
+						className='mb-4 inline-flex items-center gap-2 rounded-full px-6 py-3 text-emerald-600 dark:text-[#06bd7a]'>
 						{t("sectionBadge")}
 					</SectionBadge>
 
@@ -55,7 +50,7 @@ export const PricingSection = () => {
 
 				<MotionDiv
 					{...slideUpVariants}
-					className='relative mx-auto max-w-md rounded-3xl border border-emerald-200 bg-white/70 p-8 backdrop-blur-xl dark:border-lime-800 dark:bg-gray-900/50'>
+					className='relative mx-auto max-w-md rounded-3xl border border-emerald-200 bg-white/70 p-8 backdrop-blur-xl dark:border-lime-800 dark:bg-transparent'>
 					<div className='pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-[#06bd7a]/10 to-lime-500/10 blur-2xl' />
 
 					<div className='relative z-10 text-center'>
@@ -88,11 +83,13 @@ export const PricingSection = () => {
 						</ul>
 
 						<Button
-							onClick={() => handlePricingSelect(billingCycle)}
+							// onClick={() => handlePricingSelect(billingCycle)}
 							size='lg'
 							variant='gradient'
 							className='w-full text-lg'>
-							{t("plan.actions.monthly.getStarted")}
+							<Link href={ROUTES.CONTACT} target='_blank' rel='noopener noreferrer'>
+								{t("plan.actions.monthly.getStarted")}
+							</Link>
 						</Button>
 
 						<p className='text-muted-foreground mt-4 text-sm'>{t("footerMessage")}</p>

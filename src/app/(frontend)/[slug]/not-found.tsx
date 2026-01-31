@@ -32,7 +32,7 @@ export default function NotFound() {
 
 						<p className='mb-8 max-w-md text-lg leading-relaxed text-gray-600 dark:text-gray-300'>
 							The page you&apos;re looking for doesn&apos;t exist or has been moved. Let&apos;s get you back on track to
-							discover amazing restaurants.
+							discover amazing profile.
 						</p>
 					</MotionDiv>
 
@@ -77,6 +77,8 @@ export default function NotFound() {
 								</Link>
 								<Link
 									href={ROUTES.CONTACT}
+									target='_blank'
+									rel='noopener noreferrer'
 									className='rounded-lg bg-gradient-to-r from-pink-100 to-red-100 px-4 py-2 text-sm font-medium text-pink-700 transition-colors hover:from-pink-200 hover:to-red-200 rtl:bg-gradient-to-l dark:from-pink-900/30 dark:to-red-900/30 dark:text-pink-300 dark:hover:from-pink-800/40 dark:hover:to-red-800/40'>
 									Contact
 								</Link>

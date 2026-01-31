@@ -10,6 +10,8 @@ import { PartnersCarousel } from "@/Profiles/business_profile/components/partner
 import { Gallery } from "@/Profiles/business_profile/components/business_gallery"
 import { SectionTitle } from "@/components/tenant/tenant-title"
 import { SectionBubbles } from "@/components/common/bubble-design"
+import BusinessServicesSection from "./components/business_services"
+import { useSaveContact } from "@/hooks/use-save-contact"
 
 interface BusinessLayoutProps {
 	data: any
@@ -21,6 +23,8 @@ interface BusinessLayoutProps {
 }
 
 export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
+	const { saveContact, ContactModal } = useSaveContact()
+
 	return (
 		<div className='flex justify-center md:px-6 md:py-10'>
 			<SectionBubbles theme={theme} className='flex w-full max-w-3xl flex-col items-center gap-10 py-10'>
@@ -46,6 +50,7 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 									whatsapp={!!dept.whatsapp}
 									telegram={!!dept.telegram}
 									telephone={!!dept.telephone}
+									onSaveContact={saveContact}
 								/>
 							))}
 						</div>
@@ -56,6 +61,13 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 					<div className='w-full max-w-xl'>
 						<SectionTitle title={data.sectionTitles?.gallery || "Gallery"} />
 						<Gallery images={data.imageGalleries[0].images} />
+					</div>
+				)}
+
+				{Array.isArray(data.businessService) && data.businessService.length > 0 && (
+					<div className='w-full max-w-xl'>
+						<SectionTitle title={data.sectionTitles?.services || "Services"} />
+						<BusinessServicesSection services={data.businessService} theme={theme} />
 					</div>
 				)}
 
@@ -90,6 +102,7 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 					</div>
 				)}
 			</SectionBubbles>
+			<ContactModal />
 		</div>
 	)
 }

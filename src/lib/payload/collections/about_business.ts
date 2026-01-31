@@ -27,6 +27,10 @@ export const AboutSections: CollectionConfig = {
 			name: "description",
 			type: "textarea",
 			required: true,
+			maxLength: 160,
+			admin: {
+				description: "Max 160 characters"
+			},
 			localized: true
 		}
 	]

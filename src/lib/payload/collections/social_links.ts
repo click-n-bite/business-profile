@@ -74,7 +74,11 @@ export const SocialLinks: CollectionConfig = {
 			name: "label",
 			type: "text",
 			required: true,
-			localized: true
+			localized: true,
+			maxLength: 60,
+			admin: {
+				description: "Max 60 characters"
+			}
 		},
 		{
 			name: "url",

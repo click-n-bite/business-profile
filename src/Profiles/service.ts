@@ -40,6 +40,7 @@ export const fetchTenantData = async (slug: string): Promise<FetchedTenantData> 
 		contactDepartments,
 		socialLinks,
 		businessPartners,
+		businessService,
 		businessLocations,
 		sectionTitles
 	] = await Promise.all([
@@ -95,6 +96,13 @@ export const fetchTenantData = async (slug: string): Promise<FetchedTenantData> 
 		}),
 
 		payload.find({
+			collection: "business_services",
+			where: { tenant: { equals: tenantId } },
+			sort: "order",
+			locale
+		}),
+
+		payload.find({
 			collection: "business_locations",
 			where: { tenant: { equals: tenantId } },
 			sort: "order",
@@ -125,6 +133,7 @@ export const fetchTenantData = async (slug: string): Promise<FetchedTenantData> 
 		contactDepartments: contactDepartments.docs as ContactDepartment[],
 		socialLinks: socialLinks.docs as SocialLink[],
 		businessPartners: businessPartners.docs || [],
+		businessService: businessService.docs || [],
 		businessLocations: businessLocations.docs || [],
 		sectionTitles: sectionTitlesMap
 	}

@@ -32,7 +32,8 @@ export const plugins: Plugin[] = [
 		"contact_departments",
 		"social_links",
 		"business_partners",
-		"business_locations"
+		"business_locations",
+		"business_services"
 	]),
 	...(process.env.BLOB_READ_WRITE_TOKEN
 		? [

@@ -1,7 +1,5 @@
 import { ROUTES } from "@/next.routes"
-import { Media } from "@payload-types"
 import { Globe, Palette, PhoneCall, Layers, MapPin, Smartphone } from "lucide-react"
-import { v4 as uuidv4 } from "uuid"
 
 export const features = [
 	{
@@ -105,59 +103,6 @@ export const testimonials = [
 	}
 ]
 
-export const clientLogos: Media[] = [
-	{
-		url: "/landing/logos/air-cafe.avif",
-		alt: "Air Cafe",
-		updatedAt: new Date().toISOString(),
-		createdAt: new Date().toISOString(),
-		id: uuidv4(),
-		filename: "air-cafe.avif",
-		width: 185.6,
-		height: 185.6
-	},
-	{
-		url: "/landing/logos/delice.avif",
-		alt: "Delice",
-		updatedAt: new Date().toISOString(),
-		createdAt: new Date().toISOString(),
-		id: uuidv4(),
-		filename: "delice.avif",
-		width: 185.6,
-		height: 185.6
-	},
-	{
-		url: "/landing/logos/kaliz-burger.avif",
-		alt: "Kaliz Burger",
-		updatedAt: new Date().toISOString(),
-		createdAt: new Date().toISOString(),
-		id: uuidv4(),
-		filename: "kaliz-burger.avif",
-		width: 185.6,
-		height: 185.6
-	},
-	{
-		url: "/landing/logos/orientable.avif",
-		alt: "Orientable",
-		updatedAt: new Date().toISOString(),
-		createdAt: new Date().toISOString(),
-		id: uuidv4(),
-		filename: "orientable.avif",
-		width: 185.6,
-		height: 185.6
-	},
-	{
-		url: "/landing/logos/sunday-rooftop.avif",
-		alt: "Sunday Rooftop",
-		updatedAt: new Date().toISOString(),
-		createdAt: new Date().toISOString(),
-		id: uuidv4(),
-		filename: "sunday-rooftop.avif",
-		width: 185.6,
-		height: 185.6
-	}
-]
-
 export const pricingPlanFeatures = [
 	"plan.features.first",
 	"plan.features.second",
@@ -185,10 +130,10 @@ export const navLinks = [
 		label: "navLinks.features",
 		href: ROUTES.FEATURES
 	},
-	// {
-	// 	label: "navLinks.pricing",
-	// 	href: ROUTES.PRICING
-	// },
+	{
+		label: "navLinks.pricing",
+		href: ROUTES.PRICING
+	},
 	{
 		label: "navLinks.testimonials",
 		href: ROUTES.TESTIMONIALS

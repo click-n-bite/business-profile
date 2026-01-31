@@ -49,7 +49,9 @@ export function LandingHeader() {
 					</div>
 					<div className='flex items-center gap-2.5'>
 						<Button asChild variant='outline'>
-							<Link href={ROUTES.CONTACT}>{t("actions.contact")}</Link>
+							<Link href={ROUTES.CONTACT} target='_blank' rel='noopener noreferrer'>
+								{t("actions.contact")}
+							</Link>
 						</Button>
 						<Button asChild variant='gradient'>
 							<Link href={ROUTES.DEMO}>{t("actions.demo")}</Link>
@@ -91,7 +93,7 @@ export function LandingHeader() {
 
 									<div className='flex flex-col gap-3'>
 										<Button asChild variant='gradient'>
-											<Link href={ROUTES.CONTACT}>
+											<Link href={ROUTES.CONTACT} target='_blank' rel='noopener noreferrer'>
 												<MessageCircle />
 												{t("actions.contact")}
 											</Link>

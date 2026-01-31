@@ -10,7 +10,43 @@
         "allRightsReserved": "© {year} All rights reserved.",
         "developedBy": "Developed by"
     },
-        "landing": {
+    "contactModal": {
+        "title": "Contact Saved Successfully!",
+        "description": "\"{name}\" has been saved as a vCard file",
+        "close": "Close",
+        "nextSteps": {
+            "title": "Next Steps:",
+            "step1": {
+                "title": "Check your downloads",
+                "description": "Look for <filename>{{filename}}</filename>"
+            },
+            "step2": {
+                "title": "Open the file",
+                "description": "Tap/click to open the .vcf file"
+            },
+            "step3": {
+                "title": "Add to contacts",
+                "description": "Your device will prompt you to save the contact"
+            }
+        },
+        "deviceInfo": {
+            "title": "For your device:",
+            "mobile": {
+                "title": "Mobile Devices",
+                "description": "Usually opens contacts automatically"
+            },
+            "desktop": {
+                "title": "Desktop Computers",
+                "description": "Open the downloaded file manually"
+            }
+        },
+        "buttons": {
+            "gotIt": "Got it, thanks!",
+            "needHelp": "Need help?",
+            "close": "Close"
+        }
+    },
+    "landing": {
         "hero": {
             "sectionBadge": "The Gold Standard of Digital Identity",
             "title": "The Only Link Your <span>Business Needs.</span>",
@@ -23,8 +59,8 @@
         },
         "features": {
             "sectionBadge": "Powerful Features",
-            "title": "Capabilities",
-            "description": "Engineered for absolute impact.",
+            "title": "Powerful Features. One Smart Platform.",
+            "description": "Everything you need to build a stunning digital presence, connect with your audience, and manage your business — all from one simple, elegant platform.",
             "items": {
                 "themes": {
                     "title": "Artistic Themes",
@@ -58,42 +94,42 @@
             "title": "Client Success Stories",
             "description": "See what our satisfied clients have to say about our portfolio and digital presence solutions.",
             "clientTestimonials": {
-            "first": {
-                "name": "Alex Turner",
-                "role": "Creative Director, Studio X",
-                "content": "The portfolio website transformed our online presence. Our booking inquiries increased by 200% in just 3 months.",
-                "avatar": "AT"
-            },
-            "second": {
-                "name": "Maya Patel",
-                "role": "Founder, Bloom Beauty",
-                "content": "The linktree-style page made it so easy for clients to find all our social media and contact information in one place.",
-                "avatar": "MP"
-            },
-            "third": {
-                "name": "David Chen",
-                "role": "CEO, TechFlow Solutions",
-                "content": "The business portfolio helped us secure major partnerships. The design perfectly represents our brand identity.",
-                "avatar": "DC"
-            },
-            "fourth": {
-                "name": "Sophia Williams",
-                "role": "Marketing Manager, Urban Cafe",
-                "content": "Our click-through rates on social links improved by 150% after implementing the optimized portfolio page.",
-                "avatar": "SW"
-            },
-            "fifth": {
-                "name": "Ryan Brooks",
-                "role": "Photographer, Visual Stories",
-                "content": "The portfolio showcase helped me land premium clients. The gallery presentation is absolutely stunning!",
-                "avatar": "RB"
-            },
-            "sixth": {
-                "name": "Lena Schmidt",
-                "role": "Owner, The Wellness Space",
-                "content": "Having all our contact, booking, and social links in one beautiful page made client interaction seamless.",
-                "avatar": "LS"
-            }
+                "first": {
+                    "name": "Alex Turner",
+                    "role": "Creative Director, Studio X",
+                    "content": "The portfolio website transformed our online presence. Our booking inquiries increased by 200% in just 3 months.",
+                    "avatar": "AT"
+                },
+                "second": {
+                    "name": "Maya Patel",
+                    "role": "Founder, Bloom Beauty",
+                    "content": "The linktree-style page made it so easy for clients to find all our social media and contact information in one place.",
+                    "avatar": "MP"
+                },
+                "third": {
+                    "name": "David Chen",
+                    "role": "CEO, TechFlow Solutions",
+                    "content": "The business portfolio helped us secure major partnerships. The design perfectly represents our brand identity.",
+                    "avatar": "DC"
+                },
+                "fourth": {
+                    "name": "Sophia Williams",
+                    "role": "Marketing Manager, Urban Cafe",
+                    "content": "Our click-through rates on social links improved by 150% after implementing the optimized portfolio page.",
+                    "avatar": "SW"
+                },
+                "fifth": {
+                    "name": "Ryan Brooks",
+                    "role": "Photographer, Visual Stories",
+                    "content": "The portfolio showcase helped me land premium clients. The gallery presentation is absolutely stunning!",
+                    "avatar": "RB"
+                },
+                "sixth": {
+                    "name": "Lena Schmidt",
+                    "role": "Owner, The Wellness Space",
+                    "content": "Having all our contact, booking, and social links in one beautiful page made client interaction seamless.",
+                    "avatar": "LS"
+                }
             }
         },
         "pricing": {
@@ -137,47 +173,47 @@
             },
             "footerMessage": "No setup fees • Cancel anytime"
         },
-    "cta": {
-        "badge": "Ready to Transform",
-        "title": "Elevate Your Business",
-        "subtitle": "Your Digital Presence",
-        "description": "Join thousands of successful businesses that have transformed their online presence with our premium portfolio solutions. Get started in minutes.",
-        "stats": {
-            "users": {
-            "value": "500+",
-            "label": "Active Users"
+        "cta": {
+            "badge": "Ready to Transform",
+            "title": "Elevate Your Business",
+            "subtitle": "Your Digital Presence",
+            "description": "Join thousands of successful businesses that have transformed their online presence with our premium portfolio solutions. Get started in minutes.",
+            "stats": {
+                "users": {
+                    "value": "500+",
+                    "label": "Active Users"
+                },
+                "satisfaction": {
+                    "value": "99%",
+                    "label": "Satisfaction"
+                },
+                "support": {
+                    "value": "24/7",
+                    "label": "Support"
+                },
+                "features": {
+                    "value": "30+",
+                    "label": "Features"
+                }
             },
-            "satisfaction": {
-            "value": "99%",
-            "label": "Satisfaction"
+            "actions": {
+                "contact": "Get Started Now",
+                "demo": "See Live Demo"
             },
-            "support": {
-            "value": "24/7",
-            "label": "Support"
+            "trust": {
+                "rating": "Rated 5/5 by 500+ clients",
+                "noCard": "No credit card required",
+                "setup": "24-hour setup"
             },
-            "features": {
-            "value": "30+",
-            "label": "Features"
+            "marquee": {
+                "label": "★ Trusted by",
+                "types": {
+                    "startups": "Startups",
+                    "agencies": "Agencies",
+                    "enterprises": "Enterprises",
+                    "creators": "Creators"
+                }
             }
-        },
-        "actions": {
-            "contact": "Get Started Now",
-            "demo": "See Live Demo"
-        },
-        "trust": {
-            "rating": "Rated 5/5 by 500+ clients",
-            "noCard": "No credit card required",
-            "setup": "24-hour setup"
-        },
-        "marquee": {
-            "label": "★ Trusted by",
-            "types": {
-            "startups": "Startups",
-            "agencies": "Agencies",
-            "enterprises": "Enterprises",
-            "creators": "Creators"
-            }
-        }
         },
         "application": {
             "navLinks": {

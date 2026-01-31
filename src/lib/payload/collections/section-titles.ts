@@ -21,12 +21,17 @@ export const SectionTitles: CollectionConfig = {
 				{ label: "Social Links", value: "social" },
 				{ label: "Business Partners", value: "partners" },
 				{ label: "Business Locations", value: "locations" },
-				{ label: "Image Gallery", value: "gallery" }
+				{ label: "Image Gallery", value: "gallery" },
+				{ label: "Business Services", value: "services" }
 			]
 		},
 		{
 			name: "title",
 			type: "text",
+			maxLength: 60,
+			admin: {
+				description: "Max 60 characters"
+			},
 			required: true,
 			localized: true
 		}

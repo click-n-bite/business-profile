@@ -51,7 +51,7 @@ export default function NotFound() {
 						</Button>
 
 						<Button asChild size='lg' variant='outline'>
-							<Link href={ROUTES.CONTACT}>
+							<Link href={ROUTES.CONTACT} target='_blank' rel='noopener noreferrer'>
 								<LifeBuoy className='me-2 size-5' />
 								Get Help
 							</Link>

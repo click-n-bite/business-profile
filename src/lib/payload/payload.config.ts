@@ -21,6 +21,7 @@ import { BusinessPartners } from "./collections/business_partners"
 import { BusinessLocations } from "./collections/business_locations"
 import { SectionTitles } from "./collections/section-titles"
 import { Configuration } from "./collections/configuration"
+import { BusinessServices } from "./collections/business_services"
 //#endregion
 
 const filename = fileURLToPath(import.meta.url)
@@ -73,6 +74,7 @@ export default buildConfig({
 		ImageGalleries,
 		ContactDepartments,
 		SocialLinks,
+		BusinessServices,
 		BusinessPartners,
 		BusinessLocations,
 		SectionTitles,

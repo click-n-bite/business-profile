@@ -4,7 +4,16 @@ export const ContactDepartments: CollectionConfig = {
 	slug: "contact_departments",
 
 	fields: [
-		{ name: "title", type: "text", required: true, localized: true },
+		{
+			name: "title",
+			type: "text",
+			required: true,
+			localized: true,
+			maxLength: 60,
+			admin: {
+				description: "Max 60 characters"
+			}
+		},
 		{ name: "phone", type: "text", required: true, localized: true },
 		{
 			name: "whatsapp",

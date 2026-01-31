@@ -1,7 +1,7 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { MigrateUpArgs, MigrateDownArgs, sql } from "@payloadcms/db-postgres"
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    CREATE TYPE "public"."enum_business_themes_theme_type" AS ENUM('business', 'personal');
   ALTER TYPE "public"."enum_social_links_platform" ADD VALUE 'portfolio';
   ALTER TYPE "public"."enum_social_links_platform" ADD VALUE 'pinterest';
@@ -30,7 +30,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    ALTER TABLE "social_links" ALTER COLUMN "platform" SET DATA TYPE text;
   DROP TYPE "public"."enum_social_links_platform";
   CREATE TYPE "public"."enum_social_links_platform" AS ENUM('website', 'instagram', 'tiktok', 'telegram', 'facebook', 'linkedin', 'youtube', 'twitter');

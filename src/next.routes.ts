@@ -4,10 +4,10 @@ export const ROUTES = {
 	TENANT_HOME: (slug: string) => `/${slug}`,
 	PRIVACY: "/privacy",
 	COOKIES: "/cookies",
-	CONTACT: "/contact",
+	CONTACT: "https://wa.me/+96171113255",
 	DEMO: "/demo",
 	FEATURES: "/#features",
 	PRICING: "/#pricing",
-	TESTIMONIALS: "/#testimonials",
+	TESTIMONIALS: "/#clients",
 	CTA: "/#cta"
 }

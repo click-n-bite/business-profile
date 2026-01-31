@@ -12,12 +12,20 @@ export const BusinessProfiles: CollectionConfig = {
 			name: "businessName",
 			type: "text",
 			required: true,
-			localized: true
+			localized: true,
+			maxLength: 60,
+			admin: {
+				description: "Max 60 characters"
+			}
 		},
 		{
 			name: "slogan",
 			type: "text",
-			localized: true
+			localized: true,
+			maxLength: 100,
+			admin: {
+				description: "Max 100 characters"
+			}
 		},
 		{
 			name: "logoLight",

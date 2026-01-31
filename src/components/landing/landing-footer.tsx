@@ -25,7 +25,7 @@ export const LandingFooter = () => {
 						{/* CTA Buttons */}
 						<div className='mx-auto !mt-8 flex max-w-xs flex-col gap-3 sm:max-w-none sm:flex-row'>
 							<Button asChild variant='gradient'>
-								<Link href={ROUTES.CONTACT}>
+								<Link href={ROUTES.CONTACT} target='_blank' rel='noopener noreferrer'>
 									<MessageCircle />
 									{t("actions.contact")}
 								</Link>

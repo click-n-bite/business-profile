@@ -76,6 +76,7 @@ export interface Config {
     image_galleries: ImageGallery;
     contact_departments: ContactDepartment;
     social_links: SocialLink;
+    business_services: BusinessService;
     business_partners: BusinessPartner;
     business_locations: BusinessLocation;
     section_titles: SectionTitle;
@@ -96,6 +97,7 @@ export interface Config {
     image_galleries: ImageGalleriesSelect<false> | ImageGalleriesSelect<true>;
     contact_departments: ContactDepartmentsSelect<false> | ContactDepartmentsSelect<true>;
     social_links: SocialLinksSelect<false> | SocialLinksSelect<true>;
+    business_services: BusinessServicesSelect<false> | BusinessServicesSelect<true>;
     business_partners: BusinessPartnersSelect<false> | BusinessPartnersSelect<true>;
     business_locations: BusinessLocationsSelect<false> | BusinessLocationsSelect<true>;
     section_titles: SectionTitlesSelect<false> | SectionTitlesSelect<true>;
@@ -256,7 +258,13 @@ export interface User {
 export interface BusinessProfile {
   id: string;
   tenant?: (string | null) | Tenant;
+  /**
+   * Max 60 characters
+   */
   businessName: string;
+  /**
+   * Max 100 characters
+   */
   slogan?: string | null;
   logoLight?: (string | null) | Media;
   logoDark?: (string | null) | Media;
@@ -306,6 +314,9 @@ export interface BusinessTheme {
 export interface AboutBusiness {
   id: string;
   tenant?: (string | null) | Tenant;
+  /**
+   * Max 160 characters
+   */
   description: string;
   updatedAt: string;
   createdAt: string;
@@ -333,6 +344,9 @@ export interface ImageGallery {
 export interface ContactDepartment {
   id: string;
   tenant?: (string | null) | Tenant;
+  /**
+   * Max 60 characters
+   */
   title: string;
   phone: string;
   whatsapp?: boolean | null;
@@ -378,8 +392,33 @@ export interface SocialLink {
     | 'phone'
     | 'linktree'
     | 'calendly';
+  /**
+   * Max 60 characters
+   */
   label: string;
   url: string;
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "business_services".
+ */
+export interface BusinessService {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  /**
+   * Max 60 characters
+   */
+  title: string;
+  /**
+   * Max 160 characters
+   */
+  description?: string | null;
+  /**
+   * Display order
+   */
   order?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -391,6 +430,9 @@ export interface SocialLink {
 export interface BusinessPartner {
   id: string;
   tenant?: (string | null) | Tenant;
+  /**
+   * Max 160 characters
+   */
   name: string;
   logo: string | Media;
   website?: string | null;
@@ -405,7 +447,13 @@ export interface BusinessPartner {
 export interface BusinessLocation {
   id: string;
   tenant?: (string | null) | Tenant;
+  /**
+   * Max 160 characters
+   */
   title: string;
+  /**
+   * Max 160 characters
+   */
   description?: string | null;
   googleMapLink?: string | null;
   order?: number | null;
@@ -419,7 +467,10 @@ export interface BusinessLocation {
 export interface SectionTitle {
   id: string;
   tenant?: (string | null) | Tenant;
-  sectionType: 'about' | 'contact' | 'social' | 'partners' | 'locations' | 'gallery';
+  sectionType: 'about' | 'contact' | 'social' | 'partners' | 'locations' | 'gallery' | 'services';
+  /**
+   * Max 60 characters
+   */
   title: string;
   updatedAt: string;
   createdAt: string;
@@ -501,6 +552,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'social_links';
         value: string | SocialLink;
+      } | null)
+    | ({
+        relationTo: 'business_services';
+        value: string | BusinessService;
       } | null)
     | ({
         relationTo: 'business_partners';
@@ -768,6 +823,18 @@ export interface SocialLinksSelect<T extends boolean = true> {
   platform?: T;
   label?: T;
   url?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "business_services_select".
+ */
+export interface BusinessServicesSelect<T extends boolean = true> {
+  tenant?: T;
+  title?: T;
+  description?: T;
   order?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -8,12 +8,12 @@ export const TestimonialsSection = () => {
 	const t = useTranslations("landing.testimonials")
 
 	return (
-		<section id='clients' className='bg-background/30 py-20'>
+		<section id='clients' className='bg-background/70 py-20'>
 			<div className='custom-container'>
 				<div className='mb-16 text-center'>
 					<SectionBadge
 						icon={Star}
-						className='mb-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-emerald-600 dark:text-white'>
+						className='mb-4 inline-flex items-center gap-2 rounded-full px-6 py-3 text-emerald-600 dark:text-[#06bd7a]'>
 						{t("sectionBadge")}
 					</SectionBadge>
 

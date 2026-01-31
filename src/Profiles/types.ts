@@ -3,6 +3,7 @@ import {
 	BusinessLocation,
 	BusinessPartner,
 	BusinessProfile,
+	BusinessService,
 	BusinessTheme,
 	ImageGallery
 } from "@payload-types"
@@ -17,6 +18,7 @@ export type FetchedTenantData = {
 	socialLinks: SocialLink[]
 	businessPartners: BusinessPartner[]
 	businessLocations: BusinessLocation[]
+	businessService: BusinessService[]
 	sectionTitles: {
 		about?: string
 		contact?: string
@@ -24,6 +26,7 @@ export type FetchedTenantData = {
 		partners?: string
 		locations?: string
 		gallery?: string
+		services?: string
 	}
 }
 
