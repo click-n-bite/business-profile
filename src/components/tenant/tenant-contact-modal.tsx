@@ -165,19 +165,13 @@ const ContactSavedModal = ({ isOpen, onClose, onSave, name, phone }: ContactSave
 			<div
 				className={cn(
 					"relative z-[9999] w-full max-w-md bg-white shadow-2xl dark:bg-gray-900",
-					"rounded-t-4xl sm:rounded-2xl",
+					"rounded-t-full sm:rounded-2xl",
 					"fixed bottom-0 sm:relative sm:mx-4 sm:max-h-[85vh]",
 					"animate-in slide-in-from-bottom-full sm:slide-in-from-bottom-0 duration-300",
 					"flex flex-col overflow-hidden"
 				)}>
-				<div className='sticky top-0 z-10 flex items-center justify-between border-b border-gray-200 bg-white px-6 py-4 dark:border-gray-800 dark:bg-gray-900'>
-					<h3 className='text-lg font-semibold'>{t("title")}</h3>
-					<button
-						onClick={onClose}
-						className='rounded-full p-1 hover:bg-gray-100 dark:hover:bg-gray-800'
-						aria-label={t("close")}>
-						<X className='h-5 w-5' />
-					</button>
+				<div className='sticky top-0 z-10 flex items-center justify-center border-b border-gray-200 bg-white px-6 py-4 dark:border-gray-800 dark:bg-gray-900'>
+					<h3 className='text-lg font-semibold text-center'>{t("title")}</h3>
 				</div>
 
 				<div className='flex-1 overflow-y-auto p-6'>
