@@ -44,7 +44,7 @@ const BusinessServicesSection: React.FC<Props> = ({ services, theme }) => {
 	}
 
 	return (
-		<div className={cn("grid gap-4 md:gap-6", getGridCols())}>
+		<div className={cn("mb-4 grid gap-4 md:gap-6", getGridCols())}>
 			{services.map((service, index) => (
 				<div
 					key={service.id || index}
