@@ -41,6 +41,7 @@ export const SocialLinks: CollectionConfig = {
 			required: true,
 			options: [
 				{ label: "Website", value: "website" },
+				{ label: "Google Reviews", value: "google" },
 				{ label: "Instagram", value: "instagram" },
 				{ label: "TikTok", value: "tiktok" },
 				{ label: "Telegram", value: "telegram" },

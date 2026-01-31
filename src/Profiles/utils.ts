@@ -19,11 +19,13 @@ import {
 	Phone,
 	SquareStack,
 	Calendar,
-	Mail
+	Mail,
+	Star
 } from "lucide-react"
 
 export const iconMap: Record<string, React.ElementType> = {
 	website: Globe,
+	google: Star,
 	instagram: Instagram,
 	tiktok: Video,
 	telegram: Send,
