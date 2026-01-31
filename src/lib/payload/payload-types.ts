@@ -352,6 +352,7 @@ export interface SocialLink {
   tenant?: (string | null) | Tenant;
   platform:
     | 'website'
+    | 'google'
     | 'instagram'
     | 'tiktok'
     | 'telegram'

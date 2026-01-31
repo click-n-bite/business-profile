@@ -3,111 +3,170 @@
 // }
 
 // export const saveContactSimple = (name: string, phoneNumber: string): void => {
-// 	const link = document.createElement("a")
-
 // 	const formattedPhone = formatPhoneNumberSimple(phoneNumber)
 
-// 	const encodedName = encodeURIComponent(name)
+// 	const createVCard = () => {
+// 		const vCardData = ["BEGIN:VCARD", "VERSION:3.0", `FN:${name}`, `TEL;TYPE=CELL:${formattedPhone}`, "END:VCARD"].join(
+// 			"\n"
+// 		)
 
-// 	link.href = `tel:${formattedPhone}?add=1&name=${encodedName}`
+// 		const blob = new Blob([vCardData], { type: "text/vcard" })
 
-// 	link.setAttribute("data-action", "add-contact")
-// 	link.setAttribute("data-phone", formattedPhone)
-// 	link.setAttribute("data-name", name)
+// 		const url = URL.createObjectURL(blob)
 
-// 	link.style.display = "none"
-// 	document.body.appendChild(link)
-// 	link.click()
-// 	document.body.removeChild(link)
+// 		const link = document.createElement("a")
+
+// 		link.href = url
+// 		link.download = `${name.replace(/\s+/g, "_")}.vcf`
+// 		link.style.display = "none"
+// 		document.body.appendChild(link)
+// 		link.click()
+
+// 		setTimeout(() => {
+// 			document.body.removeChild(link)
+// 			URL.revokeObjectURL(url)
+// 		}, 100)
+// 	}
+
+// 	const UseAndroidIntent = () => {
+// 		const intentUrl = `intent://contact/add?name=${encodeURIComponent(name)}&phone=${formattedPhone}#Intent;scheme=android-app;end;`
+
+// 		const fallback = setTimeout(createVCard, 1000)
+
+// 		window.location.href = intentUrl
+
+// 		window.addEventListener("pagehide", () => clearTimeout(fallback), { once: true })
+// 	}
+
+// 	const userAgent = navigator.userAgent.toLowerCase()
+
+// 	const isAndroid = userAgent.includes("android")
+
+// 	if (isAndroid) {
+// 		try {
+// 			UseAndroidIntent()
+// 		} catch (err) {
+// 			console.log("error:", err)
+// 			createVCard()
+// 		}
+// 	} else {
+// 		createVCard()
+// 	}
 // }
 
 // export const saveContactDesktopSimple = (name: string, phoneNumber: string): void => {
-// 	const message = `To save this contact:\n\nName: ${name}\nPhone: ${phoneNumber}\n\nCopy the information and paste into your contacts app.`
+// 	const formattedPhone = formatPhoneNumberSimple(phoneNumber)
 
-// 	alert(message)
+// 	const vCardData = ["BEGIN:VCARD", "VERSION:3.0", `FN:${name}`, `TEL;TYPE=CELL:${formattedPhone}`, "END:VCARD"].join(
+// 		"\n"
+// 	)
 
-// 	if (navigator.clipboard) {
-// 		navigator.clipboard
-// 			.writeText(`${name}: ${phoneNumber}`)
-// 			.then(() => console.log("Copied to clipboard"))
-// 			.catch((err) => console.error("Failed to copy:", err))
-// 	}
+// 	const blob = new Blob([vCardData], { type: "text/vcard" })
+
+// 	const url = URL.createObjectURL(blob)
+
+// 	const link = document.createElement("a")
+
+// 	link.href = url
+// 	link.download = `${name.replace(/\s+/g, "_")}.vcf`
+// 	link.style.display = "none"
+// 	document.body.appendChild(link)
+// 	link.click()
+
+// 	setTimeout(() => {
+// 		document.body.removeChild(link)
+// 		URL.revokeObjectURL(url)
+// 	}, 100)
 // }
 
 // export const quickSaveContact = (name: string, phoneNumber: string): void => {
-// 	const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+// 	const formattedPhone = formatPhoneNumberSimple(phoneNumber)
 
-// 	if (isMobile) {
-// 		saveContactSimple(name, phoneNumber)
-// 	} else {
-// 		saveContactDesktopSimple(name, phoneNumber)
-// 	}
+// 	const vCardData = ["BEGIN:VCARD", "VERSION:3.0", `FN:${name}`, `TEL;TYPE=CELL:${formattedPhone}`, "END:VCARD"].join(
+// 		"\n"
+// 	)
+
+// 	const blob = new Blob([vCardData], { type: "text/vcard" })
+
+// 	const url = URL.createObjectURL(blob)
+
+// 	const link = document.createElement("a")
+
+// 	link.href = url
+// 	link.download = `${name.replace(/\s+/g, "_")}.vcf`
+// 	link.style.display = "none"
+// 	document.body.appendChild(link)
+// 	document.body.appendChild(link)
+// 	link.click()
+
+// 	setTimeout(() => {
+// 		document.body.removeChild(link)
+// 		URL.revokeObjectURL(url)
+// 	}, 100)
 // }
-
 export const formatPhoneNumberSimple = (phoneNumber: string): string => {
 	return phoneNumber.replace(/\D/g, "")
 }
 
-export const saveContactSimple = (name: string, phoneNumber: string): void => {
+export const saveContactWithContactsAPI = async (name: string, phoneNumber: string): Promise<void> => {
 	const formattedPhone = formatPhoneNumberSimple(phoneNumber)
 
-	// Method 1: Use vCard download (works on most devices)
-	const createVCard = () => {
-		const vCardData = ["BEGIN:VCARD", "VERSION:3.0", `FN:${name}`, `TEL;TYPE=CELL:${formattedPhone}`, "END:VCARD"].join(
-			"\n"
-		)
+	const isSecureContext =
+		window.isSecureContext ||
+		window.location.protocol === "https:" ||
+		window.location.hostname === "localhost" ||
+		window.location.hostname === "127.0.0.1"
 
-		const blob = new Blob([vCardData], { type: "text/vcard" })
-
-		const url = URL.createObjectURL(blob)
-
-		const link = document.createElement("a")
-
-		link.href = url
-		link.download = `${name.replace(/\s+/g, "_")}.vcf`
-		link.style.display = "none"
-		document.body.appendChild(link)
-		link.click()
-
-		// Cleanup
-		setTimeout(() => {
-			document.body.removeChild(link)
-			URL.revokeObjectURL(url)
-		}, 100)
-	}
-
-	const UseAndroidIntent = () => {
-		const intentUrl = `intent://contact/add?name=${encodeURIComponent(name)}&phone=${formattedPhone}#Intent;scheme=android-app;end;`
-
-		const fallback = setTimeout(createVCard, 1000)
-
-		window.location.href = intentUrl
-
-		window.addEventListener("pagehide", () => clearTimeout(fallback), { once: true })
-	}
-
-	const userAgent = navigator.userAgent.toLowerCase()
-
-	const isAndroid = userAgent.includes("android")
-
-	if (isAndroid) {
+	if ("contacts" in navigator && "ContactsManager" in window && isSecureContext) {
 		try {
-			UseAndroidIntent()
-		} catch (err) {
-			console.log("error:", err)
-			createVCard()
+			const contacts = await navigator.contacts.select(["name", "tel"], { multiple: false })
+
+			if (contacts && contacts.length > 0) {
+				console.log("Contact selected for saving:", contacts[0])
+
+				return
+			}
+		} catch (error) {
+			console.log("Contacts API failed or user cancelled:", error)
+			throw error
 		}
 	} else {
-		createVCard()
+		throw new Error("Contacts API not available")
 	}
 }
 
-export const saveContactDesktopSimple = (name: string, phoneNumber: string): void => {
+export const saveContactEnhanced = async (name: string, phoneNumber: string): Promise<void> => {
 	const formattedPhone = formatPhoneNumberSimple(phoneNumber)
 
 	const vCardData = ["BEGIN:VCARD", "VERSION:3.0", `FN:${name}`, `TEL;TYPE=CELL:${formattedPhone}`, "END:VCARD"].join(
 		"\n"
 	)
+
+	const isSecureContext =
+		window.isSecureContext ||
+		window.location.protocol === "https:" ||
+		window.location.hostname === "localhost" ||
+		window.location.hostname === "127.0.0.1"
+
+	if (navigator.share && isSecureContext) {
+		try {
+			const blob = new Blob([vCardData], { type: "text/vcard" })
+
+			const file = new File([blob], `${name}.vcf`, { type: "text/vcard" })
+
+			if (navigator.canShare && navigator.canShare({ files: [file] })) {
+				await navigator.share({
+					files: [file],
+					title: `Save ${name} Contact`,
+					text: `Contact information for ${name}`
+				})
+
+				return
+			}
+		} catch (error) {
+			console.log("Web Share API failed:", error)
+		}
+	}
 
 	const blob = new Blob([vCardData], { type: "text/vcard" })
 
@@ -124,33 +183,22 @@ export const saveContactDesktopSimple = (name: string, phoneNumber: string): voi
 	setTimeout(() => {
 		document.body.removeChild(link)
 		URL.revokeObjectURL(url)
-	}, 100)
+	}, 1000)
 }
 
 export const quickSaveContact = (name: string, phoneNumber: string): void => {
-	const formattedPhone = formatPhoneNumberSimple(phoneNumber)
+	saveContactEnhanced(name, phoneNumber)
+}
 
-	const vCardData = ["BEGIN:VCARD", "VERSION:3.0", `FN:${name}`, `TEL;TYPE=CELL:${formattedPhone}`, "END:VCARD"].join(
-		"\n"
-	)
-
-	const blob = new Blob([vCardData], { type: "text/vcard" })
-
-	const url = URL.createObjectURL(blob)
-
-	const link = document.createElement("a")
-
-	link.href = url
-	link.download = `${name.replace(/\s+/g, "_")}.vcf`
-	link.style.display = "none"
-	document.body.appendChild(link)
-	document.body.appendChild(link)
-	link.click()
-
-	setTimeout(() => {
-		document.body.removeChild(link)
-		URL.revokeObjectURL(url)
-	}, 100)
-
-	alert(`Contact "${name}" saved as vCard file. Open the downloaded .vcf file to add to your contacts.`)
+export const showSaveNotification = (name: string) => {
+	if (typeof window !== "undefined") {
+		if ("Notification" in window && Notification.permission === "granted") {
+			new Notification(`Contact Saved`, {
+				body: `${name} has been saved to your contacts`,
+				icon: "/icon.png"
+			})
+		} else {
+			console.log(`Contact saved: ${name}`)
+		}
+	}
 }
