@@ -11,40 +11,15 @@
     "developedBy": "تم التطوير بواسطة"
   },
   "contactModal": {
-    "title": "تم حفظ جهة الاتصال بنجاح!",
-    "description": "تم حفظ \"{name}\" كملف vCard",
-    "close": "إغلاق",
-    "nextSteps": {
-      "title": "الخطوات التالية:",
-      "step1": {
-        "title": "تحقق من التحميلات",
-        "description": "ابحث عن <filename>{{filename}}</filename>"
-      },
-      "step2": {
-        "title": "افتح الملف",
-        "description": "اضغط/انقر لفتح ملف .vcf"
-      },
-      "step3": {
-        "title": "أضف إلى جهات الاتصال",
-        "description": "سيطلب جهازك منك حفظ جهة الاتصال"
+      "title": "حفظ جهة الاتصال",
+      "confirmationTitle": "هل تريد حفظ جهة الاتصال؟",
+      "confirmationDescription": "هل تريد حفظ \"{name}\" على جهازك؟",
+      "close": "إغلاق",
+      "buttons": {
+          "cancel": "إلغاء",
+          "save": "حفظ جهة الاتصال",
+          "gotIt": "تم، شكراً!"
       }
-    },
-    "deviceInfo": {
-      "title": "لجهازك:",
-      "mobile": {
-        "title": "الأجهزة المحمولة",
-        "description": "عادة ما تفتح جهات الاتصال تلقائيًا"
-      },
-      "desktop": {
-        "title": "أجهزة الكمبيوتر المكتبية",
-        "description": "افتح الملف الذي تم تنزيله يدويًا"
-      }
-    },
-    "buttons": {
-      "gotIt": "حسنًا، شكرًا!",
-      "needHelp": "تحتاج مساعدة؟",
-      "close": "إغلاق"
-    }
   },
   "landing": {
     "hero": {
