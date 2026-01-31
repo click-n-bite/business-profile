@@ -33,13 +33,6 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 					</div>
 				)}
 
-				{data.imageGalleries?.[0]?.images && (
-					<div className='w-full max-w-xl'>
-						<SectionTitle title={data.sectionTitles?.gallery || "Gallery"} />
-						<Gallery images={data.imageGalleries[0].images} />
-					</div>
-				)}
-
 				{data.contactDepartments.length > 0 && (
 					<div className='w-full md:max-w-xl'>
 						<div className='flex flex-col'>
@@ -56,6 +49,13 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 								/>
 							))}
 						</div>
+					</div>
+				)}
+
+				{data.imageGalleries?.[0]?.images && (
+					<div className='w-full max-w-xl'>
+						<SectionTitle title={data.sectionTitles?.gallery || "Gallery"} />
+						<Gallery images={data.imageGalleries[0].images} />
 					</div>
 				)}
 
