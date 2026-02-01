@@ -9,7 +9,7 @@ export function PersonalAbout({ aboutBusiness }: AboutProps) {
 
 	return (
 		<div className='px-6'>
-			<p className='text-lg leading-relaxed text-gray-600 dark:text-gray-300'>{description}</p>
+			<p className='text-center text-lg leading-relaxed text-gray-600 dark:text-gray-300'>{description}</p>
 		</div>
 	)
 }
