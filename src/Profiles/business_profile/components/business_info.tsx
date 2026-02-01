@@ -25,7 +25,7 @@ export const Hero = ({ businessProfile }: HeroProps) => {
 	return (
 		<div className='relative z-10 flex w-full flex-col items-center gap-2 px-6 text-center md:max-w-5xl'>
 			{businessName && (
-				<h1 className='text-xl font-semibold tracking-widest whitespace-nowrap text-slate-700 uppercase dark:text-slate-300'>
+				<h1 className='text-3xl font-semibold tracking-widest whitespace-nowrap text-slate-700 uppercase dark:text-slate-300'>
 					{businessName}
 				</h1>
 			)}

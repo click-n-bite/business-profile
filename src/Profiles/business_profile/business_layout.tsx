@@ -27,11 +27,18 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 
 	return (
 		<div className='flex justify-center md:px-6 md:py-10'>
-			<SectionBubbles theme={theme} className='flex w-full max-w-3xl flex-col items-center gap-12 py-10'>
+			<SectionBubbles theme={theme} className='flex w-full max-w-3xl flex-col items-center py-10'>
 				{data.businessProfile && <Hero businessProfile={data.businessProfile} />}
 
+				{data.aboutBusiness && (
+					<div className='mt-10 w-full max-w-xl'>
+						<SectionTitle title={data.sectionTitles?.about || "About Us"} />
+						<About aboutBusiness={data.aboutBusiness} theme={theme} />
+					</div>
+				)}
+
 				{data.contactDepartments.length > 0 && (
-					<div className='w-full md:max-w-xl'>
+					<div className='mt-10 w-full md:max-w-xl'>
 						<div className='flex flex-col'>
 							<SectionTitle title={data.sectionTitles?.contact || "Contact Us"} />
 							{data.contactDepartments.map((dept: any) => (
@@ -50,43 +57,36 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 					</div>
 				)}
 
-				{data.aboutBusiness && (
-					<div className='w-full max-w-xl'>
-						<SectionTitle title={data.sectionTitles?.about || "About Us"} />
-						<About aboutBusiness={data.aboutBusiness} theme={theme} />
-					</div>
-				)}
-
 				{data.imageGalleries?.[0]?.images && (
-					<div className='w-full max-w-xl'>
+					<div className='mt-10 w-full max-w-xl'>
 						<SectionTitle title={data.sectionTitles?.gallery || "Gallery"} />
 						<Gallery images={data.imageGalleries[0].images} />
 					</div>
 				)}
 
 				{Array.isArray(data.businessService) && data.businessService.length > 0 && (
-					<div className='w-full max-w-xl'>
+					<div className='mt-10 w-full max-w-xl'>
 						<SectionTitle title={data.sectionTitles?.services || "Services"} />
 						<BusinessServicesSection services={data.businessService} theme={theme} />
 					</div>
 				)}
 
 				{data.socialLinks?.length > 0 && (
-					<div className='w-full max-w-xl'>
+					<div className='mt-10 w-full max-w-xl'>
 						<SectionTitle title={data.sectionTitles?.social || "Follow Us"} />
 						<SocialLinksSection socialLinks={data.socialLinks} theme={theme} />
 					</div>
 				)}
 
 				{data.businessPartners?.length > 0 && (
-					<div className='w-full max-w-xl'>
+					<div className='mt-10 w-full max-w-xl'>
 						<SectionTitle title={data.sectionTitles?.partners || "Our Partners"} />
 						<PartnersCarousel partners={data.businessPartners} />
 					</div>
 				)}
 
 				{data.businessLocations.length > 0 && (
-					<div className='w-full max-w-xl'>
+					<div className='mt-10 w-full max-w-xl'>
 						<section className='grid grid-cols-1 gap-2'>
 							<SectionTitle title={data.sectionTitles?.locations || "Our Locations"} />
 							{data.businessLocations.map((loc: any, idx: number) => (
