@@ -57,13 +57,13 @@ export const Hero = ({ businessProfile }: HeroProps) => {
 			)}
 
 			{businessName && (
-				<h1 className='font-display text-4xl font-bold tracking-tight text-slate-900 uppercase md:text-5xl dark:text-white'>
+				<h1 className='font-display text-2xl font-bold tracking-tight text-slate-900 uppercase md:text-5xl dark:text-white'>
 					{businessName}
 				</h1>
 			)}
 
 			{slogan && (
-				<p className='max-w-2xl text-lg font-semibold text-slate-600 italic md:text-xl dark:text-slate-300'>{slogan}</p>
+				<p className='max-w-2xl text-sm font-semibold text-slate-600  md:text-xl dark:text-slate-300'>{slogan}</p>
 			)}
 		</div>
 	)

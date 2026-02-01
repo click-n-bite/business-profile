@@ -171,7 +171,7 @@ const ContactSavedModal = ({ isOpen, onClose, onSave, name, phone }: ContactSave
 					"flex flex-col overflow-hidden"
 				)}>
 				<div className='sticky top-0 z-10 flex items-center justify-center border-b border-gray-200 bg-white px-6 py-4 dark:border-gray-800 dark:bg-gray-900'>
-					<h3 className='text-lg font-semibold text-center'>{t("title")}</h3>
+					<h3 className='text-center text-lg font-semibold'>{t("title")}</h3>
 				</div>
 
 				<div className='flex-1 overflow-y-auto p-6'>
