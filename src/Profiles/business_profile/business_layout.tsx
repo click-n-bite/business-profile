@@ -27,7 +27,7 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 
 	return (
 		<div className='flex justify-center md:px-6 md:py-10'>
-			<SectionBubbles theme={theme} className='flex w-full max-w-3xl flex-col items-center gap-10 py-10'>
+			<SectionBubbles theme={theme} className='flex w-full max-w-3xl flex-col items-center gap-12 py-10'>
 				{data.businessProfile && <Hero businessProfile={data.businessProfile} />}
 
 				{data.contactDepartments.length > 0 && (
