@@ -30,10 +30,11 @@ export const Hero = ({ businessProfile }: HeroProps) => {
 				</h1>
 			)}
 
-			{slogan && <p className='max-w-2xl text-sm text-slate-600 pb-4 italic md:text-xl dark:text-slate-300'>{slogan}</p>}
+			{slogan && (
+				<p className='max-w-2xl pb-4 text-sm text-slate-600 italic md:text-xl dark:text-slate-300'>{slogan}</p>
+			)}
 			{(hasLogoLight || hasLogoDark) && (
 				<div className='relative h-42 w-42 md:h-62 md:w-62'>
-
 					{hasLogoLight && (
 						<div className='relative h-full w-full dark:hidden'>
 							<ImageMedia
@@ -63,8 +64,6 @@ export const Hero = ({ businessProfile }: HeroProps) => {
 					)}
 				</div>
 			)}
-
-
 		</div>
 	)
 }
