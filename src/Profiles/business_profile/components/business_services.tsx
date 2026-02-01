@@ -70,26 +70,26 @@ const BusinessServicesSection: React.FC<Props> = ({ services, theme }) => {
 							}}>
 							{index + 1}
 						</div>
-
-						<h3
-							className={cn(
-								"flex-1 font-semibold text-gray-900 dark:text-white",
-								themeType === "personal" && "text-xl"
-							)}>
-							{service.title}
-						</h3>
+						<div>
+							<h3
+								className={cn(
+									"flex-1 font-semibold text-gray-900 dark:text-white",
+									themeType === "personal" && "text-xl"
+								)}>
+								{service.title}
+							</h3>
+							{service.description && (
+								<p
+									className={cn(
+										"text-muted-foreground",
+										themeType === "personal" && "text-center text-base",
+										themeType === "business" && "text-sm"
+									)}>
+									{service.description}
+								</p>
+							)}
+						</div>
 					</div>
-
-					{service.description && (
-						<p
-							className={cn(
-								"text-muted-foreground",
-								themeType === "personal" && "text-center text-base",
-								themeType === "business" && "text-sm"
-							)}>
-							{service.description}
-						</p>
-					)}
 				</div>
 			))}
 		</div>
