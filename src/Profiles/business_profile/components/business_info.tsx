@@ -62,9 +62,7 @@ export const Hero = ({ businessProfile }: HeroProps) => {
 				</h1>
 			)}
 
-			{slogan && (
-				<p className='max-w-2xl text-sm font-semibold text-slate-600  md:text-xl dark:text-slate-300'>{slogan}</p>
-			)}
+			{slogan && <p className='max-w-2xl text-sm text-slate-600 md:text-xl dark:text-slate-300'>{slogan}</p>}
 		</div>
 	)
 }
