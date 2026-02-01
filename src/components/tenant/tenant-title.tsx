@@ -4,7 +4,7 @@ interface SectionTitleProps {
 
 export const SectionTitle = ({ title }: SectionTitleProps) => {
 	return (
-		<div className='my-8 flex w-full items-center gap-4'>
+		<div className='my-4 flex w-full items-center gap-4'>
 			<div className='h-px flex-1 bg-slate-200 dark:bg-white/10' />
 
 			<h2 className='text-xl font-semibold tracking-widest whitespace-nowrap text-slate-700 uppercase dark:text-slate-300'>

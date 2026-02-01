@@ -30,13 +30,6 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 			<SectionBubbles theme={theme} className='flex w-full max-w-3xl flex-col items-center gap-10 py-10'>
 				{data.businessProfile && <Hero businessProfile={data.businessProfile} />}
 
-				{data.aboutBusiness && (
-					<div className='w-full max-w-xl'>
-						<SectionTitle title={data.sectionTitles?.about || "About Us"} />
-						<About aboutBusiness={data.aboutBusiness} theme={theme} />
-					</div>
-				)}
-
 				{data.contactDepartments.length > 0 && (
 					<div className='w-full md:max-w-xl'>
 						<div className='flex flex-col'>
@@ -54,6 +47,13 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 								/>
 							))}
 						</div>
+					</div>
+				)}
+
+				{data.aboutBusiness && (
+					<div className='w-full max-w-xl'>
+						<SectionTitle title={data.sectionTitles?.about || "About Us"} />
+						<About aboutBusiness={data.aboutBusiness} theme={theme} />
 					</div>
 				)}
 
