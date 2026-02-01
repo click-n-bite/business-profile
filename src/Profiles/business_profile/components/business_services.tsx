@@ -73,8 +73,8 @@ const BusinessServicesSection: React.FC<Props> = ({ services, theme }) => {
 						<div>
 							<h3
 								className={cn(
-									"flex-1 font-semibold text-gray-900 dark:text-white",
-									themeType === "personal" && "text-xl"
+									"text-md flex-1 font-semibold text-gray-900 dark:text-white",
+									themeType === "personal" && "text-md"
 								)}>
 								{service.title}
 							</h3>
@@ -82,7 +82,7 @@ const BusinessServicesSection: React.FC<Props> = ({ services, theme }) => {
 								<p
 									className={cn(
 										"text-muted-foreground",
-										themeType === "personal" && "text-center text-base",
+										themeType === "personal" && "text-center text-sm",
 										themeType === "business" && "text-sm"
 									)}>
 									{service.description}

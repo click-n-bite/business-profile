@@ -99,7 +99,7 @@ export const ContactDepartmentCard = ({ title, phone, whatsapp, telegram, teleph
 					<Phone className='h-5 w-5' />
 				</div>
 				<div className='flex-1'>
-					<h3 className='text-[18px] font-semibold text-slate-900 dark:text-white'>{title}</h3>
+					<h3 className='text-md font-semibold text-slate-900 dark:text-white'>{title}</h3>
 					<p className='mt-0.5 font-mono text-sm text-slate-500 dark:text-slate-400'>{phone}</p>
 				</div>
 			</div>

@@ -35,7 +35,7 @@ export const LocationCard = ({
 				<MapPin className='h-5 w-5' />
 			</div>
 			<div className='flex-1'>
-				<h3 className='text-[18px] font-semibold text-slate-900 dark:text-white'>{title}</h3>
+				<h3 className='text-md font-semibold text-slate-900 dark:text-white'>{title}</h3>
 				<p className='mt-1 text-sm text-slate-500 dark:text-slate-400'>{address}</p>
 			</div>
 			{googleMapLink && (
