@@ -24,8 +24,16 @@ export const Hero = ({ businessProfile }: HeroProps) => {
 
 	return (
 		<div className='relative z-10 flex w-full flex-col items-center gap-2 px-6 text-center md:max-w-5xl'>
+			{businessName && (
+				<h1 className='text-xl font-semibold tracking-widest whitespace-nowrap text-slate-700 uppercase dark:text-slate-300'>
+					{businessName}
+				</h1>
+			)}
+
+			{slogan && <p className='max-w-2xl text-sm text-slate-600 pb-4 italic md:text-xl dark:text-slate-300'>{slogan}</p>}
 			{(hasLogoLight || hasLogoDark) && (
 				<div className='relative h-42 w-42 md:h-62 md:w-62'>
+
 					{hasLogoLight && (
 						<div className='relative h-full w-full dark:hidden'>
 							<ImageMedia
@@ -56,13 +64,7 @@ export const Hero = ({ businessProfile }: HeroProps) => {
 				</div>
 			)}
 
-			{businessName && (
-				<h1 className='font-display text-2xl font-bold tracking-tight text-slate-900 uppercase md:text-5xl dark:text-white'>
-					{businessName}
-				</h1>
-			)}
 
-			{slogan && <p className='max-w-2xl text-sm text-slate-600 italic md:text-xl dark:text-slate-300'>{slogan}</p>}
 		</div>
 	)
 }
