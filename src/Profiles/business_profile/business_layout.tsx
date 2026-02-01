@@ -38,7 +38,7 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 				)}
 
 				{data.contactDepartments.length > 0 && (
-					<div className='mt-10 w-full md:max-w-xl'>
+					<div className='mt-10 w-full max-w-xl'>
 						<div className='flex flex-col'>
 							<SectionTitle title={data.sectionTitles?.contact || "Contact Us"} />
 							{data.contactDepartments.map((dept: any) => (
@@ -61,13 +61,6 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 					<div className='mt-10 w-full max-w-xl'>
 						<SectionTitle title={data.sectionTitles?.gallery || "Gallery"} />
 						<Gallery images={data.imageGalleries[0].images} />
-					</div>
-				)}
-
-				{Array.isArray(data.businessService) && data.businessService.length > 0 && (
-					<div className='mt-10 w-full max-w-xl'>
-						<SectionTitle title={data.sectionTitles?.services || "Services"} />
-						<BusinessServicesSection services={data.businessService} theme={theme} />
 					</div>
 				)}
 
@@ -99,6 +92,12 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 								/>
 							))}
 						</section>
+					</div>
+				)}
+				{Array.isArray(data.businessService) && data.businessService.length > 0 && (
+					<div className='mt-10 w-full max-w-xl'>
+						<SectionTitle title={data.sectionTitles?.services || "Services"} />
+						<BusinessServicesSection services={data.businessService} theme={theme} />
 					</div>
 				)}
 			</SectionBubbles>

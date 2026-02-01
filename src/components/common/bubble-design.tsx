@@ -37,7 +37,7 @@ export const SectionBubbles: React.FC<ProfileCardProps> = ({ theme, children, cl
 				style={{ background: accentColor }}
 			/>
 
-			<div className='relative z-10 w-full'>{children}</div>
+			<div className='relative z-10 flex w-full flex-col items-center justify-center'>{children}</div>
 		</div>
 	)
 }

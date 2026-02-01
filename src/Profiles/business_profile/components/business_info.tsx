@@ -23,7 +23,7 @@ export const Hero = ({ businessProfile }: HeroProps) => {
 	const hasLogoDark = businessProfile.logoDark && typeof businessProfile.logoDark !== "string"
 
 	return (
-		<div className='relative z-10 flex w-full flex-col items-center gap-2 px-6 text-center md:max-w-5xl'>
+		<div className='relative z-10 flex w-full max-w-xl flex-col items-center gap-2 px-6 text-center'>
 			{businessName && (
 				<h1 className='text-4xl font-semibold tracking-widest whitespace-nowrap text-slate-700 uppercase dark:text-slate-300'>
 					{businessName}

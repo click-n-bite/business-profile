@@ -23,71 +23,26 @@ const BusinessServicesSection: React.FC<Props> = ({ services, theme }) => {
 
 	const themeType = theme?.themeType || "business"
 
-	const getGridCols = () => {
-		switch (themeType) {
-			case "personal":
-				return "grid-cols-1"
-			case "business":
-			default:
-				return "grid-cols-1 sm:grid-cols-2"
-		}
-	}
-
-	const getCardStyle = () => {
-		switch (themeType) {
-			case "personal":
-				return "max-w-md mx-auto w-full text-center hover:shadow-lg"
-			case "business":
-			default:
-				return "hover:bg-gray-50 dark:hover:bg-gray-800"
-		}
-	}
+	const gridCols = themeType === "personal" ? "grid-cols-1" : "grid-cols-1"
 
 	return (
-		<div className={cn("mb-4 grid gap-4 md:gap-6", getGridCols())}>
+		<div className={cn("mb-4 grid gap-4 md:gap-6", gridCols)}>
 			{services.map((service, index) => (
 				<div
 					key={service.id || index}
 					className={cn(
-						"group relative rounded-xl border p-5 transition-all duration-300",
-						"dark:bg-card/40 bg-white",
-						"border-gray-200 dark:border-gray-800",
-						getCardStyle()
+						"relative rounded-r-xl border border-slate-200 bg-white p-5 transition-all duration-300 dark:border-white/5 dark:bg-[#0d0d0d]"
 					)}>
-					<div
-						className={cn(
-							"mb-4 flex items-center gap-4",
-							themeType === "personal" && "flex-col justify-center text-center"
-						)}>
-						<div
-							className={cn(
-								"flex items-center justify-center rounded-full font-bold text-white transition-all",
-								themeType === "personal" && "h-14 w-14 text-xl",
-								themeType === "business" && "h-10 w-10 text-lg"
-							)}
-							style={{
-								backgroundColor: primary || "#3b82f6"
-							}}>
-							{index + 1}
-						</div>
+					<span
+						className='absolute top-0 left-0 h-full w-1 rounded-l-xl opacity-70'
+						style={{ backgroundColor: primary }}
+					/>
+
+					<div className='flex gap-4'>
 						<div>
-							<h3
-								className={cn(
-									"text-md flex-1 font-semibold text-gray-900 dark:text-white",
-									themeType === "personal" && "text-md"
-								)}>
-								{service.title}
-							</h3>
-							{service.description && (
-								<p
-									className={cn(
-										"text-muted-foreground",
-										themeType === "personal" && "text-center text-sm",
-										themeType === "business" && "text-sm"
-									)}>
-									{service.description}
-								</p>
-							)}
+							<h3 className='text-md font-semibold text-gray-900 dark:text-white'>{service.title}</h3>
+
+							{service.description && <p className='text-muted-foreground mt-1 text-sm'>{service.description}</p>}
 						</div>
 					</div>
 				</div>

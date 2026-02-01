@@ -13,7 +13,7 @@ export const About = ({ aboutBusiness, theme }: AboutProps) => {
 	}
 
 	return (
-		<SectionBubbles theme={theme} className='rounded-xl'>
+		<SectionBubbles theme={theme} className='rounded-xl dark:bg-[#0d0d0d]'>
 			<div className='text-center'>
 				{description && (
 					<p className='text-sm leading-relaxed text-slate-600 md:text-xl dark:text-slate-300'>{description}</p>

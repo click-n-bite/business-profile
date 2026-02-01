@@ -65,14 +65,8 @@ export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayout
 					</div>
 				)}
 
-				{Array.isArray(data.businessService) && data.businessService.length > 0 && (
-					<div className='w-full md:max-w-xl'>
-						<BusinessServicesSection services={data.businessService} theme={theme} />
-					</div>
-				)}
-
 				{data.businessLocations.length > 0 && (
-					<div className='mb-6 flex w-full max-w-xl flex-col items-center'>
+					<div className='mb-1 flex w-full max-w-xl flex-col items-center'>
 						{data.businessLocations.map((loc: any, idx: number) => (
 							<PersonalLocationCard
 								key={idx}
@@ -84,8 +78,14 @@ export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayout
 					</div>
 				)}
 
+				{Array.isArray(data.businessService) && data.businessService.length > 0 && (
+					<div className='mb-6 w-full md:max-w-xl'>
+						<BusinessServicesSection services={data.businessService} theme={theme} />
+					</div>
+				)}
+
 				{data.businessPartners?.length > 0 && (
-					<div className='w-full max-w-xl pb-4'>
+					<div className='mb-6 w-full max-w-xl'>
 						<PartnersCarousel partners={data.businessPartners} />
 					</div>
 				)}
