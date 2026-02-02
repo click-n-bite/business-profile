@@ -74,9 +74,9 @@ export function LandingHeader() {
 						</VisuallyHidden>
 
 						<div className='flex flex-col gap-6'>
-							<div className='border-border flex items-center border-b px-2.5 py-4'>
+							{/* <div className='border-border flex items-center border-b px-2.5 py-4'>
 								<AppLogo />
-							</div>
+							</div> */}
 
 							<div className='px-4 md:hidden'>
 								<div className='flex flex-col gap-4'>
