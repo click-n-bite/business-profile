@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect } from "react"
 import useEmblaCarousel from "embla-carousel-react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import Autoplay from "embla-carousel-autoplay"
@@ -30,12 +30,6 @@ export function ImageCarousel({
 	autoPlayDelay = 2000,
 	dir = "ltr"
 }: ImageCarouselProps) {
-	const [key, setKey] = useState(0)
-
-	useEffect(() => {
-		setKey((prev) => prev + 1)
-	}, [dir])
-
 	const [emblaRef, emblaApi] = useEmblaCarousel(
 		{
 			active: images?.length > 1,
@@ -57,28 +51,24 @@ export function ImageCarousel({
 	const scrollPrev = useCallback(() => {
 		if (emblaApi) {
 			emblaApi.scrollPrev()
+			const autoplay = emblaApi.plugins().autoplay
+
+			if (autoplay && !autoplay.isPlaying()) {
+				setTimeout(() => autoplay.play(), autoPlayDelay)
+			}
 		}
-	}, [emblaApi])
+	}, [emblaApi, autoPlayDelay])
 
 	const scrollNext = useCallback(() => {
 		if (emblaApi) {
 			emblaApi.scrollNext()
+			const autoplay = emblaApi.plugins().autoplay
+
+			if (autoplay && !autoplay.isPlaying()) {
+				setTimeout(() => autoplay.play(), autoPlayDelay)
+			}
 		}
-	}, [emblaApi])
-
-	const toggleAutoplay = useCallback(() => {
-		if (!emblaApi) return
-
-		const autoplay = emblaApi.plugins().autoplay
-
-		if (!autoplay) return
-
-		const isPlaying = autoplay.isPlaying()
-
-		if (!isPlaying) {
-			autoplay.play()
-		}
-	}, [emblaApi])
+	}, [emblaApi, autoPlayDelay])
 
 	useEffect(() => {
 		if (emblaApi && images?.length > 1) {
@@ -89,6 +79,12 @@ export function ImageCarousel({
 			}
 		}
 	}, [emblaApi, images?.length])
+
+	useEffect(() => {
+		if (emblaApi) {
+			emblaApi.reInit({ direction: dir })
+		}
+	}, [dir, emblaApi])
 
 	const validImages = images?.filter((item) => item && item.image && typeof item.image !== "string") || []
 
@@ -114,8 +110,6 @@ export function ImageCarousel({
 
 	return (
 		<div
-			key={key}
-			onMouseLeave={toggleAutoplay}
 			className={`relative m-auto overflow-hidden rounded-2xl ${className}`}
 			dir={dir}
 			style={

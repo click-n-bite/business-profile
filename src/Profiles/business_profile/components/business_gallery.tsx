@@ -52,7 +52,7 @@ export function Gallery({ images }: GalleryProps) {
 					className='w-full'
 					hideControls={true}
 					imageClass={`h-50 !object-fill ${isRTL ? "scale-x-[-1]" : ""}`}
-					autoPlayDelay={3000}
+					autoPlayDelay={5000}
 				/>
 			</div>
 		</div>
