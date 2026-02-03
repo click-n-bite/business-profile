@@ -12,19 +12,30 @@ export const buttonVariants = cva(
 			variant: {
 				default:
 					"bg-neutral-900 text-white shadow-xs hover:bg-neutral-900/90 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-100/90",
+
 				destructive:
 					"bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+
 				outline:
 					"border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+
 				secondary: "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+
 				ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+
 				link: "text-primary underline-offset-4 hover:underline",
+
 				quantity: "bg-transparent",
+
 				gradient:
-					"bg-gradient-to-r rtl:bg-gradient-to-l from-[#06bd7a] via-lime-500 to-emerald-500 text-white " +
+					"bg-gradient-to-r rtl:bg-gradient-to-l " +
+					"from-blue-600 via-blue-500 to-cyan-400 text-white " +
 					"bg-[length:200%_100%] bg-[position:0%_50%] " +
-					"hover:bg-[position:100%_50%] transition-all duration-300 ease-in-out"
+					"hover:bg-[position:100%_50%] " +
+					"transition-all duration-300 ease-in-out " +
+					"shadow-md hover:shadow-lg dark:shadow-blue-900/30"
 			},
+
 			size: {
 				default: "h-8 px-3 py-2 rounded-sm",
 				sm: "h-7 rounded-sm gap-1.5 px-3 has-[>svg]:px-2.5 [&_svg]:!size-5",

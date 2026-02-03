@@ -103,7 +103,7 @@ export class ApiClient {
 }
 
 const apiClient = new ApiClient({
-	baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.clicknbite.com",
+	baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "https://localhost:3000",
 	timeout: 15000
 })
 

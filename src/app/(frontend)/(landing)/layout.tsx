@@ -3,7 +3,7 @@ import { LandingHeader } from "@/components/landing/landing-header"
 
 export default function LandingLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<main className='flex min-h-screen flex-col bg-gradient-to-br from-yellow-50 via-white to-lime-50 rtl:bg-gradient-to-bl dark:from-yellow-900/10 dark:via-gray-900 dark:to-lime-900/10'>
+		<main className='flex min-h-screen flex-col'>
 			<LandingHeader />
 			{children}
 			<LandingFooter />

@@ -1,6 +1,5 @@
 import { Star } from "lucide-react"
 import { TestimonialsCarousel } from "./testimonials-carousel"
-// import { ClientsMarquee } from "./clients-marquee"
 import { SectionBadge } from "../section-badge"
 import { useTranslations } from "next-intl"
 
@@ -8,20 +7,16 @@ export const TestimonialsSection = () => {
 	const t = useTranslations("landing.testimonials")
 
 	return (
-		<section id='clients' className='bg-background/70 py-20'>
+		<section
+			id='clients'
+			className='relative bg-gradient-to-b from-slate-50 via-white to-slate-50 py-24 dark:from-[#0B1220] dark:via-[#0F172A] dark:to-[#0B1220]'>
 			<div className='custom-container'>
 				<div className='mb-16 text-center'>
-					<SectionBadge
-						icon={Star}
-						className='mb-4 inline-flex items-center gap-2 rounded-full px-6 py-3 text-emerald-600 dark:text-[#06bd7a]'>
-						{t("sectionBadge")}
-					</SectionBadge>
+					<SectionBadge icon={Star}>{t("sectionBadge")}</SectionBadge>
 
-					<h2 className='mb-4 text-3xl font-bold text-gray-900 md:text-4xl dark:text-gray-100'>{t("title")}</h2>
-					<p className='mx-auto max-w-3xl text-xl text-gray-600 dark:text-gray-300'>{t("description")}</p>
+					<h2 className='mb-4 text-3xl font-bold text-slate-900 md:text-4xl dark:text-white'>{t("title")}</h2>
+					<p className='mx-auto max-w-3xl text-xl text-slate-600 dark:text-slate-300'>{t("description")}</p>
 				</div>
-
-				{/* <ClientsMarquee /> */}
 
 				<TestimonialsCarousel />
 			</div>

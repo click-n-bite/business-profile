@@ -10,17 +10,17 @@
         "allRightsReserved": "© {year} All rights reserved.",
         "developedBy": "Developed by"
     },
-  "contactModal": {
-		"title": "Save Contact",
-		"confirmationTitle": "Save Contact?",
-		"confirmationDescription": "Save \"{name}\" to your device?",
-		"close": "Close",
-		"buttons": {
-			"cancel": "Cancel",
-			"save": "Save Contact",
-			"gotIt": "Got it, thanks!"
-		}
-	},
+    "contactModal": {
+        "title": "Save Contact",
+        "confirmationTitle": "Save Contact?",
+        "confirmationDescription": "Save \"{name}\" to your device?",
+        "close": "Close",
+        "buttons": {
+            "cancel": "Cancel",
+            "save": "Save Contact",
+            "gotIt": "Got it, thanks!"
+        }
+    },
     "landing": {
         "hero": {
             "sectionBadge": "The Gold Standard of Digital Identity",
@@ -118,22 +118,21 @@
             },
             "plan": {
                 "title": "Professional Plan",
-                "description": "Everything you need to run a modern restaurant",
+                "description": "Everything you need for your complete digital identity",
                 "price": "${price}<span>/month</span>",
                 "discount": "Billed annually (${price}/year) - Save ${discount}!",
                 "features": {
-                    "first": "Unlimited menu items & categories",
-                    "second": "Enterprise-grade CMS platform",
-                    "third": "QR code generation & management",
-                    "fourth": "Digital ordering & basket system",
-                    "fifth": "Order sharing via WhatsApp & social",
-                    "sixth": "Mobile-optimized design",
-                    "seventh": "Multi-language support",
-                    "eighth": "Custom branding & themes",
-                    "ninth": "Real-time menu updates",
-                    "tenth": "Analytics & insights",
-                    "eleventh": "Priority customer support",
-                    "twelfth": "SSL security & hosting included"
+                    "first": "Unlimited social links & profiles",
+                    "second": "Enterprise-grade digital profile builder",
+                    "third": "QR code generation & business card sharing",
+                    "fourth": "WhatsApp & Telegram direct contact links",
+                    "fifth": "One-tap save to phone contacts",
+                    "sixth": "Mobile-optimized responsive design",
+                    "seventh": "Services & portfolio showcase",
+                    "eighth": "Partners & collaborators section",
+                    "ninth": "Custom branding & themes",
+                    "tenth": "Priority customer support",
+                    "eleventh": "SSL security & hosting included"
                 },
                 "actions": {
                     "monthly": {

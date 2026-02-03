@@ -19,25 +19,24 @@ export const HeroSection = () => {
 					<MotionDiv initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
 						<SectionBadge
 							icon={Sparkles}
-							className='mb-4 inline-flex items-center gap-2 rounded-full px-6 py-3 text-emerald-600 dark:text-[#06bd7a]'>
+							className='mb-4 inline-flex items-center gap-2 rounded-full text-blue-600 dark:text-cyan-400'>
 							{t("sectionBadge")}
 						</SectionBadge>
 
 						<h1 className='mb-6 text-4xl leading-tight font-extrabold md:text-6xl'>
 							{t.rich("title", {
 								span: (chunks) => (
-									<span className='bg-gradient-to-r from-[#06bd7a] via-lime-500 to-emerald-500 bg-clip-text text-transparent rtl:bg-gradient-to-l'>
+									<span className='bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 bg-clip-text text-transparent rtl:bg-gradient-to-l'>
 										{chunks}
 									</span>
 								)
 							})}
 						</h1>
 
-						<p className='mx-auto mb-10 max-w-2xl text-xl leading-relaxed text-gray-600 dark:text-gray-300'>
+						<p className='mx-auto mb-10 max-w-2xl text-xl leading-relaxed text-slate-600 dark:text-slate-300'>
 							{t("description")}
 						</p>
 
-						{/* CTA buttons */}
 						<div className='mb-6 flex flex-col gap-3 sm:flex-row sm:justify-center'>
 							<Button asChild size='lg' variant='gradient' className='group w-full sm:w-auto'>
 								<Link href={ROUTES.DEMO}>
@@ -51,7 +50,7 @@ export const HeroSection = () => {
 								asChild
 								size='lg'
 								variant='outline'
-								className='w-full border-lime-200 text-lime-700 hover:bg-lime-50 sm:w-auto dark:border-lime-700 dark:text-lime-300 dark:hover:bg-lime-900/20'>
+								className='w-full border-blue-200 text-blue-700 hover:bg-blue-50 sm:w-auto dark:border-blue-700 dark:text-cyan-300 dark:hover:bg-blue-900/20'>
 								<Link href={ROUTES.CONTACT} target='_blank' rel='noopener noreferrer'>
 									<MessageCircle />
 									{t("actions.contact")}
@@ -59,7 +58,7 @@ export const HeroSection = () => {
 							</Button>
 						</div>
 
-						<p className='text-sm text-gray-500 dark:text-gray-400'>{t("slogan")}</p>
+						<p className='text-sm text-slate-500 dark:text-slate-400'>{t("slogan")}</p>
 					</MotionDiv>
 				</div>
 			</div>
