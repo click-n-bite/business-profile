@@ -14,7 +14,7 @@ export const LandingFooter = () => {
 		<footer className='border-border/60 relative border-t bg-white dark:bg-[#0f1324]'>
 			<div className='bg-grid-gray-100/50 dark:bg-grid-gray-800/50 absolute inset-0 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]' />
 
-			<div className='custom-container relative space-y-8 py-20'>
+			<div className='custom-container relative space-y-8 py-10'>
 				<div className='mb-6 flex flex-col items-center space-y-2 text-center'>
 					<AppLogo />
 
