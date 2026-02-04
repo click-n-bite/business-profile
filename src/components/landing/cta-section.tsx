@@ -23,7 +23,7 @@ export const CtaSection = () => {
 					className='mx-auto max-w-4xl text-center'>
 					<SectionBadge
 						icon={Sparkles}
-						className='mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-transparent px-6 py-3 text-cyan-600 dark:text-cyan-400'>
+						className='mb-4 inline-flex items-center gap-2 rounded-full text-blue-600 dark:text-cyan-400'>
 						{t("badge")}
 					</SectionBadge>
 
@@ -35,7 +35,7 @@ export const CtaSection = () => {
 						{t("description")}
 					</p>
 
-					<MotionDiv
+					{/* <MotionDiv
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ delay: 0.4 }}
@@ -53,7 +53,7 @@ export const CtaSection = () => {
 								</div>
 							</div>
 						))}
-					</MotionDiv>
+					</MotionDiv> */}
 
 					<div className='flex flex-col justify-center gap-4 sm:flex-row'>
 						<Button asChild size='lg' variant='outline' className='px-8 py-4'>

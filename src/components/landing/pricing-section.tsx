@@ -24,7 +24,7 @@ export const PricingSection = () => {
 				<div className='mb-14 text-center'>
 					<SectionBadge
 						icon={CreditCard}
-						className='mb-4 inline-flex items-center gap-2 rounded-full px-6 py-3 text-cyan-600 dark:text-cyan-400'>
+						className='mb-4 inline-flex items-center gap-2 rounded-full text-blue-600 dark:text-cyan-400'>
 						{t("sectionBadge")}
 					</SectionBadge>
 

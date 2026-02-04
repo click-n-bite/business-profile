@@ -46,11 +46,7 @@ export const HeroSection = () => {
 								</Link>
 							</Button>
 
-							<Button
-								asChild
-								size='lg'
-								variant='outline'
-								className='w-full border-blue-200 text-blue-700 hover:bg-blue-50 sm:w-auto dark:border-blue-700 dark:text-cyan-300 dark:hover:bg-blue-900/20'>
+							<Button asChild size='lg' variant='outline' className='w-full sm:w-auto'>
 								<Link href={ROUTES.CONTACT} target='_blank' rel='noopener noreferrer'>
 									<MessageCircle />
 									{t("actions.contact")}

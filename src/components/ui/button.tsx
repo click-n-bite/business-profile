@@ -28,10 +28,10 @@ export const buttonVariants = cva(
 				quantity: "bg-transparent",
 
 				gradient:
-					"bg-gradient-to-r rtl:bg-gradient-to-l " +
+					"bg-gradient-to-l " +
 					"from-blue-600 via-blue-500 to-cyan-400 text-white " +
 					"bg-[length:200%_100%] bg-[position:0%_50%] " +
-					"hover:bg-[position:100%_50%] " +
+					"hover:bg-[position:20%_0%] " +
 					"transition-all duration-300 ease-in-out " +
 					"shadow-md hover:shadow-lg dark:shadow-blue-900/30"
 			},
