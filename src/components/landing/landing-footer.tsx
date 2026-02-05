@@ -22,7 +22,7 @@ export const LandingFooter = () => {
 						{t("footer.logoDescription")}
 					</p>
 
-					<div className='flex flex-col items-center gap-4 pt-2 sm:flex-row'>
+					{/* <div className='flex flex-col items-center gap-4 pt-2 sm:flex-row'>
 						<Button asChild variant='gradient'>
 							<Link href={ROUTES.CONTACT} target='_blank' rel='noopener noreferrer'>
 								<MessageCircle className='mr-1 size-4' />
@@ -33,7 +33,7 @@ export const LandingFooter = () => {
 						<Button asChild variant='outline'>
 							<Link href={ROUTES.DEMO}>{t("actions.demo")}</Link>
 						</Button>
-					</div>
+					</div> */}
 				</div>
 
 				<nav className='mb-6 flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm'>
