@@ -34,7 +34,7 @@ export const Hero = ({ businessProfile }: HeroProps) => {
 				<p className='max-w-2xl pb-4 text-xs text-slate-600 italic md:text-xl dark:text-slate-300'>{slogan}</p>
 			)}
 			{(hasLogoLight || hasLogoDark) && (
-				<div className='relative h-42 w-42 md:h-62 md:w-62'>
+				<div className='relative h-42 w-42'>
 					{hasLogoLight && (
 						<div className='relative h-full w-full dark:hidden'>
 							<ImageMedia
