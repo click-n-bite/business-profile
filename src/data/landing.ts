@@ -173,7 +173,7 @@ export const pricingPlanFeatures = [
 ]
 
 export const contactInfo = {
-	email: "support@mydigitalid.com",
+	email: "support@smartdigitalid.com",
 	address: "address",
 	phone: "+961 71 113 255",
 	poweredBy: "https://socialcube.ai"

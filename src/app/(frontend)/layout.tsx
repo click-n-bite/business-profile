@@ -30,7 +30,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 			suppressHydrationWarning
 			className={`${POPPINS.variable} ${KALAM.variable} antialiased`}>
 			<head>
-				<meta name='apple-mobile-web-app-title' content='MyDigitalId' />
+				<meta name='apple-mobile-web-app-title' content='SmartDigitalId' />
 				<meta
 					name='viewport'
 					content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover'

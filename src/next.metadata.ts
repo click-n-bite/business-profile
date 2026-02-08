@@ -4,9 +4,9 @@ import { env } from "./constants/env-variables"
 const baseUrl = env.NEXT_PUBLIC_SERVER_URL
 
 export const metadata: Metadata = {
-	title: "My Digital ID | Your Professional Digital Presence",
+	title: "Smart Digital ID | Your Professional Digital Presence",
 	description:
-		"Create your personalized digital business card with My Digital ID. Showcase your social profiles, services, partners, and contact information in one beautiful, shareable link.",
+		"Create your personalized digital business card with Smart Digital ID. Showcase your social profiles, services, partners, and contact information in one beautiful, shareable link.",
 	metadataBase: new URL(baseUrl),
 	keywords: [
 		"digital business card",
@@ -26,35 +26,35 @@ export const metadata: Metadata = {
 		"services showcase",
 		"partners network"
 	],
-	authors: [{ name: "My Digital ID" }],
-	creator: "My Digital ID",
-	publisher: "My Digital ID",
+	authors: [{ name: "Smart Digital ID" }],
+	creator: "Smart Digital ID",
+	publisher: "Smart Digital ID",
 
 	openGraph: {
 		type: "website",
 		locale: "en_US",
 		url: baseUrl,
-		title: "My Digital ID | Your Professional Digital Presence",
+		title: "Smart Digital ID | Your Professional Digital Presence",
 		description:
 			"Create your personalized digital business card. Share your contact, services, and social links in one beautiful profile.",
-		siteName: "My Digital ID",
+		siteName: "Smart Digital ID",
 		images: [
 			{
 				url: `${baseUrl}/og-image.png`,
 				width: 1200,
 				height: 630,
-				alt: "My Digital ID - Professional Digital Profiles"
+				alt: "Smart Digital ID - Professional Digital Profiles"
 			}
 		]
 	},
 
 	twitter: {
 		card: "summary_large_image",
-		title: "My Digital ID | Your Professional Digital Presence",
+		title: "Smart Digital ID | Your Professional Digital Presence",
 		description:
 			"Create your personalized digital business card. Share your contact, services, and social links in one beautiful profile.",
 		images: [`${baseUrl}/twitter-image.png`],
-		creator: "@mydigitalid"
+		creator: "@smartdigitalid"
 	},
 
 	robots: {
