@@ -1,9 +1,6 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { MessageCircle } from "lucide-react"
 import AppLogo from "../common/logo"
 import { DevelopedBy } from "../common/developed-by"
-import { ROUTES } from "@/next.routes"
 import { navLinks } from "@/data/landing"
 import { useTranslations } from "next-intl"
 
