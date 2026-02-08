@@ -1,7 +1,7 @@
 import { SectionBubbles } from "@/components/common/bubble-design"
 import { AboutProps } from "@/Profiles/types"
 
-export const About = ({ aboutBusiness, theme }: AboutProps) => {
+export const About = ({ aboutBusiness }: AboutProps) => {
 	if (!aboutBusiness) {
 		return null
 	}
@@ -13,7 +13,7 @@ export const About = ({ aboutBusiness, theme }: AboutProps) => {
 	}
 
 	return (
-		<SectionBubbles theme={theme} className='rounded-xl dark:bg-[#0d0d0d]'>
+		<SectionBubbles className='rounded-xl dark:bg-[#0d0d0d]'>
 			<div className='text-center'>
 				{description && (
 					<p className='text-sm leading-relaxed text-slate-600 md:text-xl dark:text-slate-300'>{description}</p>
