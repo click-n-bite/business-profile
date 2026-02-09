@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import Image from "next/image"
@@ -10,10 +11,30 @@ export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksProps) => 
 
 	if (activeLinks.length === 0) return null
 
+	const getImageUrl = (image: any): string | null => {
+		if (!image) return null
+
+		if (typeof image === "string") return image
+
+		if (typeof image === "object" && image.url) return image.url
+
+		return null
+	}
+
+	const getImageAlt = (image: any, label?: string): string => {
+		if (typeof image === "object" && image.alt) return image.alt
+
+		return label || "social-media"
+	}
+
 	return (
 		<section className='grid w-full grid-cols-2 gap-4 md:max-w-xl'>
 			{activeLinks.map((link) => {
 				const label = link.label
+
+				const imageUrl = getImageUrl(link.image)
+
+				const imageAlt = getImageAlt(link.image, label)
 
 				return (
 					<a
@@ -56,14 +77,8 @@ export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksProps) => 
 							if (text) (text as HTMLElement).style.color = "#4B5563"
 						}}>
 						<div className='relative flex h-9 w-9 items-center justify-center'>
-							{link.image ? (
-								<Image
-									src={link.image}
-									alt={link.label || "social-media"}
-									width={36}
-									height={36}
-									className='social-icon object-contain'
-								/>
+							{imageUrl ? (
+								<Image src={imageUrl} alt={imageAlt} width={36} height={36} className='social-icon object-contain' />
 							) : (
 								<div className='social-icon flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700'>
 									<span className='text-sm font-semibold'>{label?.charAt(0) || "S"}</span>

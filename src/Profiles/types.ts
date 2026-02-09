@@ -5,7 +5,8 @@ import {
 	BusinessProfile,
 	BusinessService,
 	BusinessTheme,
-	ImageGallery
+	ImageGallery,
+	Media
 } from "@payload-types"
 
 export type FetchedTenantData = {
@@ -36,7 +37,7 @@ export type FetchedTenantData = {
 
 export interface SocialLink {
 	id: string
-	image: string
+	image: Media | string
 	url: string
 	label?: string
 	order?: number
