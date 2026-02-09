@@ -2211,25 +2211,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "image_id": {
-          "name": "image_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "url": {
-          "name": "url",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "order": {
-          "name": "order",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp(3) with time zone",
@@ -2251,21 +2232,6 @@
           "columns": [
             {
               "expression": "tenant_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "social_links_image_idx": {
-          "name": "social_links_image_idx",
-          "columns": [
-            {
-              "expression": "image_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -2314,19 +2280,6 @@
           "tableTo": "tenants",
           "columnsFrom": [
             "tenant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "social_links_image_id_media_id_fk": {
-          "name": "social_links_image_id_media_id_fk",
-          "tableFrom": "social_links",
-          "tableTo": "media",
-          "columnsFrom": [
-            "image_id"
           ],
           "columnsTo": [
             "id"
@@ -4572,6 +4525,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "befbf561-0487-42a5-959b-2ae3a39b4b73",
+  "id": "ce694b91-5d0f-4588-b60d-22b1dd3426b5",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

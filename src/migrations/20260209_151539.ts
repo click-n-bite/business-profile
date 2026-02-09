@@ -198,9 +198,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "social_links" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"tenant_id" uuid,
-  	"image_id" uuid NOT NULL,
-  	"url" varchar NOT NULL,
-  	"order" numeric DEFAULT 0,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
@@ -374,7 +371,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "contact_departments" ADD CONSTRAINT "contact_departments_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "contact_departments_locales" ADD CONSTRAINT "contact_departments_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."contact_departments"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "social_links" ADD CONSTRAINT "social_links_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
-  ALTER TABLE "social_links" ADD CONSTRAINT "social_links_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "social_links_locales" ADD CONSTRAINT "social_links_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."social_links"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "business_services" ADD CONSTRAINT "business_services_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "business_services_locales" ADD CONSTRAINT "business_services_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."business_services"("id") ON DELETE cascade ON UPDATE no action;
@@ -461,7 +457,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "contact_departments_created_at_idx" ON "contact_departments" USING btree ("created_at");
   CREATE UNIQUE INDEX "contact_departments_locales_locale_parent_id_unique" ON "contact_departments_locales" USING btree ("_locale","_parent_id");
   CREATE INDEX "social_links_tenant_idx" ON "social_links" USING btree ("tenant_id");
-  CREATE INDEX "social_links_image_idx" ON "social_links" USING btree ("image_id");
   CREATE INDEX "social_links_updated_at_idx" ON "social_links" USING btree ("updated_at");
   CREATE INDEX "social_links_created_at_idx" ON "social_links" USING btree ("created_at");
   CREATE UNIQUE INDEX "social_links_locales_locale_parent_id_unique" ON "social_links_locales" USING btree ("_locale","_parent_id");
