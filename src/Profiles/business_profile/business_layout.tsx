@@ -60,11 +60,7 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 				{data.imageGalleries?.[0]?.images && (
 					<div className='mt-10 w-full max-w-xl'>
 						<SectionTitle title={data.sectionTitles?.gallery || "Gallery"} />
-						<Gallery
-							images={data.imageGalleries[0].images}
-							autoplay={data.imageGalleries[0].autoplay}
-							autoplayDelay={data.imageGalleries[0].autoplayDelay}
-						/>
+						<Gallery images={data.imageGalleries[0].images} />
 					</div>
 				)}
 
@@ -78,11 +74,7 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 				{data.businessPartners?.length > 0 && (
 					<div className='mt-10 w-full max-w-xl'>
 						<SectionTitle title={data.sectionTitles?.partners || "Our Partners"} />
-						<PartnersCarousel
-							partners={data.businessPartners}
-							autoplay={data.partnersCarouselSettings?.autoplay ?? true}
-							autoplaySpeed={data.partnersCarouselSettings?.autoplaySpeed ?? 5000}
-						/>
+						<PartnersCarousel partners={data.businessPartners} />
 					</div>
 				)}
 
