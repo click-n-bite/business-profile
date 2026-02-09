@@ -1,13 +1,16 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from "@payloadcms/db-postgres"
+import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-	await db.execute(sql`
+  await db.execute(sql`
    CREATE TYPE "public"."_locales" AS ENUM('en', 'ar');
   CREATE TYPE "public"."enum_users_role" AS ENUM('super-admin', 'user');
   CREATE TYPE "public"."enum_tenants_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__tenants_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__tenants_v_published_locale" AS ENUM('en', 'ar');
-  CREATE TYPE "public"."enum_social_links_platform" AS ENUM('website', 'instagram', 'tiktok', 'telegram', 'facebook', 'linkedin', 'youtube', 'twitter');
+  CREATE TYPE "public"."enum_business_themes_light_background_type" AS ENUM('color', 'image');
+  CREATE TYPE "public"."enum_business_themes_dark_background_type" AS ENUM('color', 'image');
+  CREATE TYPE "public"."enum_business_themes_theme_type" AS ENUM('business', 'personal');
+  CREATE TYPE "public"."enum_section_titles_section_type" AS ENUM('about', 'contact', 'social', 'partners', 'locations', 'gallery', 'services');
   CREATE TABLE "media" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"tenant_id" uuid,
@@ -111,32 +114,49 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "business_profile" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"tenant_id" uuid,
-  	"business_name" varchar NOT NULL,
-  	"slogan" varchar,
   	"logo_light_id" uuid,
   	"logo_dark_id" uuid,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
   
+  CREATE TABLE "business_profile_locales" (
+  	"business_name" varchar NOT NULL,
+  	"slogan" varchar,
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"_parent_id" uuid NOT NULL
+  );
+  
   CREATE TABLE "business_themes" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"tenant_id" uuid,
-  	"primary_color" varchar NOT NULL,
-  	"secondary_color" varchar,
-  	"accent_color" varchar,
-  	"background_color" varchar,
+  	"name" varchar NOT NULL,
+  	"primary_color" varchar DEFAULT '#3B82F6',
+  	"secondary_color" varchar DEFAULT '#6B7280',
+  	"light_background_type" "enum_business_themes_light_background_type" DEFAULT 'color' NOT NULL,
+  	"light_background_color" varchar DEFAULT '#FFFFFF',
+  	"light_background_image_id" uuid,
+  	"dark_background_type" "enum_business_themes_dark_background_type" DEFAULT 'color' NOT NULL,
+  	"dark_background_color" varchar DEFAULT '#000000',
+  	"dark_background_image_id" uuid,
+  	"theme_type" "enum_business_themes_theme_type" DEFAULT 'business' NOT NULL,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
   
-  CREATE TABLE "about_section" (
+  CREATE TABLE "about_business" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-  	"title" varchar NOT NULL,
-  	"about_description" varchar NOT NULL,
-  	"is_active" boolean DEFAULT true,
+  	"tenant_id" uuid,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+  );
+  
+  CREATE TABLE "about_business_locales" (
+  	"description" varchar NOT NULL,
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"_parent_id" uuid NOT NULL
   );
   
   CREATE TABLE "image_galleries_images" (
@@ -149,7 +169,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "image_galleries" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"tenant_id" uuid,
-  	"is_active" boolean DEFAULT true,
+  	"autoplay" boolean DEFAULT true,
+  	"autoplay_delay" numeric DEFAULT 5000,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
@@ -157,33 +178,60 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "contact_departments" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"tenant_id" uuid,
-  	"title" varchar NOT NULL,
-  	"phone" varchar NOT NULL,
-  	"icon" varchar,
   	"whatsapp" boolean DEFAULT false,
   	"telegram" boolean DEFAULT false,
+  	"sms" boolean DEFAULT false,
   	"telephone" boolean DEFAULT false,
   	"order" numeric,
-  	"is_active" boolean DEFAULT true,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+  );
+  
+  CREATE TABLE "contact_departments_locales" (
+  	"title" varchar NOT NULL,
+  	"phone" varchar NOT NULL,
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"_parent_id" uuid NOT NULL
   );
   
   CREATE TABLE "social_links" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"tenant_id" uuid,
-  	"platform" "enum_social_links_platform" NOT NULL,
-  	"label" varchar,
+  	"image_id" uuid NOT NULL,
   	"url" varchar NOT NULL,
+  	"order" numeric DEFAULT 0,
+  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+  );
+  
+  CREATE TABLE "social_links_locales" (
+  	"label" varchar NOT NULL,
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"_parent_id" uuid NOT NULL
+  );
+  
+  CREATE TABLE "business_services" (
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"tenant_id" uuid,
+  	"url" varchar,
   	"order" numeric,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
   
+  CREATE TABLE "business_services_locales" (
+  	"title" varchar NOT NULL,
+  	"description" varchar,
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"_parent_id" uuid NOT NULL
+  );
+  
   CREATE TABLE "business_partners" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"tenant_id" uuid,
-  	"name" varchar NOT NULL,
   	"logo_id" uuid NOT NULL,
   	"website" varchar,
   	"order" numeric,
@@ -191,13 +239,59 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
   
+  CREATE TABLE "business_partners_locales" (
+  	"name" varchar NOT NULL,
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"_parent_id" uuid NOT NULL
+  );
+  
   CREATE TABLE "business_locations" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"tenant_id" uuid,
-  	"title" varchar NOT NULL,
-  	"description" varchar,
   	"google_map_link" varchar,
   	"order" numeric,
+  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+  );
+  
+  CREATE TABLE "business_locations_locales" (
+  	"title" varchar NOT NULL,
+  	"description" varchar,
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"_parent_id" uuid NOT NULL
+  );
+  
+  CREATE TABLE "section_titles" (
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"tenant_id" uuid,
+  	"section_type" "enum_section_titles_section_type" NOT NULL,
+  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+  );
+  
+  CREATE TABLE "section_titles_locales" (
+  	"title" varchar NOT NULL,
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"_locale" "_locales" NOT NULL,
+  	"_parent_id" uuid NOT NULL
+  );
+  
+  CREATE TABLE "tenant_link_configuration" (
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"tenant_id" uuid NOT NULL,
+  	"static_url" varchar NOT NULL,
+  	"qr_url" varchar,
+  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+  );
+  
+  CREATE TABLE "partners_carousel_settings" (
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"tenant_id" uuid,
+  	"autoplay" boolean DEFAULT true,
+  	"autoplay_speed" numeric DEFAULT 5000,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
@@ -225,12 +319,16 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"tenants_id" uuid,
   	"business_profile_id" uuid,
   	"business_themes_id" uuid,
-  	"about_section_id" uuid,
+  	"about_business_id" uuid,
   	"image_galleries_id" uuid,
   	"contact_departments_id" uuid,
   	"social_links_id" uuid,
+  	"business_services_id" uuid,
   	"business_partners_id" uuid,
-  	"business_locations_id" uuid
+  	"business_locations_id" uuid,
+  	"section_titles_id" uuid,
+  	"tenant_link_configuration_id" uuid,
+  	"partners_carousel_settings_id" uuid
   );
   
   CREATE TABLE "payload_preferences" (
@@ -264,27 +362,47 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "business_profile" ADD CONSTRAINT "business_profile_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "business_profile" ADD CONSTRAINT "business_profile_logo_light_id_media_id_fk" FOREIGN KEY ("logo_light_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "business_profile" ADD CONSTRAINT "business_profile_logo_dark_id_media_id_fk" FOREIGN KEY ("logo_dark_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "business_profile_locales" ADD CONSTRAINT "business_profile_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."business_profile"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "business_themes" ADD CONSTRAINT "business_themes_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "business_themes" ADD CONSTRAINT "business_themes_light_background_image_id_media_id_fk" FOREIGN KEY ("light_background_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "business_themes" ADD CONSTRAINT "business_themes_dark_background_image_id_media_id_fk" FOREIGN KEY ("dark_background_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "about_business" ADD CONSTRAINT "about_business_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "about_business_locales" ADD CONSTRAINT "about_business_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."about_business"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "image_galleries_images" ADD CONSTRAINT "image_galleries_images_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "image_galleries_images" ADD CONSTRAINT "image_galleries_images_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."image_galleries"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "image_galleries" ADD CONSTRAINT "image_galleries_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "contact_departments" ADD CONSTRAINT "contact_departments_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "contact_departments_locales" ADD CONSTRAINT "contact_departments_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."contact_departments"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "social_links" ADD CONSTRAINT "social_links_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "social_links" ADD CONSTRAINT "social_links_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "social_links_locales" ADD CONSTRAINT "social_links_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."social_links"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "business_services" ADD CONSTRAINT "business_services_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "business_services_locales" ADD CONSTRAINT "business_services_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."business_services"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "business_partners" ADD CONSTRAINT "business_partners_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "business_partners" ADD CONSTRAINT "business_partners_logo_id_media_id_fk" FOREIGN KEY ("logo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "business_partners_locales" ADD CONSTRAINT "business_partners_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."business_partners"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "business_locations" ADD CONSTRAINT "business_locations_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "business_locations_locales" ADD CONSTRAINT "business_locations_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."business_locations"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "section_titles" ADD CONSTRAINT "section_titles_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "section_titles_locales" ADD CONSTRAINT "section_titles_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."section_titles"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "tenant_link_configuration" ADD CONSTRAINT "tenant_link_configuration_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "partners_carousel_settings" ADD CONSTRAINT "partners_carousel_settings_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_locked_documents"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_media_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_tenants_fk" FOREIGN KEY ("tenants_id") REFERENCES "public"."tenants"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_business_profile_fk" FOREIGN KEY ("business_profile_id") REFERENCES "public"."business_profile"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_business_themes_fk" FOREIGN KEY ("business_themes_id") REFERENCES "public"."business_themes"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_about_section_fk" FOREIGN KEY ("about_section_id") REFERENCES "public"."about_section"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_about_business_fk" FOREIGN KEY ("about_business_id") REFERENCES "public"."about_business"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_image_galleries_fk" FOREIGN KEY ("image_galleries_id") REFERENCES "public"."image_galleries"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_contact_departments_fk" FOREIGN KEY ("contact_departments_id") REFERENCES "public"."contact_departments"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_social_links_fk" FOREIGN KEY ("social_links_id") REFERENCES "public"."social_links"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_business_services_fk" FOREIGN KEY ("business_services_id") REFERENCES "public"."business_services"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_business_partners_fk" FOREIGN KEY ("business_partners_id") REFERENCES "public"."business_partners"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_business_locations_fk" FOREIGN KEY ("business_locations_id") REFERENCES "public"."business_locations"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_section_titles_fk" FOREIGN KEY ("section_titles_id") REFERENCES "public"."section_titles"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_configuration_fk" FOREIGN KEY ("tenant_link_configuration_id") REFERENCES "public"."tenant_link_configuration"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_partners_carousel_settings_fk" FOREIGN KEY ("partners_carousel_settings_id") REFERENCES "public"."partners_carousel_settings"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_preferences"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
   CREATE INDEX "media_tenant_idx" ON "media" USING btree ("tenant_id");
@@ -322,11 +440,16 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "business_profile_logo_dark_idx" ON "business_profile" USING btree ("logo_dark_id");
   CREATE INDEX "business_profile_updated_at_idx" ON "business_profile" USING btree ("updated_at");
   CREATE INDEX "business_profile_created_at_idx" ON "business_profile" USING btree ("created_at");
+  CREATE UNIQUE INDEX "business_profile_locales_locale_parent_id_unique" ON "business_profile_locales" USING btree ("_locale","_parent_id");
   CREATE INDEX "business_themes_tenant_idx" ON "business_themes" USING btree ("tenant_id");
+  CREATE INDEX "business_themes_light_background_light_background_image_idx" ON "business_themes" USING btree ("light_background_image_id");
+  CREATE INDEX "business_themes_dark_background_dark_background_image_idx" ON "business_themes" USING btree ("dark_background_image_id");
   CREATE INDEX "business_themes_updated_at_idx" ON "business_themes" USING btree ("updated_at");
   CREATE INDEX "business_themes_created_at_idx" ON "business_themes" USING btree ("created_at");
-  CREATE INDEX "about_section_updated_at_idx" ON "about_section" USING btree ("updated_at");
-  CREATE INDEX "about_section_created_at_idx" ON "about_section" USING btree ("created_at");
+  CREATE INDEX "about_business_tenant_idx" ON "about_business" USING btree ("tenant_id");
+  CREATE INDEX "about_business_updated_at_idx" ON "about_business" USING btree ("updated_at");
+  CREATE INDEX "about_business_created_at_idx" ON "about_business" USING btree ("created_at");
+  CREATE UNIQUE INDEX "about_business_locales_locale_parent_id_unique" ON "about_business_locales" USING btree ("_locale","_parent_id");
   CREATE INDEX "image_galleries_images_order_idx" ON "image_galleries_images" USING btree ("_order");
   CREATE INDEX "image_galleries_images_parent_id_idx" ON "image_galleries_images" USING btree ("_parent_id");
   CREATE INDEX "image_galleries_images_image_idx" ON "image_galleries_images" USING btree ("image_id");
@@ -336,16 +459,36 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "contact_departments_tenant_idx" ON "contact_departments" USING btree ("tenant_id");
   CREATE INDEX "contact_departments_updated_at_idx" ON "contact_departments" USING btree ("updated_at");
   CREATE INDEX "contact_departments_created_at_idx" ON "contact_departments" USING btree ("created_at");
+  CREATE UNIQUE INDEX "contact_departments_locales_locale_parent_id_unique" ON "contact_departments_locales" USING btree ("_locale","_parent_id");
   CREATE INDEX "social_links_tenant_idx" ON "social_links" USING btree ("tenant_id");
+  CREATE INDEX "social_links_image_idx" ON "social_links" USING btree ("image_id");
   CREATE INDEX "social_links_updated_at_idx" ON "social_links" USING btree ("updated_at");
   CREATE INDEX "social_links_created_at_idx" ON "social_links" USING btree ("created_at");
+  CREATE UNIQUE INDEX "social_links_locales_locale_parent_id_unique" ON "social_links_locales" USING btree ("_locale","_parent_id");
+  CREATE INDEX "business_services_tenant_idx" ON "business_services" USING btree ("tenant_id");
+  CREATE INDEX "business_services_updated_at_idx" ON "business_services" USING btree ("updated_at");
+  CREATE INDEX "business_services_created_at_idx" ON "business_services" USING btree ("created_at");
+  CREATE UNIQUE INDEX "business_services_locales_locale_parent_id_unique" ON "business_services_locales" USING btree ("_locale","_parent_id");
   CREATE INDEX "business_partners_tenant_idx" ON "business_partners" USING btree ("tenant_id");
   CREATE INDEX "business_partners_logo_idx" ON "business_partners" USING btree ("logo_id");
   CREATE INDEX "business_partners_updated_at_idx" ON "business_partners" USING btree ("updated_at");
   CREATE INDEX "business_partners_created_at_idx" ON "business_partners" USING btree ("created_at");
+  CREATE UNIQUE INDEX "business_partners_locales_locale_parent_id_unique" ON "business_partners_locales" USING btree ("_locale","_parent_id");
   CREATE INDEX "business_locations_tenant_idx" ON "business_locations" USING btree ("tenant_id");
   CREATE INDEX "business_locations_updated_at_idx" ON "business_locations" USING btree ("updated_at");
   CREATE INDEX "business_locations_created_at_idx" ON "business_locations" USING btree ("created_at");
+  CREATE UNIQUE INDEX "business_locations_locales_locale_parent_id_unique" ON "business_locations_locales" USING btree ("_locale","_parent_id");
+  CREATE INDEX "section_titles_tenant_idx" ON "section_titles" USING btree ("tenant_id");
+  CREATE UNIQUE INDEX "section_titles_section_type_idx" ON "section_titles" USING btree ("section_type");
+  CREATE INDEX "section_titles_updated_at_idx" ON "section_titles" USING btree ("updated_at");
+  CREATE INDEX "section_titles_created_at_idx" ON "section_titles" USING btree ("created_at");
+  CREATE UNIQUE INDEX "section_titles_locales_locale_parent_id_unique" ON "section_titles_locales" USING btree ("_locale","_parent_id");
+  CREATE INDEX "tenant_link_configuration_tenant_idx" ON "tenant_link_configuration" USING btree ("tenant_id");
+  CREATE INDEX "tenant_link_configuration_updated_at_idx" ON "tenant_link_configuration" USING btree ("updated_at");
+  CREATE INDEX "tenant_link_configuration_created_at_idx" ON "tenant_link_configuration" USING btree ("created_at");
+  CREATE INDEX "partners_carousel_settings_tenant_idx" ON "partners_carousel_settings" USING btree ("tenant_id");
+  CREATE INDEX "partners_carousel_settings_updated_at_idx" ON "partners_carousel_settings" USING btree ("updated_at");
+  CREATE INDEX "partners_carousel_settings_created_at_idx" ON "partners_carousel_settings" USING btree ("created_at");
   CREATE UNIQUE INDEX "payload_kv_key_idx" ON "payload_kv" USING btree ("key");
   CREATE INDEX "payload_locked_documents_global_slug_idx" ON "payload_locked_documents" USING btree ("global_slug");
   CREATE INDEX "payload_locked_documents_updated_at_idx" ON "payload_locked_documents" USING btree ("updated_at");
@@ -358,12 +501,16 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "payload_locked_documents_rels_tenants_id_idx" ON "payload_locked_documents_rels" USING btree ("tenants_id");
   CREATE INDEX "payload_locked_documents_rels_business_profile_id_idx" ON "payload_locked_documents_rels" USING btree ("business_profile_id");
   CREATE INDEX "payload_locked_documents_rels_business_themes_id_idx" ON "payload_locked_documents_rels" USING btree ("business_themes_id");
-  CREATE INDEX "payload_locked_documents_rels_about_section_id_idx" ON "payload_locked_documents_rels" USING btree ("about_section_id");
+  CREATE INDEX "payload_locked_documents_rels_about_business_id_idx" ON "payload_locked_documents_rels" USING btree ("about_business_id");
   CREATE INDEX "payload_locked_documents_rels_image_galleries_id_idx" ON "payload_locked_documents_rels" USING btree ("image_galleries_id");
   CREATE INDEX "payload_locked_documents_rels_contact_departments_id_idx" ON "payload_locked_documents_rels" USING btree ("contact_departments_id");
   CREATE INDEX "payload_locked_documents_rels_social_links_id_idx" ON "payload_locked_documents_rels" USING btree ("social_links_id");
+  CREATE INDEX "payload_locked_documents_rels_business_services_id_idx" ON "payload_locked_documents_rels" USING btree ("business_services_id");
   CREATE INDEX "payload_locked_documents_rels_business_partners_id_idx" ON "payload_locked_documents_rels" USING btree ("business_partners_id");
   CREATE INDEX "payload_locked_documents_rels_business_locations_id_idx" ON "payload_locked_documents_rels" USING btree ("business_locations_id");
+  CREATE INDEX "payload_locked_documents_rels_section_titles_id_idx" ON "payload_locked_documents_rels" USING btree ("section_titles_id");
+  CREATE INDEX "payload_locked_documents_rels_tenant_link_configuration__idx" ON "payload_locked_documents_rels" USING btree ("tenant_link_configuration_id");
+  CREATE INDEX "payload_locked_documents_rels_partners_carousel_settings_idx" ON "payload_locked_documents_rels" USING btree ("partners_carousel_settings_id");
   CREATE INDEX "payload_preferences_key_idx" ON "payload_preferences" USING btree ("key");
   CREATE INDEX "payload_preferences_updated_at_idx" ON "payload_preferences" USING btree ("updated_at");
   CREATE INDEX "payload_preferences_created_at_idx" ON "payload_preferences" USING btree ("created_at");
@@ -376,21 +523,33 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-	await db.execute(sql`
+  await db.execute(sql`
    DROP TABLE "media" CASCADE;
   DROP TABLE "users_sessions" CASCADE;
   DROP TABLE "users" CASCADE;
   DROP TABLE "tenants" CASCADE;
   DROP TABLE "_tenants_v" CASCADE;
   DROP TABLE "business_profile" CASCADE;
+  DROP TABLE "business_profile_locales" CASCADE;
   DROP TABLE "business_themes" CASCADE;
-  DROP TABLE "about_section" CASCADE;
+  DROP TABLE "about_business" CASCADE;
+  DROP TABLE "about_business_locales" CASCADE;
   DROP TABLE "image_galleries_images" CASCADE;
   DROP TABLE "image_galleries" CASCADE;
   DROP TABLE "contact_departments" CASCADE;
+  DROP TABLE "contact_departments_locales" CASCADE;
   DROP TABLE "social_links" CASCADE;
+  DROP TABLE "social_links_locales" CASCADE;
+  DROP TABLE "business_services" CASCADE;
+  DROP TABLE "business_services_locales" CASCADE;
   DROP TABLE "business_partners" CASCADE;
+  DROP TABLE "business_partners_locales" CASCADE;
   DROP TABLE "business_locations" CASCADE;
+  DROP TABLE "business_locations_locales" CASCADE;
+  DROP TABLE "section_titles" CASCADE;
+  DROP TABLE "section_titles_locales" CASCADE;
+  DROP TABLE "tenant_link_configuration" CASCADE;
+  DROP TABLE "partners_carousel_settings" CASCADE;
   DROP TABLE "payload_kv" CASCADE;
   DROP TABLE "payload_locked_documents" CASCADE;
   DROP TABLE "payload_locked_documents_rels" CASCADE;
@@ -402,5 +561,8 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TYPE "public"."enum_tenants_status";
   DROP TYPE "public"."enum__tenants_v_version_status";
   DROP TYPE "public"."enum__tenants_v_published_locale";
-  DROP TYPE "public"."enum_social_links_platform";`)
+  DROP TYPE "public"."enum_business_themes_light_background_type";
+  DROP TYPE "public"."enum_business_themes_dark_background_type";
+  DROP TYPE "public"."enum_business_themes_theme_type";
+  DROP TYPE "public"."enum_section_titles_section_type";`)
 }

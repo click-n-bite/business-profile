@@ -368,39 +368,21 @@ export interface ContactDepartment {
 export interface SocialLink {
   id: string;
   tenant?: (string | null) | Tenant;
-  platform:
-    | 'website'
-    | 'google'
-    | 'instagram'
-    | 'tiktok'
-    | 'telegram'
-    | 'facebook'
-    | 'linkedin'
-    | 'youtube'
-    | 'twitter'
-    | 'portfolio'
-    | 'pinterest'
-    | 'github'
-    | 'whatsapp'
-    | 'threads'
-    | 'snapchat'
-    | 'discord'
-    | 'reddit'
-    | 'twitch'
-    | 'spotify'
-    | 'behance'
-    | 'dribbble'
-    | 'figma'
-    | 'newsletter'
-    | 'email'
-    | 'phone'
-    | 'linktree'
-    | 'calendly';
   /**
-   * Max 60 characters
+   * Display name for the social link (max 60 characters)
    */
   label: string;
+  /**
+   * Custom icon/image for this social link
+   */
+  image: string | Media;
+  /**
+   * Full URL to the social profile/page
+   */
   url: string;
+  /**
+   * Order in which links appear (lower numbers first)
+   */
   order?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -438,8 +420,8 @@ export interface BusinessPartner {
   /**
    * Max 160 characters
    */
-  name?: string | null;
-  logo?: (string | null) | Media;
+  name: string;
+  logo: string | Media;
   website?: string | null;
   order?: number | null;
   updatedAt: string;
@@ -843,8 +825,8 @@ export interface ContactDepartmentsSelect<T extends boolean = true> {
  */
 export interface SocialLinksSelect<T extends boolean = true> {
   tenant?: T;
-  platform?: T;
   label?: T;
+  image?: T;
   url?: T;
   order?: T;
   updatedAt?: T;

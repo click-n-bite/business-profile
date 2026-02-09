@@ -36,7 +36,7 @@ export type FetchedTenantData = {
 
 export interface SocialLink {
 	id: string
-	platform: string
+	image: string
 	url: string
 	label?: string
 	order?: number

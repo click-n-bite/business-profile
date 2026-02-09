@@ -1,7 +1,6 @@
 "use client"
 
 import Image from "next/image"
-import { iconMap } from "../../utils"
 import { SocialLinksProps } from "@/Profiles/types"
 
 export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksProps) => {
@@ -14,11 +13,7 @@ export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksProps) => 
 	return (
 		<section className='grid w-full grid-cols-2 gap-4 md:max-w-xl'>
 			{activeLinks.map((link) => {
-				const iconValue = iconMap[link.platform.toLowerCase()]
-
-				const label = link.label || link.platform
-
-				const isImage = typeof iconValue === "string"
+				const label = link.label
 
 				return (
 					<a
@@ -36,10 +31,10 @@ export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksProps) => 
 							const text = e.currentTarget.querySelector("span")
 
 							if (icon) {
-								if (isImage) {
+								if (icon.tagName === "IMG") {
 									;(icon as HTMLImageElement).style.filter = `drop-shadow(0 0 8px ${primary}) opacity(0.9)`
 								} else {
-									;(icon as SVGElement).style.color = primary
+									;(icon as HTMLElement).style.filter = `drop-shadow(0 0 8px ${primary})`
 								}
 							}
 
@@ -51,20 +46,28 @@ export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksProps) => 
 							const text = e.currentTarget.querySelector("span")
 
 							if (icon) {
-								if (isImage) {
+								if (icon.tagName === "IMG") {
 									;(icon as HTMLImageElement).style.filter = "none"
 								} else {
-									;(icon as SVGElement).style.color = "#6B7280"
+									;(icon as HTMLElement).style.filter = "none"
 								}
 							}
 
 							if (text) (text as HTMLElement).style.color = "#4B5563"
 						}}>
-						<div className='relative h-9 w-9'>
-							{isImage ? (
-								<Image src={iconValue} alt={label} fill className='social-icon object-contain' sizes='32px' />
+						<div className='relative flex h-9 w-9 items-center justify-center'>
+							{link.image ? (
+								<Image
+									src={link.image}
+									alt={link.label || "social-media"}
+									width={36}
+									height={36}
+									className='social-icon object-contain'
+								/>
 							) : (
-								<IconComponent Icon={iconValue as React.ElementType} label={label} />
+								<div className='social-icon flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700'>
+									<span className='text-sm font-semibold'>{label?.charAt(0) || "S"}</span>
+								</div>
 							)}
 						</div>
 						<span className='text-[16px] font-medium text-inherit'>{label}</span>
@@ -73,8 +76,4 @@ export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksProps) => 
 			})}
 		</section>
 	)
-}
-
-const IconComponent = ({ Icon, label }: { Icon: React.ElementType; label: string }) => {
-	return <Icon className='social-icon h-9 w-9 text-inherit' aria-label={label} />
 }
