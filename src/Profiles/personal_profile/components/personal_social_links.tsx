@@ -74,7 +74,7 @@ export function PersonalSocialLinks({ socialLinks, theme }: SocialLinksProps) {
 										alt={imageAlt}
 										width={20}
 										height={20}
-										className='h-5 w-5 object-contain transition-all duration-300'
+										className='h-8 w-8 object-contain transition-all duration-300'
 										style={{
 											filter: isHovered ? `drop-shadow(0 0 6px ${primary})` : undefined,
 											transform: isHovered ? "scale(1.1)" : undefined
