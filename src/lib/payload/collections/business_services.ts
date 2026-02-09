@@ -26,6 +26,11 @@ export const BusinessServices: CollectionConfig = {
 			}
 		},
 		{
+			name: "url",
+			type: "text",
+			required: false
+		},
+		{
 			name: "order",
 			type: "number",
 			admin: {

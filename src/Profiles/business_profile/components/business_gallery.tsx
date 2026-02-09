@@ -9,9 +9,11 @@ interface GalleryProps {
 		id?: string | null
 		image: any
 	}>
+	autoplay?: boolean
+	autoplayDelay?: number
 }
 
-export function Gallery({ images }: GalleryProps) {
+export function Gallery({ images, autoplay = true, autoplayDelay = 5000 }: GalleryProps) {
 	const isRTL =
 		typeof document !== "undefined"
 			? document.documentElement.dir === "rtl" || document.documentElement.getAttribute("lang") === "ar"
@@ -52,7 +54,9 @@ export function Gallery({ images }: GalleryProps) {
 					className='w-full'
 					hideControls={true}
 					imageClass={`h-50 !object-fill ${isRTL ? "scale-x-[-1]" : ""}`}
-					autoPlayDelay={5000}
+					autoPlay={autoplay}
+					autoPlayDelay={autoplayDelay}
+					dir={isRTL ? "rtl" : "ltr"}
 				/>
 			</div>
 		</div>

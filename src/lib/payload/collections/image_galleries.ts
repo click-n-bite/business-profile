@@ -15,6 +15,23 @@ export const ImageGalleries: CollectionConfig = {
 					required: true
 				}
 			]
+		},
+		{
+			name: "autoplay",
+			type: "checkbox",
+			label: "Enable Autoplay",
+			defaultValue: true
+		},
+		{
+			name: "autoplayDelay",
+			type: "number",
+			label: "Autoplay Delay (milliseconds)",
+			defaultValue: 5000,
+			min: 1000,
+			max: 10000,
+			admin: {
+				condition: (data) => data?.autoplay === true
+			}
 		}
 	]
 }

@@ -11,16 +11,32 @@ export const BusinessPartners: CollectionConfig = {
 			localized: true,
 			maxLength: 160,
 			admin: {
-				description: "Max 160 characters"
+				description: "Max 160 characters",
+				condition: (data) => !data?.isGlobalSettings
 			}
 		},
 		{
 			name: "logo",
 			type: "upload",
 			relationTo: "media",
-			required: true
+			required: true,
+			admin: {
+				condition: (data) => !data?.isGlobalSettings
+			}
 		},
-		{ name: "website", type: "text" },
-		{ name: "order", type: "number" }
+		{
+			name: "website",
+			type: "text",
+			admin: {
+				condition: (data) => !data?.isGlobalSettings
+			}
+		},
+		{
+			name: "order",
+			type: "number",
+			admin: {
+				condition: (data) => !data?.isGlobalSettings
+			}
+		}
 	]
 }

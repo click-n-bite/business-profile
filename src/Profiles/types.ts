@@ -19,6 +19,10 @@ export type FetchedTenantData = {
 	businessPartners: BusinessPartner[]
 	businessLocations: BusinessLocation[]
 	businessService: BusinessService[]
+	partnersCarouselSettings?: {
+		autoplay?: boolean | null
+		autoplaySpeed?: number | null
+	} | null
 	sectionTitles: {
 		about?: string
 		contact?: string

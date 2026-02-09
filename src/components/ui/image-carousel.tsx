@@ -17,6 +17,7 @@ interface ImageCarouselProps {
 	className?: string
 	hideControls?: boolean
 	imageClass?: string
+	autoPlay?: boolean
 	autoPlayDelay?: number
 	dir?: "ltr" | "rtl"
 }
@@ -27,9 +28,23 @@ export function ImageCarousel({
 	className = "",
 	hideControls,
 	imageClass = "",
+	autoPlay = true,
 	autoPlayDelay = 2000,
 	dir = "ltr"
 }: ImageCarouselProps) {
+	const plugins = [Fade()]
+
+	if (autoPlay) {
+		plugins.push(
+			Autoplay({
+				delay: autoPlayDelay,
+				jump: false,
+				stopOnInteraction: true,
+				stopOnMouseEnter: true
+			})
+		)
+	}
+
 	const [emblaRef, emblaApi] = useEmblaCarousel(
 		{
 			active: images?.length > 1,
@@ -37,48 +52,46 @@ export function ImageCarousel({
 			skipSnaps: true,
 			direction: dir
 		},
-		[
-			Autoplay({
-				delay: autoPlayDelay,
-				jump: false,
-				stopOnInteraction: true,
-				stopOnMouseEnter: true
-			}),
-			Fade()
-		]
+		plugins
 	)
 
 	const scrollPrev = useCallback(() => {
 		if (emblaApi) {
 			emblaApi.scrollPrev()
-			const autoplay = emblaApi.plugins().autoplay
 
-			if (autoplay && !autoplay.isPlaying()) {
-				setTimeout(() => autoplay.play(), autoPlayDelay)
+			if (autoPlay) {
+				const autoplayPlugin = emblaApi.plugins().autoplay
+
+				if (autoplayPlugin && !autoplayPlugin.isPlaying()) {
+					setTimeout(() => autoplayPlugin.play(), autoPlayDelay)
+				}
 			}
 		}
-	}, [emblaApi, autoPlayDelay])
+	}, [emblaApi, autoPlayDelay, autoPlay])
 
 	const scrollNext = useCallback(() => {
 		if (emblaApi) {
 			emblaApi.scrollNext()
-			const autoplay = emblaApi.plugins().autoplay
 
-			if (autoplay && !autoplay.isPlaying()) {
-				setTimeout(() => autoplay.play(), autoPlayDelay)
+			if (autoPlay) {
+				const autoplayPlugin = emblaApi.plugins().autoplay
+
+				if (autoplayPlugin && !autoplayPlugin.isPlaying()) {
+					setTimeout(() => autoplayPlugin.play(), autoPlayDelay)
+				}
 			}
 		}
-	}, [emblaApi, autoPlayDelay])
+	}, [emblaApi, autoPlayDelay, autoPlay])
 
 	useEffect(() => {
-		if (emblaApi && images?.length > 1) {
-			const autoplay = emblaApi.plugins().autoplay
+		if (emblaApi && images?.length > 1 && autoPlay) {
+			const autoplayPlugin = emblaApi.plugins().autoplay
 
-			if (autoplay) {
-				autoplay.play()
+			if (autoplayPlugin) {
+				autoplayPlugin.play()
 			}
 		}
-	}, [emblaApi, images?.length])
+	}, [emblaApi, images?.length, autoPlay])
 
 	useEffect(() => {
 		if (emblaApi) {

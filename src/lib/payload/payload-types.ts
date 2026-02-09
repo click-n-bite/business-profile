@@ -81,6 +81,7 @@ export interface Config {
     business_locations: BusinessLocation;
     section_titles: SectionTitle;
     configuration: Configuration;
+    partners_carousel_settings: PartnersCarouselSetting;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -102,6 +103,7 @@ export interface Config {
     business_locations: BusinessLocationsSelect<false> | BusinessLocationsSelect<true>;
     section_titles: SectionTitlesSelect<false> | SectionTitlesSelect<true>;
     configuration: ConfigurationSelect<false> | ConfigurationSelect<true>;
+    partners_carousel_settings: PartnersCarouselSettingsSelect<false> | PartnersCarouselSettingsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -334,6 +336,8 @@ export interface ImageGallery {
         id?: string | null;
       }[]
     | null;
+  autoplay?: boolean | null;
+  autoplayDelay?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -416,6 +420,7 @@ export interface BusinessService {
    * Max 160 characters
    */
   description?: string | null;
+  url?: string | null;
   /**
    * Display order
    */
@@ -433,8 +438,8 @@ export interface BusinessPartner {
   /**
    * Max 160 characters
    */
-  name: string;
-  logo: string | Media;
+  name?: string | null;
+  logo?: (string | null) | Media;
   website?: string | null;
   order?: number | null;
   updatedAt: string;
@@ -490,6 +495,18 @@ export interface Configuration {
    * Auto-generated QR URL
    */
   qrUrl?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_carousel_settings".
+ */
+export interface PartnersCarouselSetting {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  autoplay?: boolean | null;
+  autoplaySpeed?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -572,6 +589,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'configuration';
         value: string | Configuration;
+      } | null)
+    | ({
+        relationTo: 'partners_carousel_settings';
+        value: string | PartnersCarouselSetting;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -795,6 +816,8 @@ export interface ImageGalleriesSelect<T extends boolean = true> {
         image?: T;
         id?: T;
       };
+  autoplay?: T;
+  autoplayDelay?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -835,6 +858,7 @@ export interface BusinessServicesSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
   description?: T;
+  url?: T;
   order?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -884,6 +908,17 @@ export interface ConfigurationSelect<T extends boolean = true> {
   tenant?: T;
   staticUrl?: T;
   qrUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_carousel_settings_select".
+ */
+export interface PartnersCarouselSettingsSelect<T extends boolean = true> {
+  tenant?: T;
+  autoplay?: T;
+  autoplaySpeed?: T;
   updatedAt?: T;
   createdAt?: T;
 }

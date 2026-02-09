@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { iconMap } from "../../utils"
 import { SocialLinksProps } from "@/Profiles/types"
 
@@ -13,9 +14,11 @@ export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksProps) => 
 	return (
 		<section className='grid w-full grid-cols-2 gap-4 md:max-w-xl'>
 			{activeLinks.map((link) => {
-				const Icon = iconMap[link.platform.toLowerCase()]
+				const iconValue = iconMap[link.platform.toLowerCase()]
 
 				const label = link.label || link.platform
+
+				const isImage = typeof iconValue === "string"
 
 				return (
 					<a
@@ -28,25 +31,41 @@ export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksProps) => 
 							color: "#6B7280"
 						}}
 						onMouseEnter={(e) => {
-							const icon = e.currentTarget.querySelector("svg")
+							const icon = e.currentTarget.querySelector(".social-icon")
 
 							const text = e.currentTarget.querySelector("span")
 
-							if (icon) (icon as SVGElement).style.color = primary
+							if (icon) {
+								if (isImage) {
+									;(icon as HTMLImageElement).style.filter = `drop-shadow(0 0 8px ${primary}) opacity(0.9)`
+								} else {
+									;(icon as SVGElement).style.color = primary
+								}
+							}
 
 							if (text) (text as HTMLElement).style.color = primary
 						}}
 						onMouseLeave={(e) => {
-							const icon = e.currentTarget.querySelector("svg")
+							const icon = e.currentTarget.querySelector(".social-icon")
 
 							const text = e.currentTarget.querySelector("span")
 
-							if (icon) (icon as unknown as SVGElement).style.color = "#6B7280"
+							if (icon) {
+								if (isImage) {
+									;(icon as HTMLImageElement).style.filter = "none"
+								} else {
+									;(icon as SVGElement).style.color = "#6B7280"
+								}
+							}
 
 							if (text) (text as HTMLElement).style.color = "#4B5563"
 						}}>
-						<div className='relative'>
-							<Icon className='h-8 w-8 text-inherit' />
+						<div className='relative h-9 w-9'>
+							{isImage ? (
+								<Image src={iconValue} alt={label} fill className='social-icon object-contain' sizes='32px' />
+							) : (
+								<IconComponent Icon={iconValue as React.ElementType} label={label} />
+							)}
 						</div>
 						<span className='text-[16px] font-medium text-inherit'>{label}</span>
 					</a>
@@ -54,4 +73,8 @@ export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksProps) => 
 			})}
 		</section>
 	)
+}
+
+const IconComponent = ({ Icon, label }: { Icon: React.ElementType; label: string }) => {
+	return <Icon className='social-icon h-9 w-9 text-inherit' aria-label={label} />
 }

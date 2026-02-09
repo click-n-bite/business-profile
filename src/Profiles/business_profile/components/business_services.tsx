@@ -2,11 +2,13 @@
 
 import React from "react"
 import { cn } from "@/utils/cn"
+import Link from "next/link"
 
 type Service = {
 	id?: string
 	title?: string
 	description?: string
+	url?: string
 }
 
 interface Props {
@@ -43,6 +45,16 @@ const BusinessServicesSection: React.FC<Props> = ({ services, theme }) => {
 							<h3 className='text-md font-semibold text-gray-900 dark:text-white'>{service.title}</h3>
 
 							{service.description && <p className='text-muted-foreground mt-1 text-sm'>{service.description}</p>}
+							{service.url && (
+								<Link
+									href={service.url}
+									target='_blank'
+									rel='noopener noreferrer'
+									className='underline transition-opacity hover:opacity-80'
+									style={{ color: primary }}>
+									{service.url}
+								</Link>
+							)}
 						</div>
 					</div>
 				</div>

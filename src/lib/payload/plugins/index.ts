@@ -33,7 +33,8 @@ export const plugins: Plugin[] = [
 		"social_links",
 		"business_partners",
 		"business_locations",
-		"business_services"
+		"business_services",
+		"partners_carousel_settings"
 	]),
 	...(process.env.BLOB_READ_WRITE_TOKEN
 		? [
