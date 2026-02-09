@@ -18,9 +18,10 @@ export function PartnersCarousel({ partners, autoplay = true, autoplaySpeed = 50
 		infinite: true,
 		speed: 500,
 		autoplay: autoplay,
+		mobileFirst: true,
 		autoplaySpeed: autoplaySpeed,
-		slidesToShow: 3,
-		slidesToScroll: 3,
+		slidesToShow: 2,
+		slidesToScroll: 2,
 		arrows: false,
 		pauseOnHover: true,
 		responsive: [
@@ -34,15 +35,8 @@ export function PartnersCarousel({ partners, autoplay = true, autoplaySpeed = 50
 			{
 				breakpoint: 768,
 				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2
-				}
-			},
-			{
-				breakpoint: 640,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2
+					slidesToShow: 3,
+					slidesToScroll: 3
 				}
 			}
 		]
