@@ -26,6 +26,12 @@ export const BusinessServices: CollectionConfig = {
 			}
 		},
 		{
+			name: "url_name",
+			type: "text",
+			required: false,
+			localized: true
+		},
+		{
 			name: "url",
 			type: "text",
 			required: false

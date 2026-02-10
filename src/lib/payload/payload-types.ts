@@ -402,6 +402,7 @@ export interface BusinessService {
    * Max 160 characters
    */
   description?: string | null;
+  url_name?: string | null;
   url?: string | null;
   /**
    * Display order
@@ -840,6 +841,7 @@ export interface BusinessServicesSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
   description?: T;
+  url_name?: T;
   url?: T;
   order?: T;
   updatedAt?: T;

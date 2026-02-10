@@ -9,6 +9,7 @@ type Service = {
 	title?: string
 	description?: string
 	url?: string
+	url_name?: string
 }
 
 interface Props {
@@ -52,7 +53,7 @@ const BusinessServicesSection: React.FC<Props> = ({ services, theme }) => {
 									rel='noopener noreferrer'
 									className='mt-1 underline transition-opacity hover:opacity-80'
 									style={{ color: primary }}>
-									{service.url}
+									{service.url_name}
 								</Link>
 							)}
 						</div>
