@@ -10,6 +10,7 @@ type Service = {
 	description?: string
 	url?: string
 	url_name?: string
+	order?: number
 }
 
 interface Props {
@@ -30,36 +31,38 @@ const BusinessServicesSection: React.FC<Props> = ({ services, theme }) => {
 
 	return (
 		<div className={cn("mb-4 grid gap-4 md:gap-6", gridCols)}>
-			{services.map((service, index) => (
-				<div
-					key={service.id || index}
-					className={cn(
-						"relative rounded-r-xl border border-slate-200 bg-white p-5 transition-all duration-300 dark:border-white/5 dark:bg-[#0d0d0d]"
-					)}>
-					<span
-						className='absolute top-0 left-0 h-full w-1 rounded-l-xl opacity-70'
-						style={{ backgroundColor: primary }}
-					/>
+			{services
+				.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+				.map((service, index) => (
+					<div
+						key={service.id || index}
+						className={cn(
+							"relative rounded-r-xl border border-slate-200 bg-white p-5 transition-all duration-300 dark:border-white/5 dark:bg-[#0d0d0d]"
+						)}>
+						<span
+							className='absolute top-0 left-0 h-full w-1 rounded-l-xl opacity-70'
+							style={{ backgroundColor: primary }}
+						/>
 
-					<div className='flex gap-4'>
-						<div>
-							<h3 className='text-md font-semibold text-gray-900 dark:text-white'>{service.title}</h3>
+						<div className='flex gap-4'>
+							<div>
+								<h3 className='text-md font-semibold text-gray-900 dark:text-white'>{service.title}</h3>
 
-							{service.description && <p className='text-muted-foreground mt-1 text-sm'>{service.description}</p>}
-							{service.url && (
-								<Link
-									href={service.url}
-									target='_blank'
-									rel='noopener noreferrer'
-									className='mt-1 underline transition-opacity hover:opacity-80'
-									style={{ color: primary }}>
-									{service.url_name}
-								</Link>
-							)}
+								{service.description && <p className='text-muted-foreground mt-1 text-sm'>{service.description}</p>}
+								{service.url && (
+									<Link
+										href={service.url}
+										target='_blank'
+										rel='noopener noreferrer'
+										className='mt-1 underline transition-opacity hover:opacity-80'
+										style={{ color: primary }}>
+										{service.url_name}
+									</Link>
+								)}
+							</div>
 						</div>
 					</div>
-				</div>
-			))}
+				))}
 		</div>
 	)
 }
