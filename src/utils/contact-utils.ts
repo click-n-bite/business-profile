@@ -1,5 +1,17 @@
+// export const formatPhoneNumberSimple = (phoneNumber: string): string => {
+// 	return phoneNumber.replace(/\D/g, "")
+// }
+
 export const formatPhoneNumberSimple = (phoneNumber: string): string => {
-	return phoneNumber.replace(/\D/g, "")
+	const converted = phoneNumber
+		.replace(/[٠-٩]/g, (d) => {
+			return String.fromCharCode(d.charCodeAt(0) - 1632)
+		})
+		.replace(/[۰-۹]/g, (d) => {
+			return String.fromCharCode(d.charCodeAt(0) - 1776)
+		})
+
+	return converted.replace(/\D/g, "")
 }
 
 export const saveContactSimple = (name: string, phoneNumber: string): void => {
