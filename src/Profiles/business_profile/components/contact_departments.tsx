@@ -69,7 +69,7 @@ export const ContactDepartmentCard = ({ title, phone, whatsapp, telegram, teleph
 
 					{telephone && (
 						<a
-							href={`tel:${phone}`}
+							href={`tel:${formatPhoneNumberSimple(phone)}`}
 							className='flex items-center gap-2 rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:bg-yellow-100 hover:text-green-600 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-yellow-500/20 dark:hover:text-green-400'
 							aria-label='Call'>
 							<Image src='/images/phone-call.png' alt='Call' width={20} height={20} className='h-5 w-5' />
