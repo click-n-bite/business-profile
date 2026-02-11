@@ -63,7 +63,7 @@ export const formatPhoneNumberSimple = (phoneNumber: string): string => {
 	const isRTLFormat = cleanText.endsWith("+")
 
 	let digits = cleanText
-		.replace("+", "") 
+		.replace("+", "")
 		.split("")
 		.map((char) => digitMap[char] || char)
 		.filter((char) => /^\d$/.test(char))
