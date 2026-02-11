@@ -1,0 +1,647 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgres://d2ae3cbcf22668bacb2d7e15f504470476dfaef8b94beb1fa587df8925a5fee0:sk_qeXsrMCMCHgHKCykCc5Cb@db.prisma.io:5432/postgres?sslmode=require"
+}
+
+model tenants_v {
+  id                 String                            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  parent_id          String?                           @db.Uuid
+  version_name       String?                           @db.VarChar
+  version_slug       String?                           @db.VarChar
+  version_updated_at DateTime?                         @db.Timestamptz(3)
+  version_created_at DateTime?                         @db.Timestamptz(3)
+  version__status    enum__tenants_v_version_status?   @default(draft)
+  created_at         DateTime                          @default(now()) @db.Timestamptz(3)
+  updated_at         DateTime                          @default(now()) @db.Timestamptz(3)
+  snapshot           Boolean?
+  published_locale   enum__tenants_v_published_locale?
+  latest             Boolean?
+  tenants            tenants?                          @relation(fields: [parent_id], references: [id], onUpdate: NoAction, map: "_tenants_v_parent_id_tenants_id_fk")
+
+  @@index([created_at])
+  @@index([latest])
+  @@index([parent_id], map: "_tenants_v_parent_idx")
+  @@index([published_locale])
+  @@index([snapshot])
+  @@index([updated_at])
+  @@index([version__status], map: "_tenants_v_version_version__status_idx")
+  @@index([version_created_at], map: "_tenants_v_version_version_created_at_idx")
+  @@index([version_slug], map: "_tenants_v_version_version_slug_idx")
+  @@index([version_updated_at], map: "_tenants_v_version_version_updated_at_idx")
+  @@map("_tenants_v")
+}
+
+model about_business {
+  id                            String                          @id(map: "about_section_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  updated_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  created_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  tenant_id                     String?                         @db.Uuid
+  tenants                       tenants?                        @relation(fields: [tenant_id], references: [id], onUpdate: NoAction, map: "about_business_tenant_id_tenants_id_fk")
+  about_business_locales        about_business_locales[]
+  payload_locked_documents_rels payload_locked_documents_rels[]
+
+  @@index([created_at])
+  @@index([tenant_id], map: "about_business_tenant_idx")
+  @@index([updated_at])
+}
+
+model about_business_locales {
+  description    String         @db.VarChar
+  id             Int            @id @default(autoincrement())
+  locale         locales        @map("_locale")
+  parent_id      String         @map("_parent_id") @db.Uuid
+  about_business about_business @relation(fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "about_business_locales_parent_id_fk")
+
+  @@unique([locale, parent_id], map: "about_business_locales_locale_parent_id_unique")
+}
+
+model business_locations {
+  id                            String                          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id                     String?                         @db.Uuid
+  google_map_link               String?                         @db.VarChar
+  order                         Decimal?                        @db.Decimal
+  updated_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  created_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  tenants                       tenants?                        @relation(fields: [tenant_id], references: [id], onUpdate: NoAction, map: "business_locations_tenant_id_tenants_id_fk")
+  business_locations_locales    business_locations_locales[]
+  payload_locked_documents_rels payload_locked_documents_rels[]
+
+  @@index([created_at])
+  @@index([tenant_id], map: "business_locations_tenant_idx")
+  @@index([updated_at])
+}
+
+model business_locations_locales {
+  title              String             @db.VarChar
+  description        String?            @db.VarChar
+  id                 Int                @id @default(autoincrement())
+  locale             locales            @map("_locale")
+  parent_id          String             @map("_parent_id") @db.Uuid
+  business_locations business_locations @relation(fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "business_locations_locales_parent_id_fk")
+
+  @@unique([locale, parent_id], map: "business_locations_locales_locale_parent_id_unique")
+}
+
+model business_partners {
+  id                            String                          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id                     String?                         @db.Uuid
+  logo_id                       String                          @db.Uuid
+  website                       String?                         @db.VarChar
+  order                         Decimal?                        @db.Decimal
+  updated_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  created_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  media                         media                           @relation(fields: [logo_id], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "business_partners_logo_id_media_id_fk")
+  tenants                       tenants?                        @relation(fields: [tenant_id], references: [id], onUpdate: NoAction, map: "business_partners_tenant_id_tenants_id_fk")
+  business_partners_locales     business_partners_locales[]
+  payload_locked_documents_rels payload_locked_documents_rels[]
+
+  @@index([created_at])
+  @@index([logo_id], map: "business_partners_logo_idx")
+  @@index([tenant_id], map: "business_partners_tenant_idx")
+  @@index([updated_at])
+}
+
+model business_partners_locales {
+  name              String            @db.VarChar
+  id                Int               @id @default(autoincrement())
+  locale            locales           @map("_locale")
+  parent_id         String            @map("_parent_id") @db.Uuid
+  business_partners business_partners @relation(fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "business_partners_locales_parent_id_fk")
+
+  @@unique([locale, parent_id], map: "business_partners_locales_locale_parent_id_unique")
+}
+
+model business_profile {
+  id                                          String                          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id                                   String?                         @db.Uuid
+  logo_light_id                               String?                         @db.Uuid
+  logo_dark_id                                String?                         @db.Uuid
+  updated_at                                  DateTime                        @default(now()) @db.Timestamptz(3)
+  created_at                                  DateTime                        @default(now()) @db.Timestamptz(3)
+  media_business_profile_logo_dark_idTomedia  media?                          @relation("business_profile_logo_dark_idTomedia", fields: [logo_dark_id], references: [id], onUpdate: NoAction, map: "business_profile_logo_dark_id_media_id_fk")
+  media_business_profile_logo_light_idTomedia media?                          @relation("business_profile_logo_light_idTomedia", fields: [logo_light_id], references: [id], onUpdate: NoAction, map: "business_profile_logo_light_id_media_id_fk")
+  tenants                                     tenants?                        @relation(fields: [tenant_id], references: [id], onUpdate: NoAction, map: "business_profile_tenant_id_tenants_id_fk")
+  business_profile_locales                    business_profile_locales[]
+  payload_locked_documents_rels               payload_locked_documents_rels[]
+
+  @@index([created_at])
+  @@index([logo_dark_id], map: "business_profile_logo_dark_idx")
+  @@index([logo_light_id], map: "business_profile_logo_light_idx")
+  @@index([tenant_id], map: "business_profile_tenant_idx")
+  @@index([updated_at])
+}
+
+model business_profile_locales {
+  business_name    String           @db.VarChar
+  slogan           String?          @db.VarChar
+  id               Int              @id @default(autoincrement())
+  locale           locales          @map("_locale")
+  parent_id        String           @map("_parent_id") @db.Uuid
+  business_profile business_profile @relation(fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "business_profile_locales_parent_id_fk")
+
+  @@unique([locale, parent_id], map: "business_profile_locales_locale_parent_id_unique")
+}
+
+model business_services {
+  id                            String                          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id                     String?                         @db.Uuid
+  order                         Decimal?                        @db.Decimal
+  updated_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  created_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  url                           String?                         @db.VarChar
+  tenants                       tenants?                        @relation(fields: [tenant_id], references: [id], onUpdate: NoAction, map: "business_services_tenant_id_tenants_id_fk")
+  business_services_locales     business_services_locales[]
+  payload_locked_documents_rels payload_locked_documents_rels[]
+
+  @@index([created_at])
+  @@index([tenant_id], map: "business_services_tenant_idx")
+  @@index([updated_at])
+}
+
+model business_services_locales {
+  title             String            @db.VarChar
+  description       String?           @db.VarChar
+  id                Int               @id @default(autoincrement())
+  locale            locales           @map("_locale")
+  parent_id         String            @map("_parent_id") @db.Uuid
+  url_name          String?           @db.VarChar
+  business_services business_services @relation(fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "business_services_locales_parent_id_fk")
+
+  @@unique([locale, parent_id], map: "business_services_locales_locale_parent_id_unique")
+}
+
+model business_themes {
+  id                                                     String                                     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id                                              String?                                    @db.Uuid
+  name                                                   String                                     @db.VarChar
+  updated_at                                             DateTime                                   @default(now()) @db.Timestamptz(3)
+  created_at                                             DateTime                                   @default(now()) @db.Timestamptz(3)
+  light_background_type                                  enum_business_themes_light_background_type @default(color)
+  light_background_color                                 String?                                    @default("#FFFFFF") @db.VarChar
+  light_background_image_id                              String?                                    @db.Uuid
+  dark_background_type                                   enum_business_themes_dark_background_type  @default(color)
+  dark_background_color                                  String?                                    @default("#000000") @db.VarChar
+  dark_background_image_id                               String?                                    @db.Uuid
+  theme_type                                             enum_business_themes_theme_type            @default(business)
+  primary_color                                          String?                                    @default("#3B82F6") @db.VarChar
+  secondary_color                                        String?                                    @default("#6B7280") @db.VarChar
+  media_business_themes_dark_background_image_idTomedia  media?                                     @relation("business_themes_dark_background_image_idTomedia", fields: [dark_background_image_id], references: [id], onUpdate: NoAction, map: "business_themes_dark_background_image_id_media_id_fk")
+  media_business_themes_light_background_image_idTomedia media?                                     @relation("business_themes_light_background_image_idTomedia", fields: [light_background_image_id], references: [id], onUpdate: NoAction, map: "business_themes_light_background_image_id_media_id_fk")
+  tenants                                                tenants?                                   @relation(fields: [tenant_id], references: [id], onUpdate: NoAction, map: "business_themes_tenant_id_tenants_id_fk")
+  payload_locked_documents_rels                          payload_locked_documents_rels[]
+
+  @@index([created_at])
+  @@index([dark_background_image_id], map: "business_themes_dark_background_dark_background_image_idx")
+  @@index([light_background_image_id], map: "business_themes_light_background_light_background_image_idx")
+  @@index([tenant_id], map: "business_themes_tenant_idx")
+  @@index([updated_at])
+}
+
+model contact_departments {
+  id                            String                          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id                     String?                         @db.Uuid
+  whatsapp                      Boolean?                        @default(false)
+  telegram                      Boolean?                        @default(false)
+  telephone                     Boolean?                        @default(false)
+  order                         Decimal?                        @db.Decimal
+  updated_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  created_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  sms                           Boolean?                        @default(false)
+  tenants                       tenants?                        @relation(fields: [tenant_id], references: [id], onUpdate: NoAction, map: "contact_departments_tenant_id_tenants_id_fk")
+  contact_departments_locales   contact_departments_locales[]
+  payload_locked_documents_rels payload_locked_documents_rels[]
+
+  @@index([created_at])
+  @@index([tenant_id], map: "contact_departments_tenant_idx")
+  @@index([updated_at])
+}
+
+model contact_departments_locales {
+  title               String              @db.VarChar
+  phone               String              @db.VarChar
+  id                  Int                 @id @default(autoincrement())
+  locale              locales             @map("_locale")
+  parent_id           String              @map("_parent_id") @db.Uuid
+  contact_departments contact_departments @relation(fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "contact_departments_locales_parent_id_fk")
+
+  @@unique([locale, parent_id], map: "contact_departments_locales_locale_parent_id_unique")
+}
+
+model image_galleries {
+  id                            String                          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id                     String?                         @db.Uuid
+  updated_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  created_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  autoplay                      Boolean?                        @default(true)
+  autoplay_delay                Decimal?                        @default(5000) @db.Decimal
+  tenants                       tenants?                        @relation(fields: [tenant_id], references: [id], onUpdate: NoAction, map: "image_galleries_tenant_id_tenants_id_fk")
+  image_galleries_images        image_galleries_images[]
+  payload_locked_documents_rels payload_locked_documents_rels[]
+
+  @@index([created_at])
+  @@index([tenant_id], map: "image_galleries_tenant_idx")
+  @@index([updated_at])
+}
+
+model image_galleries_images {
+  order           Int             @map("_order")
+  parent_id       String          @map("_parent_id") @db.Uuid
+  id              String          @id @db.VarChar
+  image_id        String          @db.Uuid
+  media           media           @relation(fields: [image_id], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "image_galleries_images_image_id_media_id_fk")
+  image_galleries image_galleries @relation(fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "image_galleries_images_parent_id_fk")
+
+  @@index([image_id], map: "image_galleries_images_image_idx")
+  @@index([order], map: "image_galleries_images_order_idx")
+  @@index([parent_id], map: "image_galleries_images_parent_id_idx")
+}
+
+model media {
+  id                                                               String                          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id                                                        String?                         @db.Uuid
+  alt                                                              String                          @db.VarChar
+  updated_at                                                       DateTime                        @default(now()) @db.Timestamptz(3)
+  created_at                                                       DateTime                        @default(now()) @db.Timestamptz(3)
+  url                                                              String?                         @db.VarChar
+  thumbnail_u_r_l                                                  String?                         @db.VarChar
+  filename                                                         String?                         @unique(map: "media_filename_idx") @db.VarChar
+  mime_type                                                        String?                         @db.VarChar
+  filesize                                                         Decimal?                        @db.Decimal
+  width                                                            Decimal?                        @db.Decimal
+  height                                                           Decimal?                        @db.Decimal
+  focal_x                                                          Decimal?                        @db.Decimal
+  focal_y                                                          Decimal?                        @db.Decimal
+  sizes_thumbnail_url                                              String?                         @db.VarChar
+  sizes_thumbnail_width                                            Decimal?                        @db.Decimal
+  sizes_thumbnail_height                                           Decimal?                        @db.Decimal
+  sizes_thumbnail_mime_type                                        String?                         @db.VarChar
+  sizes_thumbnail_filesize                                         Decimal?                        @db.Decimal
+  sizes_thumbnail_filename                                         String?                         @db.VarChar
+  sizes_square_url                                                 String?                         @db.VarChar
+  sizes_square_width                                               Decimal?                        @db.Decimal
+  sizes_square_height                                              Decimal?                        @db.Decimal
+  sizes_square_mime_type                                           String?                         @db.VarChar
+  sizes_square_filesize                                            Decimal?                        @db.Decimal
+  sizes_square_filename                                            String?                         @db.VarChar
+  sizes_small_url                                                  String?                         @db.VarChar
+  sizes_small_width                                                Decimal?                        @db.Decimal
+  sizes_small_height                                               Decimal?                        @db.Decimal
+  sizes_small_mime_type                                            String?                         @db.VarChar
+  sizes_small_filesize                                             Decimal?                        @db.Decimal
+  sizes_small_filename                                             String?                         @db.VarChar
+  sizes_medium_url                                                 String?                         @db.VarChar
+  sizes_medium_width                                               Decimal?                        @db.Decimal
+  sizes_medium_height                                              Decimal?                        @db.Decimal
+  sizes_medium_mime_type                                           String?                         @db.VarChar
+  sizes_medium_filesize                                            Decimal?                        @db.Decimal
+  sizes_medium_filename                                            String?                         @db.VarChar
+  sizes_large_url                                                  String?                         @db.VarChar
+  sizes_large_width                                                Decimal?                        @db.Decimal
+  sizes_large_height                                               Decimal?                        @db.Decimal
+  sizes_large_mime_type                                            String?                         @db.VarChar
+  sizes_large_filesize                                             Decimal?                        @db.Decimal
+  sizes_large_filename                                             String?                         @db.VarChar
+  sizes_xlarge_url                                                 String?                         @db.VarChar
+  sizes_xlarge_width                                               Decimal?                        @db.Decimal
+  sizes_xlarge_height                                              Decimal?                        @db.Decimal
+  sizes_xlarge_mime_type                                           String?                         @db.VarChar
+  sizes_xlarge_filesize                                            Decimal?                        @db.Decimal
+  sizes_xlarge_filename                                            String?                         @db.VarChar
+  business_partners                                                business_partners[]
+  business_profile_business_profile_logo_dark_idTomedia            business_profile[]              @relation("business_profile_logo_dark_idTomedia")
+  business_profile_business_profile_logo_light_idTomedia           business_profile[]              @relation("business_profile_logo_light_idTomedia")
+  business_themes_business_themes_dark_background_image_idTomedia  business_themes[]               @relation("business_themes_dark_background_image_idTomedia")
+  business_themes_business_themes_light_background_image_idTomedia business_themes[]               @relation("business_themes_light_background_image_idTomedia")
+  image_galleries_images                                           image_galleries_images[]
+  tenants                                                          tenants?                        @relation(fields: [tenant_id], references: [id], onUpdate: NoAction, map: "media_tenant_id_tenants_id_fk")
+  payload_locked_documents_rels                                    payload_locked_documents_rels[]
+  social_links                                                     social_links[]
+
+  @@index([created_at])
+  @@index([sizes_large_filename], map: "media_sizes_large_sizes_large_filename_idx")
+  @@index([sizes_medium_filename], map: "media_sizes_medium_sizes_medium_filename_idx")
+  @@index([sizes_small_filename], map: "media_sizes_small_sizes_small_filename_idx")
+  @@index([sizes_square_filename], map: "media_sizes_square_sizes_square_filename_idx")
+  @@index([sizes_thumbnail_filename], map: "media_sizes_thumbnail_sizes_thumbnail_filename_idx")
+  @@index([sizes_xlarge_filename], map: "media_sizes_xlarge_sizes_xlarge_filename_idx")
+  @@index([tenant_id], map: "media_tenant_idx")
+  @@index([updated_at])
+}
+
+model partners_carousel_settings {
+  id                            String                          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id                     String?                         @db.Uuid
+  autoplay                      Boolean?                        @default(true)
+  autoplay_speed                Decimal?                        @default(5000) @db.Decimal
+  updated_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  created_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  tenants                       tenants?                        @relation(fields: [tenant_id], references: [id], onUpdate: NoAction, map: "partners_carousel_settings_tenant_id_tenants_id_fk")
+  payload_locked_documents_rels payload_locked_documents_rels[]
+
+  @@index([created_at])
+  @@index([tenant_id], map: "partners_carousel_settings_tenant_idx")
+  @@index([updated_at])
+}
+
+model payload_kv {
+  id   String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  key  String @unique(map: "payload_kv_key_idx") @db.VarChar
+  data Json
+}
+
+model payload_locked_documents {
+  id                            String                          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  global_slug                   String?                         @db.VarChar
+  updated_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  created_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  payload_locked_documents_rels payload_locked_documents_rels[]
+
+  @@index([created_at])
+  @@index([global_slug])
+  @@index([updated_at])
+}
+
+model payload_locked_documents_rels {
+  id                            Int                         @id @default(autoincrement())
+  order                         Int?
+  parent_id                     String                      @db.Uuid
+  path                          String                      @db.VarChar
+  media_id                      String?                     @db.Uuid
+  users_id                      String?                     @db.Uuid
+  tenants_id                    String?                     @db.Uuid
+  business_profile_id           String?                     @db.Uuid
+  business_themes_id            String?                     @db.Uuid
+  image_galleries_id            String?                     @db.Uuid
+  contact_departments_id        String?                     @db.Uuid
+  social_links_id               String?                     @db.Uuid
+  business_partners_id          String?                     @db.Uuid
+  business_locations_id         String?                     @db.Uuid
+  about_business_id             String?                     @db.Uuid
+  section_titles_id             String?                     @db.Uuid
+  tenant_link_configuration_id  String?                     @db.Uuid
+  business_services_id          String?                     @db.Uuid
+  partners_carousel_settings_id String?                     @db.Uuid
+  about_business                about_business?             @relation(fields: [about_business_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_about_business_fk")
+  business_locations            business_locations?         @relation(fields: [business_locations_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_business_locations_fk")
+  business_partners             business_partners?          @relation(fields: [business_partners_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_business_partners_fk")
+  business_profile              business_profile?           @relation(fields: [business_profile_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_business_profile_fk")
+  business_services             business_services?          @relation(fields: [business_services_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_business_services_fk")
+  business_themes               business_themes?            @relation(fields: [business_themes_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_business_themes_fk")
+  tenant_link_configuration     tenant_link_configuration?  @relation(fields: [tenant_link_configuration_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_configuration_fk")
+  contact_departments           contact_departments?        @relation(fields: [contact_departments_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_contact_departments_fk")
+  image_galleries               image_galleries?            @relation(fields: [image_galleries_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_image_galleries_fk")
+  media                         media?                      @relation(fields: [media_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_media_fk")
+  payload_locked_documents      payload_locked_documents    @relation(fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_parent_fk")
+  partners_carousel_settings    partners_carousel_settings? @relation(fields: [partners_carousel_settings_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_partners_carousel_settings_fk")
+  section_titles                section_titles?             @relation(fields: [section_titles_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_section_titles_fk")
+  social_links                  social_links?               @relation(fields: [social_links_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_social_links_fk")
+  tenants                       tenants?                    @relation(fields: [tenants_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_tenants_fk")
+  users                         users?                      @relation(fields: [users_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_locked_documents_rels_users_fk")
+
+  @@index([about_business_id])
+  @@index([business_locations_id])
+  @@index([business_partners_id])
+  @@index([business_profile_id])
+  @@index([business_services_id])
+  @@index([business_themes_id])
+  @@index([contact_departments_id])
+  @@index([image_galleries_id])
+  @@index([media_id])
+  @@index([order])
+  @@index([parent_id], map: "payload_locked_documents_rels_parent_idx")
+  @@index([partners_carousel_settings_id], map: "payload_locked_documents_rels_partners_carousel_settings_idx")
+  @@index([path])
+  @@index([section_titles_id])
+  @@index([social_links_id])
+  @@index([tenant_link_configuration_id], map: "payload_locked_documents_rels_tenant_link_configuration__idx")
+  @@index([tenants_id])
+  @@index([users_id])
+}
+
+model payload_migrations {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name       String?  @db.VarChar
+  batch      Decimal? @db.Decimal
+  updated_at DateTime @default(now()) @db.Timestamptz(3)
+  created_at DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([created_at])
+  @@index([updated_at])
+}
+
+model payload_preferences {
+  id                       String                     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  key                      String?                    @db.VarChar
+  value                    Json?
+  updated_at               DateTime                   @default(now()) @db.Timestamptz(3)
+  created_at               DateTime                   @default(now()) @db.Timestamptz(3)
+  payload_preferences_rels payload_preferences_rels[]
+
+  @@index([created_at])
+  @@index([key])
+  @@index([updated_at])
+}
+
+model payload_preferences_rels {
+  id                  Int                 @id @default(autoincrement())
+  order               Int?
+  parent_id           String              @db.Uuid
+  path                String              @db.VarChar
+  users_id            String?             @db.Uuid
+  payload_preferences payload_preferences @relation(fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_preferences_rels_parent_fk")
+  users               users?              @relation(fields: [users_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "payload_preferences_rels_users_fk")
+
+  @@index([order])
+  @@index([parent_id], map: "payload_preferences_rels_parent_idx")
+  @@index([path])
+  @@index([users_id])
+}
+
+model section_titles {
+  id                            String                           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id                     String?                          @db.Uuid
+  section_type                  enum_section_titles_section_type @unique(map: "section_titles_section_type_idx")
+  updated_at                    DateTime                         @default(now()) @db.Timestamptz(3)
+  created_at                    DateTime                         @default(now()) @db.Timestamptz(3)
+  payload_locked_documents_rels payload_locked_documents_rels[]
+  tenants                       tenants?                         @relation(fields: [tenant_id], references: [id], onUpdate: NoAction, map: "section_titles_tenant_id_tenants_id_fk")
+  section_titles_locales        section_titles_locales[]
+
+  @@index([created_at])
+  @@index([tenant_id], map: "section_titles_tenant_idx")
+  @@index([updated_at])
+}
+
+model section_titles_locales {
+  title          String         @db.VarChar
+  id             Int            @id @default(autoincrement())
+  locale         locales        @map("_locale")
+  parent_id      String         @map("_parent_id") @db.Uuid
+  section_titles section_titles @relation(fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "section_titles_locales_parent_id_fk")
+
+  @@unique([locale, parent_id], map: "section_titles_locales_locale_parent_id_unique")
+}
+
+model social_links {
+  id                            String                          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id                     String?                         @db.Uuid
+  updated_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  created_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  image_id                      String                          @db.Uuid
+  url                           String                          @db.VarChar
+  order                         Decimal?                        @default(0) @db.Decimal
+  payload_locked_documents_rels payload_locked_documents_rels[]
+  media                         media                           @relation(fields: [image_id], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "social_links_image_id_media_id_fk")
+  tenants                       tenants?                        @relation(fields: [tenant_id], references: [id], onUpdate: NoAction, map: "social_links_tenant_id_tenants_id_fk")
+  social_links_locales          social_links_locales[]
+
+  @@index([created_at])
+  @@index([image_id], map: "social_links_image_idx")
+  @@index([tenant_id], map: "social_links_tenant_idx")
+  @@index([updated_at])
+}
+
+model social_links_locales {
+  label        String       @db.VarChar
+  id           Int          @id @default(autoincrement())
+  locale       locales      @map("_locale")
+  parent_id    String       @map("_parent_id") @db.Uuid
+  social_links social_links @relation(fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "social_links_locales_parent_id_fk")
+
+  @@unique([locale, parent_id], map: "social_links_locales_locale_parent_id_unique")
+}
+
+model tenant_link_configuration {
+  id                            String                          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id                     String                          @db.Uuid
+  static_url                    String                          @db.VarChar
+  qr_url                        String?                         @db.VarChar
+  updated_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  created_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  payload_locked_documents_rels payload_locked_documents_rels[]
+  tenants                       tenants                         @relation(fields: [tenant_id], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "tenant_link_configuration_tenant_id_tenants_id_fk")
+
+  @@index([created_at])
+  @@index([tenant_id], map: "tenant_link_configuration_tenant_idx")
+  @@index([updated_at])
+}
+
+model tenants {
+  id                            String                          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                          String?                         @db.VarChar
+  slug                          String?                         @unique(map: "tenants_slug_idx") @db.VarChar
+  updated_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  created_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  status                        enum_tenants_status?            @default(draft) @map("_status")
+  tenants_v                     tenants_v[]
+  about_business                about_business[]
+  business_locations            business_locations[]
+  business_partners             business_partners[]
+  business_profile              business_profile[]
+  business_services             business_services[]
+  business_themes               business_themes[]
+  contact_departments           contact_departments[]
+  image_galleries               image_galleries[]
+  media                         media[]
+  partners_carousel_settings    partners_carousel_settings[]
+  payload_locked_documents_rels payload_locked_documents_rels[]
+  section_titles                section_titles[]
+  social_links                  social_links[]
+  tenant_link_configuration     tenant_link_configuration[]
+  users                         users[]
+
+  @@index([status])
+  @@index([created_at])
+  @@index([updated_at])
+}
+
+model users {
+  id                            String                          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  role                          enum_users_role?                @default(user)
+  tenant_id                     String?                         @db.Uuid
+  updated_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  created_at                    DateTime                        @default(now()) @db.Timestamptz(3)
+  email                         String                          @unique(map: "users_email_idx") @db.VarChar
+  reset_password_token          String?                         @db.VarChar
+  reset_password_expiration     DateTime?                       @db.Timestamptz(3)
+  salt                          String?                         @db.VarChar
+  hash                          String?                         @db.VarChar
+  login_attempts                Decimal?                        @default(0) @db.Decimal
+  lock_until                    DateTime?                       @db.Timestamptz(3)
+  payload_locked_documents_rels payload_locked_documents_rels[]
+  payload_preferences_rels      payload_preferences_rels[]
+  tenants                       tenants?                        @relation(fields: [tenant_id], references: [id], onUpdate: NoAction, map: "users_tenant_id_tenants_id_fk")
+  users_sessions                users_sessions[]
+
+  @@index([created_at])
+  @@index([tenant_id], map: "users_tenant_idx")
+  @@index([updated_at])
+}
+
+model users_sessions {
+  order      Int       @map("_order")
+  parent_id  String    @map("_parent_id") @db.Uuid
+  id         String    @id @db.VarChar
+  created_at DateTime? @db.Timestamptz(3)
+  expires_at DateTime  @db.Timestamptz(3)
+  users      users     @relation(fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "users_sessions_parent_id_fk")
+
+  @@index([order], map: "users_sessions_order_idx")
+  @@index([parent_id], map: "users_sessions_parent_id_idx")
+}
+
+enum locales {
+  en
+  ar
+
+  @@map("_locales")
+}
+
+enum enum__tenants_v_published_locale {
+  en
+  ar
+}
+
+enum enum__tenants_v_version_status {
+  draft
+  published
+}
+
+enum enum_business_themes_dark_background_type {
+  color
+  image
+}
+
+enum enum_business_themes_light_background_type {
+  color
+  image
+}
+
+enum enum_business_themes_theme_type {
+  business
+  personal
+}
+
+enum enum_section_titles_section_type {
+  about
+  contact
+  social
+  partners
+  locations
+  gallery
+  services
+}
+
+enum enum_tenants_status {
+  draft
+  published
+}
+
+enum enum_users_role {
+  super_admin @map("super-admin")
+  user
+}
