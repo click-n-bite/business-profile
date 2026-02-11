@@ -1,13 +1,47 @@
-export const formatPhoneNumberSimple = (phoneNumber: string): string => {
-	const converted = phoneNumber
-		.replace(/[٠-٩]/g, (d) => {
-			return String.fromCharCode(d.charCodeAt(0) - 1632)
-		})
-		.replace(/[۰-۹]/g, (d) => {
-			return String.fromCharCode(d.charCodeAt(0) - 1776)
-		})
+// export const formatPhoneNumberSimple = (phoneNumber: string): string => {
+// 	const converted = phoneNumber
+// 		.replace(/[٠-٩]/g, (d) => {
+// 			return String.fromCharCode(d.charCodeAt(0) - 1632)
+// 		})
+// 		.replace(/[۰-۹]/g, (d) => {
+// 			return String.fromCharCode(d.charCodeAt(0) - 1776)
+// 		})
 
-	return converted.replace(/\D/g, "")
+// 	return converted.replace(/\D/g, "")
+// }
+
+export const formatPhoneNumberSimple = (phoneNumber: string): string => {
+	if (!phoneNumber) return ""
+
+	const digitMap: Record<string, string> = {
+		"٠": "0",
+		"١": "1",
+		"٢": "2",
+		"٣": "3",
+		"٤": "4",
+		"٥": "5",
+		"٦": "6",
+		"٧": "7",
+		"٨": "8",
+		"٩": "9",
+		"۰": "0",
+		"۱": "1",
+		"۲": "2",
+		"۳": "3",
+		"۴": "4",
+		"۵": "5",
+		"۶": "6",
+		"۷": "7",
+		"۸": "8",
+		"۹": "9"
+	}
+
+	const converted = phoneNumber
+		.split("")
+		.map((char) => digitMap[char] || char)
+		.join("")
+
+	return converted.replace(/[^\d+]/g, "")
 }
 
 export const saveContactSimple = (name: string, phoneNumber: string): void => {
