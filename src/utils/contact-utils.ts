@@ -65,26 +65,19 @@ export const formatPhoneNumberSimple = (phoneNumber: string): string => {
 		.map((char) => digitMap[char] || char)
 		.join("")
 
-	const digitString = converted.replace(/[^\d]/g, "")
-
-	const digits = digitString.split("")
-
-	const hasPlus = converted.includes("+")
-
-	const plusIndex = converted.indexOf("+")
-
-	const lastCharIndex = converted.length - 1
-
-	const isRTL =
-		converted.endsWith("+") ||
-		(plusIndex > 0 && plusIndex < lastCharIndex) ||
-		(!hasPlus && digits.length > 3 && digits[0] === "0" && digits.slice(-3).join("") !== "000")
+	const isRTL = converted.endsWith("+")
 
 	if (isRTL) {
-		return (hasPlus ? "+" : "") + digits.reverse().join("")
+		const withoutPlus = converted.slice(0, -1).trim()
+
+		const groups = withoutPlus.split(/\s+/)
+
+		const reversedGroups = groups.reverse()
+
+		return "+" + reversedGroups.join(" ")
 	}
 
-	return (hasPlus ? "+" : "") + digits.join("")
+	return converted
 }
 
 export const saveContactSimple = (name: string, phoneNumber: string): void => {
