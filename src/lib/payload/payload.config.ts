@@ -85,10 +85,10 @@ export default buildConfig({
 	cors: [getServerSideURL()].filter(Boolean),
 	db: postgresAdapter({
 		pool: {
-			connectionString: process.env.POSTGRES_URL || "",
-			ssl: {
-				rejectUnauthorized: false
-			}
+			connectionString: process.env.POSTGRES_URL || ""
+			// ssl: {
+			// 	rejectUnauthorized: false
+			// }
 		},
 		idType: "uuid",
 		push: true
