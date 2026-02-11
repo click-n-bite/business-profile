@@ -1,7 +1,3 @@
-// export const formatPhoneNumberSimple = (phoneNumber: string): string => {
-// 	return phoneNumber.replace(/\D/g, "")
-// }
-
 export const formatPhoneNumberSimple = (phoneNumber: string): string => {
 	const converted = phoneNumber
 		.replace(/[٠-٩]/g, (d) => {
