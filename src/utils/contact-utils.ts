@@ -60,29 +60,19 @@ export const formatPhoneNumberSimple = (phoneNumber: string): string => {
 
 	const cleanText = phoneNumber.replace(/[\u200E\u200F\u202A-\u202E\s]/g, "")
 
-	const chars = cleanText.split("")
+	const isRTLFormat = cleanText.endsWith("+")
 
-	let hasPlusAtEnd = false
+	let digits = cleanText
+		.replace("+", "") 
+		.split("")
+		.map((char) => digitMap[char] || char)
+		.filter((char) => /^\d$/.test(char))
 
-	const digits: string[] = []
-
-	chars.forEach((char) => {
-		if (char === "+") {
-			hasPlusAtEnd = true
-		} else {
-			digits.push(digitMap[char] || char)
-		}
-	})
-
-	let result = digits.join("")
-
-	if (hasPlusAtEnd || cleanText.includes("+")) {
-		result = "+" + result.replace(/[^\d]/g, "")
-	} else {
-		result = result.replace(/[^\d]/g, "")
+	if (isRTLFormat) {
+		digits = digits.reverse()
 	}
 
-	return result
+	return "+" + digits.join("")
 }
 
 export const saveContactSimple = (name: string, phoneNumber: string): void => {
