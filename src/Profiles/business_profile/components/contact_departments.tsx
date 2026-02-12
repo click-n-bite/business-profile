@@ -2,7 +2,7 @@
 
 import { ContactDepartment } from "@/Profiles/types"
 import { formatPhoneNumberSimple } from "@/utils/contact-utils"
-import { Phone } from "lucide-react"
+// import { Phone } from "lucide-react"
 import Image from "next/image"
 
 interface Props extends ContactDepartment {
