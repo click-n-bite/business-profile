@@ -54,7 +54,7 @@ const BusinessServicesSection: React.FC<Props> = ({ services, theme }) => {
 										href={service.url}
 										target='_blank'
 										rel='noopener noreferrer'
-										className='mt-1 underline transition-opacity hover:opacity-80'
+										className='mt-2 text-xs underline transition-opacity hover:opacity-80'
 										style={{ color: primary }}>
 										{service.url_name}
 									</Link>
