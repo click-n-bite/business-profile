@@ -82,6 +82,7 @@ export interface Config {
     section_titles: SectionTitle;
     configuration: Configuration;
     partners_carousel_settings: PartnersCarouselSetting;
+    'download-links': DownloadLink;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -104,6 +105,7 @@ export interface Config {
     section_titles: SectionTitlesSelect<false> | SectionTitlesSelect<true>;
     configuration: ConfigurationSelect<false> | ConfigurationSelect<true>;
     partners_carousel_settings: PartnersCarouselSettingsSelect<false> | PartnersCarouselSettingsSelect<true>;
+    'download-links': DownloadLinksSelect<false> | DownloadLinksSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -455,7 +457,7 @@ export interface BusinessLocation {
 export interface SectionTitle {
   id: string;
   tenant?: (string | null) | Tenant;
-  sectionType: 'about' | 'contact' | 'social' | 'partners' | 'locations' | 'gallery' | 'services';
+  sectionType: 'about' | 'contact' | 'social' | 'partners' | 'locations' | 'gallery' | 'services' | 'apps';
   /**
    * Max 60 characters
    */
@@ -490,6 +492,18 @@ export interface PartnersCarouselSetting {
   tenant?: (string | null) | Tenant;
   autoplay?: boolean | null;
   autoplaySpeed?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "download-links".
+ */
+export interface DownloadLink {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  iosLink?: string | null;
+  androidLink?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -576,6 +590,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'partners_carousel_settings';
         value: string | PartnersCarouselSetting;
+      } | null)
+    | ({
+        relationTo: 'download-links';
+        value: string | DownloadLink;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -903,6 +921,17 @@ export interface PartnersCarouselSettingsSelect<T extends boolean = true> {
   tenant?: T;
   autoplay?: T;
   autoplaySpeed?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "download-links_select".
+ */
+export interface DownloadLinksSelect<T extends boolean = true> {
+  tenant?: T;
+  iosLink?: T;
+  androidLink?: T;
   updatedAt?: T;
   createdAt?: T;
 }

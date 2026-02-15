@@ -5,6 +5,7 @@ import {
 	BusinessProfile,
 	BusinessService,
 	BusinessTheme,
+	DownloadLink,
 	ImageGallery,
 	Media
 } from "@payload-types"
@@ -17,6 +18,7 @@ export type FetchedTenantData = {
 	imageGalleries: ImageGallery[]
 	contactDepartments: ContactDepartment[]
 	socialLinks: SocialLink[]
+	Appdownload: DownloadLink[]
 	businessPartners: BusinessPartner[]
 	businessLocations: BusinessLocation[]
 	businessService: BusinessService[]

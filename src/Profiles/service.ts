@@ -43,7 +43,8 @@ export const fetchTenantData = async (slug: string): Promise<FetchedTenantData> 
 		businessService,
 		businessLocations,
 		sectionTitles,
-		partnersCarouselSettings
+		partnersCarouselSettings,
+		Appdownload
 	] = await Promise.all([
 		payload.find({
 			collection: "business_profile",
@@ -118,6 +119,11 @@ export const fetchTenantData = async (slug: string): Promise<FetchedTenantData> 
 			collection: "partners_carousel_settings",
 			where: { tenant: { equals: tenantId } },
 			locale
+		}),
+		payload.find({
+			collection: "download-links",
+			where: { tenant: { equals: tenantId } },
+			locale
 		})
 	])
 
@@ -142,6 +148,7 @@ export const fetchTenantData = async (slug: string): Promise<FetchedTenantData> 
 		businessService: businessService.docs || [],
 		businessLocations: businessLocations.docs || [],
 		sectionTitles: sectionTitlesMap,
+		Appdownload: Appdownload.docs || [],
 		partnersCarouselSettings: partnersCarouselSettings.docs[0] || null
 	}
 }

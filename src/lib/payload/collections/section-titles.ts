@@ -22,7 +22,8 @@ export const SectionTitles: CollectionConfig = {
 				{ label: "Business Partners", value: "partners" },
 				{ label: "Business Locations", value: "locations" },
 				{ label: "Image Gallery", value: "gallery" },
-				{ label: "Business Services", value: "services" }
+				{ label: "Business Services", value: "services" },
+				{ label: "Download Apps", value: "apps" }
 			]
 		},
 		{
