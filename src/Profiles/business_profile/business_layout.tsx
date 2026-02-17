@@ -101,9 +101,9 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 						<BusinessServicesSection services={data.businessService} theme={theme} />
 					</div>
 				)}
-				{data.Appdownload && (
+				{data.Appdownload.length > 0 && (
 					<div className='mt-10 w-full max-w-xl'>
-						<SectionTitle title={data.sectionTitles?.apps || "Download app"} />
+						<SectionTitle title={data.sectionTitles?.apps} />
 						<Download appLinks={data.Appdownload} />
 					</div>
 				)}
