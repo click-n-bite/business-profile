@@ -3464,8 +3464,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "title": {
-          "name": "title",
+        "ios_link": {
+          "name": "ios_link",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
@@ -3474,13 +3474,7 @@
           "name": "android_link",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": true
-        },
-        "ios_link": {
-          "name": "ios_link",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "updated_at": {
           "name": "updated_at",
@@ -4731,6 +4725,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "23c48f7b-47e9-4984-b213-610d4a656735",
+  "id": "13c61b70-6c9d-4780-84b2-8289020528cc",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

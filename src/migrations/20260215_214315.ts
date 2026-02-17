@@ -10,7 +10,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum_business_themes_light_background_type" AS ENUM('color', 'image');
   CREATE TYPE "public"."enum_business_themes_dark_background_type" AS ENUM('color', 'image');
   CREATE TYPE "public"."enum_business_themes_theme_type" AS ENUM('business', 'personal');
-  CREATE TYPE "public"."enum_section_titles_section_type" AS ENUM('about', 'contact', 'social', 'partners', 'locations', 'gallery', 'services');
+  CREATE TYPE "public"."enum_section_titles_section_type" AS ENUM('about', 'contact', 'social', 'partners', 'locations', 'gallery', 'services', 'apps');
   CREATE TABLE "media" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"tenant_id" uuid,
@@ -198,6 +198,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "social_links" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"tenant_id" uuid,
+  	"image_id" uuid NOT NULL,
+  	"url" varchar NOT NULL,
+  	"order" numeric DEFAULT 0,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
@@ -221,6 +224,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "business_services_locales" (
   	"title" varchar NOT NULL,
   	"description" varchar,
+  	"url_name" varchar,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "_locales" NOT NULL,
   	"_parent_id" uuid NOT NULL
@@ -293,6 +297,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
   
+  CREATE TABLE "download_links" (
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"tenant_id" uuid,
+  	"ios_link" varchar,
+  	"android_link" varchar,
+  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+  );
+  
   CREATE TABLE "payload_kv" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"key" varchar NOT NULL,
@@ -325,7 +338,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"business_locations_id" uuid,
   	"section_titles_id" uuid,
   	"tenant_link_configuration_id" uuid,
-  	"partners_carousel_settings_id" uuid
+  	"partners_carousel_settings_id" uuid,
+  	"download_links_id" uuid
   );
   
   CREATE TABLE "payload_preferences" (
@@ -371,6 +385,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "contact_departments" ADD CONSTRAINT "contact_departments_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "contact_departments_locales" ADD CONSTRAINT "contact_departments_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."contact_departments"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "social_links" ADD CONSTRAINT "social_links_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "social_links" ADD CONSTRAINT "social_links_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "social_links_locales" ADD CONSTRAINT "social_links_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."social_links"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "business_services" ADD CONSTRAINT "business_services_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "business_services_locales" ADD CONSTRAINT "business_services_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."business_services"("id") ON DELETE cascade ON UPDATE no action;
@@ -383,6 +398,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "section_titles_locales" ADD CONSTRAINT "section_titles_locales_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."section_titles"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "tenant_link_configuration" ADD CONSTRAINT "tenant_link_configuration_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "partners_carousel_settings" ADD CONSTRAINT "partners_carousel_settings_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "download_links" ADD CONSTRAINT "download_links_tenant_id_tenants_id_fk" FOREIGN KEY ("tenant_id") REFERENCES "public"."tenants"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_locked_documents"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_media_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
@@ -399,6 +415,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_section_titles_fk" FOREIGN KEY ("section_titles_id") REFERENCES "public"."section_titles"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_configuration_fk" FOREIGN KEY ("tenant_link_configuration_id") REFERENCES "public"."tenant_link_configuration"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_partners_carousel_settings_fk" FOREIGN KEY ("partners_carousel_settings_id") REFERENCES "public"."partners_carousel_settings"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_download_links_fk" FOREIGN KEY ("download_links_id") REFERENCES "public"."download_links"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_preferences"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
   CREATE INDEX "media_tenant_idx" ON "media" USING btree ("tenant_id");
@@ -457,6 +474,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "contact_departments_created_at_idx" ON "contact_departments" USING btree ("created_at");
   CREATE UNIQUE INDEX "contact_departments_locales_locale_parent_id_unique" ON "contact_departments_locales" USING btree ("_locale","_parent_id");
   CREATE INDEX "social_links_tenant_idx" ON "social_links" USING btree ("tenant_id");
+  CREATE INDEX "social_links_image_idx" ON "social_links" USING btree ("image_id");
   CREATE INDEX "social_links_updated_at_idx" ON "social_links" USING btree ("updated_at");
   CREATE INDEX "social_links_created_at_idx" ON "social_links" USING btree ("created_at");
   CREATE UNIQUE INDEX "social_links_locales_locale_parent_id_unique" ON "social_links_locales" USING btree ("_locale","_parent_id");
@@ -484,6 +502,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "partners_carousel_settings_tenant_idx" ON "partners_carousel_settings" USING btree ("tenant_id");
   CREATE INDEX "partners_carousel_settings_updated_at_idx" ON "partners_carousel_settings" USING btree ("updated_at");
   CREATE INDEX "partners_carousel_settings_created_at_idx" ON "partners_carousel_settings" USING btree ("created_at");
+  CREATE INDEX "download_links_tenant_idx" ON "download_links" USING btree ("tenant_id");
+  CREATE INDEX "download_links_updated_at_idx" ON "download_links" USING btree ("updated_at");
+  CREATE INDEX "download_links_created_at_idx" ON "download_links" USING btree ("created_at");
   CREATE UNIQUE INDEX "payload_kv_key_idx" ON "payload_kv" USING btree ("key");
   CREATE INDEX "payload_locked_documents_global_slug_idx" ON "payload_locked_documents" USING btree ("global_slug");
   CREATE INDEX "payload_locked_documents_updated_at_idx" ON "payload_locked_documents" USING btree ("updated_at");
@@ -506,6 +527,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "payload_locked_documents_rels_section_titles_id_idx" ON "payload_locked_documents_rels" USING btree ("section_titles_id");
   CREATE INDEX "payload_locked_documents_rels_tenant_link_configuration__idx" ON "payload_locked_documents_rels" USING btree ("tenant_link_configuration_id");
   CREATE INDEX "payload_locked_documents_rels_partners_carousel_settings_idx" ON "payload_locked_documents_rels" USING btree ("partners_carousel_settings_id");
+  CREATE INDEX "payload_locked_documents_rels_download_links_id_idx" ON "payload_locked_documents_rels" USING btree ("download_links_id");
   CREATE INDEX "payload_preferences_key_idx" ON "payload_preferences" USING btree ("key");
   CREATE INDEX "payload_preferences_updated_at_idx" ON "payload_preferences" USING btree ("updated_at");
   CREATE INDEX "payload_preferences_created_at_idx" ON "payload_preferences" USING btree ("created_at");
@@ -545,6 +567,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "section_titles_locales" CASCADE;
   DROP TABLE "tenant_link_configuration" CASCADE;
   DROP TABLE "partners_carousel_settings" CASCADE;
+  DROP TABLE "download_links" CASCADE;
   DROP TABLE "payload_kv" CASCADE;
   DROP TABLE "payload_locked_documents" CASCADE;
   DROP TABLE "payload_locked_documents_rels" CASCADE;
