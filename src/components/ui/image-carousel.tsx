@@ -127,7 +127,7 @@ export function ImageCarousel({
 			dir={dir}
 			style={
 				{
-					"--slide-height": "400px",
+					"--slide-height": "300px",
 					"--slide-spacing": "0px",
 					"--slide-size": "100%"
 				} as React.CSSProperties
