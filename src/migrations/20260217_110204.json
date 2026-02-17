@@ -3447,8 +3447,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.download_links": {
-      "name": "download_links",
+    "public.app_links": {
+      "name": "app_links",
       "schema": "",
       "columns": {
         "id": {
@@ -3464,20 +3464,14 @@
           "primaryKey": false,
           "notNull": false
         },
-        "title": {
-          "name": "title",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "android_link": {
-          "name": "android_link",
+        "ios_link": {
+          "name": "ios_link",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
         },
-        "ios_link": {
-          "name": "ios_link",
+        "android_link": {
+          "name": "android_link",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
@@ -3498,8 +3492,8 @@
         }
       },
       "indexes": {
-        "download_links_tenant_idx": {
-          "name": "download_links_tenant_idx",
+        "app_links_tenant_idx": {
+          "name": "app_links_tenant_idx",
           "columns": [
             {
               "expression": "tenant_id",
@@ -3513,8 +3507,8 @@
           "method": "btree",
           "with": {}
         },
-        "download_links_updated_at_idx": {
-          "name": "download_links_updated_at_idx",
+        "app_links_updated_at_idx": {
+          "name": "app_links_updated_at_idx",
           "columns": [
             {
               "expression": "updated_at",
@@ -3528,8 +3522,8 @@
           "method": "btree",
           "with": {}
         },
-        "download_links_created_at_idx": {
-          "name": "download_links_created_at_idx",
+        "app_links_created_at_idx": {
+          "name": "app_links_created_at_idx",
           "columns": [
             {
               "expression": "created_at",
@@ -3545,9 +3539,9 @@
         }
       },
       "foreignKeys": {
-        "download_links_tenant_id_tenants_id_fk": {
-          "name": "download_links_tenant_id_tenants_id_fk",
-          "tableFrom": "download_links",
+        "app_links_tenant_id_tenants_id_fk": {
+          "name": "app_links_tenant_id_tenants_id_fk",
+          "tableFrom": "app_links",
           "tableTo": "tenants",
           "columnsFrom": [
             "tenant_id"
@@ -3817,8 +3811,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "download_links_id": {
-          "name": "download_links_id",
+        "app_links_id": {
+          "name": "app_links_id",
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
@@ -4095,11 +4089,11 @@
           "method": "btree",
           "with": {}
         },
-        "payload_locked_documents_rels_download_links_id_idx": {
-          "name": "payload_locked_documents_rels_download_links_id_idx",
+        "payload_locked_documents_rels_app_links_id_idx": {
+          "name": "payload_locked_documents_rels_app_links_id_idx",
           "columns": [
             {
-              "expression": "download_links_id",
+              "expression": "app_links_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -4320,12 +4314,12 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "payload_locked_documents_rels_download_links_fk": {
-          "name": "payload_locked_documents_rels_download_links_fk",
+        "payload_locked_documents_rels_app_links_fk": {
+          "name": "payload_locked_documents_rels_app_links_fk",
           "tableFrom": "payload_locked_documents_rels",
-          "tableTo": "download_links",
+          "tableTo": "app_links",
           "columnsFrom": [
-            "download_links_id"
+            "app_links_id"
           ],
           "columnsTo": [
             "id"
@@ -4731,6 +4725,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "23c48f7b-47e9-4984-b213-610d4a656735",
+  "id": "f3a4bc29-2186-46db-ac4a-1c3cb35a2e79",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

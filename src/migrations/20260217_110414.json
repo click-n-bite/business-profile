@@ -3464,14 +3464,14 @@
           "primaryKey": false,
           "notNull": false
         },
-        "android_link": {
-          "name": "android_link",
+        "ios_link": {
+          "name": "ios_link",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
         },
-        "ios_link": {
-          "name": "ios_link",
+        "android_link": {
+          "name": "android_link",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
@@ -4725,6 +4725,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "fe707953-9698-4f0e-88ac-eb37f84bd434",
+  "id": "73c5ecdd-bd42-4b6e-a3b5-949880bf6dce",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

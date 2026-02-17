@@ -502,8 +502,8 @@ export interface PartnersCarouselSetting {
 export interface DownloadLink {
   id: string;
   tenant?: (string | null) | Tenant;
-  iosLink?: string | null;
-  androidLink?: string | null;
+  iosLink: string;
+  androidLink: string;
   updatedAt: string;
   createdAt: string;
 }

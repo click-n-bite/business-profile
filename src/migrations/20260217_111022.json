@@ -3468,13 +3468,13 @@
           "name": "ios_link",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "android_link": {
           "name": "android_link",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "updated_at": {
           "name": "updated_at",
@@ -4725,6 +4725,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "c310b36c-062a-441e-9b98-a47ddafe00c0",
+  "id": "d8826d47-64cf-4bde-8b49-03fef12a4961",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }
