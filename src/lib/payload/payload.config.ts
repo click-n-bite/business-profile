@@ -34,10 +34,10 @@ export default buildConfig({
 	admin: {
 		components: {
 			beforeDashboard: ["@/components/payload/before-dashboard"],
-			beforeLogin: ["@/components/payload/before-login"]
-			// graphics: {
-			// 	Logo: "@/components/common/logo"
-			// }
+			beforeLogin: ["@/components/payload/before-login"],
+			graphics: {
+				Logo: "@/components/common/logo"
+			}
 		},
 		importMap: {
 			baseDir: path.resolve(dirname)

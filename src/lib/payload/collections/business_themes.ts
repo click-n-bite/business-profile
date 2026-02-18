@@ -1,22 +1,61 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CollectionConfig } from "payload"
+import { CollectionConfig, Forbidden } from "payload"
 
 export const BusinessThemes: CollectionConfig = {
 	slug: "business_themes",
+	// admin: {
+	// 	useAsTitle: "name",
+	// 	defaultColumns: ["name", "themeType", "primaryColor", "secondaryColor"],
+	// 	hideAPIURL: true
+	// },
+	// access: {
+	// 	create: async ({ req }) => {
+	// 		const count = await req.payload.count({
+	// 			collection: "business_themes"
+	// 		})
+
+	// 		return count.totalDocs === 0
+	// 	},
+	// 	delete: () => false
+	// },
 	admin: {
 		useAsTitle: "name",
 		defaultColumns: ["name", "themeType", "primaryColor", "secondaryColor"],
-		hideAPIURL: true
+		hideAPIURL: true,
+		description: "Only one theme can exist at a time. Delete the existing theme to create a new one."
 	},
 	access: {
 		create: async ({ req }) => {
-			const count = await req.payload.count({
-				collection: "business_themes"
-			})
+			try {
+				const { totalDocs } = await req.payload.count({
+					collection: "business_themes"
+				})
 
-			return count.totalDocs === 0
+				return totalDocs === 0
+			} catch (error) {
+				if (error instanceof Forbidden) {
+					throw error
+				}
+
+				return true
+			}
 		},
-		delete: () => false
+		delete: () => false,
+		update: async ({ req }) => {
+			try {
+				const { totalDocs } = await req.payload.count({
+					collection: "business_themes"
+				})
+
+				return totalDocs === 1
+			} catch (error) {
+				if (error instanceof Forbidden) {
+					throw error
+				}
+
+				return false
+			}
+		}
 	},
 	fields: [
 		{

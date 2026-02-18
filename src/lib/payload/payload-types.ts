@@ -276,6 +276,8 @@ export interface BusinessProfile {
   createdAt: string;
 }
 /**
+ * Only one theme can exist at a time. Delete the existing theme to create a new one.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "business_themes".
  */
