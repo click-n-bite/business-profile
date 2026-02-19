@@ -88,9 +88,6 @@ export default buildConfig({
 	db: postgresAdapter({
 		pool: {
 			connectionString: process.env.POSTGRES_URL || ""
-			// ssl: {
-			// 	rejectUnauthorized: false
-			// }
 		},
 		idType: "uuid",
 		push: true
@@ -103,7 +100,7 @@ export default buildConfig({
 		defaultLocale,
 		fallback: true
 	},
-	plugins,
+	plugins: plugins,
 	secret: process.env.PAYLOAD_SECRET!,
 	sharp: sharp as SharpDependency,
 	typescript: {

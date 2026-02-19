@@ -276,6 +276,8 @@ export interface BusinessProfile {
   createdAt: string;
 }
 /**
+ * Only one theme can exist at a time. Delete the existing theme to create a new one.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "business_themes".
  */
@@ -460,7 +462,7 @@ export interface SectionTitle {
   tenant?: (string | null) | Tenant;
   sectionType: 'about' | 'contact' | 'social' | 'partners' | 'locations' | 'gallery' | 'services' | 'apps';
   /**
-   * Max 60 characters
+   * Max 40 characters
    */
   title: string;
   updatedAt: string;

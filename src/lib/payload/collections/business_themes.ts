@@ -1,46 +1,125 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CollectionConfig } from "payload"
+import { getUserTenantID } from "../utils"
+import { TenantUser } from "../types"
 
 export const BusinessThemes: CollectionConfig = {
 	slug: "business_themes",
 	admin: {
 		useAsTitle: "name",
-		defaultColumns: ["name", "themeType", "primaryColor", "secondaryColor", "_status"]
-		// hideAPIURL: true,
-		// description: "Only one theme can exist at a time. Delete the existing theme to create a new one."
+		defaultColumns: ["name", "themeType", "primaryColor", "secondaryColor", "_status"],
+		hideAPIURL: true,
+		description: "Only one theme can exist at a time. Delete the existing theme to create a new one."
 	},
 	versions: {
 		drafts: true,
 		maxPerDoc: 10
 	},
-	access: {
-		create: () => true,
-		delete: () => true
+
+	hooks: {
+		beforeValidate: [
+			async ({ data, operation, req }) => {
+				if (operation === "create") {
+					let tenantId = data?.tenant
+
+					if (!tenantId && req.user) {
+						tenantId = getUserTenantID(req.user as TenantUser)
+					}
+
+					if (tenantId) {
+						const existing = await req.payload.find({
+							collection: "business_themes",
+							where: {
+								tenant: {
+									equals: tenantId
+								}
+							},
+							limit: 0,
+							depth: 0
+						})
+
+						console.log(`Checking for existing theme for tenant ${tenantId}:`, existing.totalDocs)
+
+						if (existing.totalDocs > 0) {
+							throw new Error(
+								`This tenant already has a theme. Found ${existing.totalDocs} theme(s). Please update the existing theme instead.`
+							)
+						}
+
+						data = { ...data, tenant: tenantId }
+					}
+				}
+
+				return data
+			}
+		]
 	},
-	// hooks: {
-	// 	beforeValidate: [
-	// 		async ({ data, operation, req }) => {
-	// 			if (operation === "create") {
-	// 				const count = await req.payload.count({
-	// 					collection: "business_themes"
-	// 				})
 
-	// 				console.log("========== DEBUG ==========")
-	// 				console.log("Operation:", operation)
-	// 				console.log("Total docs:", count.totalDocs)
-	// 				console.log("============================")
+	access: {
+		create: ({ req }) => {
+			if (!req.user) return false
 
-	// 				if (count.totalDocs >= 1) {
-	// 					throw new Error(
-	// 						`Only one theme can exist. Found ${count.totalDocs} theme(s). Please update the existing theme instead.`
-	// 					)
-	// 				}
-	// 			}
+			const tenantId = getUserTenantID(req.user as TenantUser)
 
-	// 			return data
-	// 		}
-	// 	]
-	// },
+			if (!tenantId) return false
+
+			return (async () => {
+				try {
+					const existing = await req.payload.find({
+						collection: "business_themes",
+						where: {
+							tenant: {
+								equals: tenantId
+							}
+						},
+						limit: 0,
+						depth: 0
+					})
+
+					return existing.totalDocs === 0
+				} catch (error) {
+					console.error("Error checking existing theme:", error)
+
+					return false
+				}
+			})()
+		},
+
+		read: ({ req }) => {
+			if (!req.user) return false
+
+			const tenantId = getUserTenantID(req.user as TenantUser)
+
+			return {
+				tenant: {
+					equals: tenantId
+				}
+			}
+		},
+		update: ({ req }) => {
+			if (!req.user) return false
+
+			const tenantId = getUserTenantID(req.user as TenantUser)
+
+			return {
+				tenant: {
+					equals: tenantId
+				}
+			}
+		},
+		delete: ({ req }) => {
+			if (!req.user) return false
+
+			const tenantId = getUserTenantID(req.user as TenantUser)
+
+			return {
+				tenant: {
+					equals: tenantId
+				}
+			}
+		}
+	},
+
 	fields: [
 		{
 			name: "name",
