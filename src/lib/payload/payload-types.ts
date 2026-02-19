@@ -77,6 +77,7 @@ export interface Config {
     contact_departments: ContactDepartment;
     social_links: SocialLink;
     business_services: BusinessService;
+    business_products: BusinessProduct;
     business_partners: BusinessPartner;
     business_locations: BusinessLocation;
     section_titles: SectionTitle;
@@ -101,6 +102,7 @@ export interface Config {
     contact_departments: ContactDepartmentsSelect<false> | ContactDepartmentsSelect<true>;
     social_links: SocialLinksSelect<false> | SocialLinksSelect<true>;
     business_services: BusinessServicesSelect<false> | BusinessServicesSelect<true>;
+    business_products: BusinessProductsSelect<false> | BusinessProductsSelect<true>;
     business_partners: BusinessPartnersSelect<false> | BusinessPartnersSelect<true>;
     business_locations: BusinessLocationsSelect<false> | BusinessLocationsSelect<true>;
     section_titles: SectionTitlesSelect<false> | SectionTitlesSelect<true>;
@@ -314,7 +316,6 @@ export interface BusinessTheme {
   themeType: 'business' | 'personal';
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -420,6 +421,30 @@ export interface BusinessService {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "business_products".
+ */
+export interface BusinessProduct {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  /**
+   * Max 60 characters
+   */
+  title: string;
+  /**
+   * Max 160 characters
+   */
+  description?: string | null;
+  url_name?: string | null;
+  url?: string | null;
+  /**
+   * Display order
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "business_partners".
  */
 export interface BusinessPartner {
@@ -462,7 +487,7 @@ export interface BusinessLocation {
 export interface SectionTitle {
   id: string;
   tenant?: (string | null) | Tenant;
-  sectionType: 'about' | 'contact' | 'social' | 'partners' | 'locations' | 'gallery' | 'services' | 'apps';
+  sectionType: 'about' | 'contact' | 'social' | 'partners' | 'locations' | 'gallery' | 'services' | 'products' | 'apps';
   /**
    * Max 40 characters
    */
@@ -586,6 +611,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'business_services';
         value: string | BusinessService;
+      } | null)
+    | ({
+        relationTo: 'business_products';
+        value: string | BusinessProduct;
       } | null)
     | ({
         relationTo: 'business_partners';
@@ -814,7 +843,6 @@ export interface BusinessThemesSelect<T extends boolean = true> {
   themeType?: T;
   updatedAt?: T;
   createdAt?: T;
-  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -877,6 +905,20 @@ export interface SocialLinksSelect<T extends boolean = true> {
  * via the `definition` "business_services_select".
  */
 export interface BusinessServicesSelect<T extends boolean = true> {
+  tenant?: T;
+  title?: T;
+  description?: T;
+  url_name?: T;
+  url?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "business_products_select".
+ */
+export interface BusinessProductsSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
   description?: T;

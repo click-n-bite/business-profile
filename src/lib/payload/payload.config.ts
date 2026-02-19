@@ -25,6 +25,7 @@ import { BusinessServices } from "./collections/business_services"
 import { PartnersCarouselSettings } from "./collections/partners_carousel_settings"
 import { DownloadLinks } from "./collections/apps_links"
 import { DefaultLanguage } from "./collections/default_language"
+import { BusinessProducts } from "./collections/business_products"
 //#endregion
 
 const filename = fileURLToPath(import.meta.url)
@@ -78,6 +79,7 @@ export default buildConfig({
 		ContactDepartments,
 		SocialLinks,
 		BusinessServices,
+		BusinessProducts,
 		BusinessPartners,
 		BusinessLocations,
 		SectionTitles,

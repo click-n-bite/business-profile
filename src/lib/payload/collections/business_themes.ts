@@ -11,11 +11,6 @@ export const BusinessThemes: CollectionConfig = {
 		hideAPIURL: true,
 		description: "Only one theme can exist at a time. Delete the existing theme to create a new one."
 	},
-	versions: {
-		drafts: true,
-		maxPerDoc: 10
-	},
-
 	hooks: {
 		beforeValidate: [
 			async ({ data, operation, req }) => {

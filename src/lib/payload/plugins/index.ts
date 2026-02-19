@@ -34,6 +34,7 @@ export const plugins: Plugin[] = [
 		"business_partners",
 		"business_locations",
 		"business_services",
+		"business_products",
 		"partners_carousel_settings",
 		"download-links",
 		"default-language"

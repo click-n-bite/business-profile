@@ -13,6 +13,7 @@ import { SectionBubbles } from "@/components/common/bubble-design"
 import BusinessServicesSection from "./components/business_services"
 import { useSaveContact } from "@/hooks/use-save-contact"
 import { Download } from "./components/android_ios"
+import BusinessProductsSection from "./components/business_products"
 
 interface BusinessLayoutProps {
 	data: any
@@ -99,6 +100,12 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 					<div className='mt-10 w-full max-w-xl'>
 						<SectionTitle title={data.sectionTitles?.services || "Services"} />
 						<BusinessServicesSection services={data.businessService} theme={theme} />
+					</div>
+				)}
+				{Array.isArray(data.BusinessProduct) && data.BusinessProduct.length > 0 && (
+					<div className='mt-10 w-full max-w-xl'>
+						<SectionTitle title={data.sectionTitles?.products || "Our Products"} />
+						<BusinessProductsSection products={data.BusinessProduct} theme={theme} />
 					</div>
 				)}
 				{data.Appdownload.length > 0 && (

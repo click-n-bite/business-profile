@@ -2,6 +2,7 @@ import {
 	AboutBusiness,
 	BusinessLocation,
 	BusinessPartner,
+	BusinessProduct,
 	BusinessProfile,
 	BusinessService,
 	BusinessTheme,
@@ -24,6 +25,7 @@ export type FetchedTenantData = {
 	businessPartners: BusinessPartner[]
 	businessLocations: BusinessLocation[]
 	businessService: BusinessService[]
+	BusinessProduct: BusinessProduct[]
 	partnersCarouselSettings?: {
 		autoplay?: boolean | null
 		autoplaySpeed?: number | null

@@ -10,6 +10,7 @@ import { Gallery } from "../business_profile/components/business_gallery"
 import { ContactDepartmentCard } from "../business_profile/components/contact_departments"
 import BusinessServicesSection from "../business_profile/components/business_services"
 import { useSaveContact } from "@/hooks/use-save-contact"
+import BusinessProductsSection from "../business_profile/components/business_products"
 
 interface PersonalPortfolioLayoutProps {
 	data: any
@@ -79,8 +80,14 @@ export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayout
 				)}
 
 				{Array.isArray(data.businessService) && data.businessService.length > 0 && (
-					<div className='mb-6 w-full md:max-w-xl'>
+					<div className='mb-2 w-full md:max-w-xl'>
 						<BusinessServicesSection services={data.businessService} theme={theme} />
+					</div>
+				)}
+
+				{Array.isArray(data.BusinessProduct) && data.BusinessProduct.length > 0 && (
+					<div className='mb-6 w-full md:max-w-xl'>
+						<BusinessProductsSection products={data.BusinessProduct} theme={theme} />
 					</div>
 				)}
 
