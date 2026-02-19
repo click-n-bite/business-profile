@@ -35,7 +35,8 @@ export const plugins: Plugin[] = [
 		"business_locations",
 		"business_services",
 		"partners_carousel_settings",
-		"download-links"
+		"download-links",
+		"default-language"
 	]),
 	...(process.env.BLOB_READ_WRITE_TOKEN
 		? [

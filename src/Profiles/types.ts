@@ -5,6 +5,7 @@ import {
 	BusinessProfile,
 	BusinessService,
 	BusinessTheme,
+	DefaultLanguage,
 	DownloadLink,
 	ImageGallery,
 	Media
@@ -19,6 +20,7 @@ export type FetchedTenantData = {
 	contactDepartments: ContactDepartment[]
 	socialLinks: SocialLink[]
 	Appdownload: DownloadLink[]
+	DefaultLanguage: DefaultLanguage[]
 	businessPartners: BusinessPartner[]
 	businessLocations: BusinessLocation[]
 	businessService: BusinessService[]

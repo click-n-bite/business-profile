@@ -83,6 +83,7 @@ export interface Config {
     configuration: Configuration;
     partners_carousel_settings: PartnersCarouselSetting;
     'download-links': DownloadLink;
+    'default-language': DefaultLanguage;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -106,6 +107,7 @@ export interface Config {
     configuration: ConfigurationSelect<false> | ConfigurationSelect<true>;
     partners_carousel_settings: PartnersCarouselSettingsSelect<false> | PartnersCarouselSettingsSelect<true>;
     'download-links': DownloadLinksSelect<false> | DownloadLinksSelect<true>;
+    'default-language': DefaultLanguageSelect<false> | DefaultLanguageSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -512,6 +514,17 @@ export interface DownloadLink {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "default-language".
+ */
+export interface DefaultLanguage {
+  id: string;
+  tenant?: (string | null) | Tenant;
+  language: 'en' | 'ar';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -597,6 +610,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'download-links';
         value: string | DownloadLink;
+      } | null)
+    | ({
+        relationTo: 'default-language';
+        value: string | DefaultLanguage;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -936,6 +953,16 @@ export interface DownloadLinksSelect<T extends boolean = true> {
   tenant?: T;
   iosLink?: T;
   androidLink?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "default-language_select".
+ */
+export interface DefaultLanguageSelect<T extends boolean = true> {
+  tenant?: T;
+  language?: T;
   updatedAt?: T;
   createdAt?: T;
 }
