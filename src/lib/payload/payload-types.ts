@@ -276,8 +276,6 @@ export interface BusinessProfile {
   createdAt: string;
 }
 /**
- * Only one theme can exist at a time. Delete the existing theme to create a new one.
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "business_themes".
  */
@@ -312,6 +310,7 @@ export interface BusinessTheme {
   themeType: 'business' | 'personal';
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -796,6 +795,7 @@ export interface BusinessThemesSelect<T extends boolean = true> {
   themeType?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

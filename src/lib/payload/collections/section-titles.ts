@@ -14,7 +14,7 @@ export const SectionTitles: CollectionConfig = {
 			name: "sectionType",
 			type: "select",
 			required: true,
-			unique: true,
+			// unique: true,
 			options: [
 				{ label: "About Us", value: "about" },
 				{ label: "Contact Departments", value: "contact" },
