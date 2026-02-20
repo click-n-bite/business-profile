@@ -11,6 +11,8 @@ export default async function TenantPage({ params }: PageProps) {
 
 	const data = await fetchTenantData(slug)
 
+	console.log("data", data)
+
 	const theme = {
 		primaryColor: data.businessThemes?.primaryColor || "",
 		secondaryColor: data.businessThemes?.secondaryColor || ""

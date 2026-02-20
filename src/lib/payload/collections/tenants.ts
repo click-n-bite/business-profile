@@ -33,6 +33,36 @@ export const Tenants: CollectionConfig = {
 			admin: {
 				description: "Used for URLs. Example: /[slug]"
 			}
+		},
+		{
+			name: "whish_channel",
+			type: "text",
+			admin: {
+				description: "Whish payment channel ID"
+			}
+		},
+		{
+			name: "whish_secret",
+			type: "text",
+			admin: {
+				description: "Whish secret key"
+			}
+		},
+		{
+			name: "whish_website_url",
+			type: "text",
+			admin: {
+				description: "Whish website callback / redirect URL"
+			}
+		},
+		{
+			name: "whish_percent",
+			type: "number",
+			admin: {
+				step: 0.01
+			},
+			min: 0,
+			max: 100
 		}
 	]
 } satisfies CollectionConfig

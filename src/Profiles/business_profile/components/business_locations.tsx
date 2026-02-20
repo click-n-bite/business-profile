@@ -1,6 +1,7 @@
 "use client"
 
-import { MapPin, ExternalLink } from "lucide-react"
+import { ExternalLink } from "lucide-react"
+import Image from "next/image"
 
 interface LocationCardProps {
 	title: string
@@ -32,7 +33,13 @@ export const LocationCard = ({
 					: "dark:bg-card/40 border-slate-200 bg-white hover:bg-slate-50 dark:border-white/5 dark:hover:bg-white/5 dark:hover:shadow-lg"
 			}`}>
 			<div className={`rounded-lg bg-[#e9e9e9] p-2.5 text-black dark:bg-[#191919] dark:text-white`}>
-				<MapPin className='h-5 w-5' />
+				<Image
+					src='/images/google-maps.png'
+					alt='location-icon'
+					width={20}
+					height={20}
+					className='h-6 w-6 object-contain transition-all duration-300'
+				/>
 			</div>
 			<div className='flex-1'>
 				<h3 className='text-md font-semibold text-slate-900 dark:text-white'>{title}</h3>

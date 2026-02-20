@@ -43,9 +43,8 @@ export const fetchTenantData = async (slug: string): Promise<FetchedTenantData> 
 		businessService,
 		businessLocations,
 		sectionTitles,
-		partnersCarouselSettings,
 		Appdownload,
-		DefaultLanguage,
+		Settings,
 		BusinessProduct
 	] = await Promise.all([
 		payload.find({
@@ -118,17 +117,12 @@ export const fetchTenantData = async (slug: string): Promise<FetchedTenantData> 
 			locale
 		}),
 		payload.find({
-			collection: "partners_carousel_settings",
-			where: { tenant: { equals: tenantId } },
-			locale
-		}),
-		payload.find({
 			collection: "download-links",
 			where: { tenant: { equals: tenantId } },
 			locale
 		}),
 		payload.find({
-			collection: "default-language",
+			collection: "settings",
 			where: { tenant: { equals: tenantId } },
 			locale
 		}),
@@ -162,7 +156,6 @@ export const fetchTenantData = async (slug: string): Promise<FetchedTenantData> 
 		businessLocations: businessLocations.docs || [],
 		sectionTitles: sectionTitlesMap,
 		Appdownload: Appdownload.docs || [],
-		partnersCarouselSettings: partnersCarouselSettings.docs[0] || null,
-		DefaultLanguage: DefaultLanguage.docs || null
+		settings: Settings.docs || null
 	}
 }

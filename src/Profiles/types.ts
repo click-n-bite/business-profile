@@ -6,10 +6,10 @@ import {
 	BusinessProfile,
 	BusinessService,
 	BusinessTheme,
-	DefaultLanguage,
 	DownloadLink,
 	ImageGallery,
-	Media
+	Media,
+	Setting
 } from "@payload-types"
 
 export type FetchedTenantData = {
@@ -21,15 +21,11 @@ export type FetchedTenantData = {
 	contactDepartments: ContactDepartment[]
 	socialLinks: SocialLink[]
 	Appdownload: DownloadLink[]
-	DefaultLanguage: DefaultLanguage[]
 	businessPartners: BusinessPartner[]
 	businessLocations: BusinessLocation[]
 	businessService: BusinessService[]
 	BusinessProduct: BusinessProduct[]
-	partnersCarouselSettings?: {
-		autoplay?: boolean | null
-		autoplaySpeed?: number | null
-	} | null
+	settings: Setting[]
 	sectionTitles: {
 		about?: string
 		contact?: string

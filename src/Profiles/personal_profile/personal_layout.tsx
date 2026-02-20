@@ -11,6 +11,8 @@ import { ContactDepartmentCard } from "../business_profile/components/contact_de
 import BusinessServicesSection from "../business_profile/components/business_services"
 import { useSaveContact } from "@/hooks/use-save-contact"
 import BusinessProductsSection from "../business_profile/components/business_products"
+import { PaymentMethods } from "../business_profile/components/business_payment"
+import { useRouter } from "next/navigation"
 
 interface PersonalPortfolioLayoutProps {
 	data: any
@@ -23,6 +25,16 @@ interface PersonalPortfolioLayoutProps {
 
 export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayoutProps) {
 	const { saveContact, ContactModal } = useSaveContact()
+
+	const router = useRouter()
+
+	const selectMethod = (method: "whish" | "stripe") => {
+		if (method === "whish") {
+			router.push("/whish-payment")
+		} else if (method === "stripe") {
+			router.push("/stripe-payment")
+		}
+	}
 
 	let hasRenderedSection = false
 
@@ -86,6 +98,16 @@ export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayout
 					</>
 				)}
 
+				{data.settings?.length > 0 && (
+					<>
+						{hasRenderedSection && <Divider />}
+						<div className='w-full max-w-xl'>
+							<PaymentMethods settings={data.settings[0]} onSelectMethod={selectMethod} theme={theme} />
+						</div>
+						{(hasRenderedSection = true)}
+					</>
+				)}
+
 				{data.businessLocations.length > 0 && (
 					<>
 						{hasRenderedSection && <Divider />}
@@ -129,7 +151,11 @@ export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayout
 					<>
 						{hasRenderedSection && <Divider />}
 						<div className='mb-4 w-full max-w-xl'>
-							<PartnersCarousel partners={data.businessPartners} />
+							<PartnersCarousel
+								partners={data.businessPartners}
+								autoplay={data.Settings?.[0]?.partnersCarousel?.autoplay ?? true}
+								autoplaySpeed={data.Settings?.[0]?.partnersCarousel?.autoplaySpeed ?? 5000}
+							/>
 						</div>
 						{(hasRenderedSection = true)}
 					</>

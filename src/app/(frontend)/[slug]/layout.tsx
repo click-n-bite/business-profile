@@ -29,7 +29,9 @@ export default async function TenantLayout({ children, params }: TenantLayoutPro
 
 	const theme = data.businessThemes
 
-	const defaultLanguage = data.DefaultLanguage?.[0]?.language || "en"
+	const settings = data.settings?.[0] || {}
+
+	const defaultLanguage = settings?.defaultLanguage || "en"
 
 	const cookieStore = await cookies()
 
@@ -37,7 +39,6 @@ export default async function TenantLayout({ children, params }: TenantLayoutPro
 
 	const dir = getLangDir(locale)
 
-	// Check if cookie exists on server
 	const cookieExists = !!cookieStore.get("locale")
 
 	return (

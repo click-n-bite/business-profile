@@ -82,9 +82,8 @@ export interface Config {
     business_locations: BusinessLocation;
     section_titles: SectionTitle;
     configuration: Configuration;
-    partners_carousel_settings: PartnersCarouselSetting;
     'download-links': DownloadLink;
-    'default-language': DefaultLanguage;
+    settings: Setting;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -107,9 +106,8 @@ export interface Config {
     business_locations: BusinessLocationsSelect<false> | BusinessLocationsSelect<true>;
     section_titles: SectionTitlesSelect<false> | SectionTitlesSelect<true>;
     configuration: ConfigurationSelect<false> | ConfigurationSelect<true>;
-    partners_carousel_settings: PartnersCarouselSettingsSelect<false> | PartnersCarouselSettingsSelect<true>;
     'download-links': DownloadLinksSelect<false> | DownloadLinksSelect<true>;
-    'default-language': DefaultLanguageSelect<false> | DefaultLanguageSelect<true>;
+    settings: SettingsSelect<false> | SettingsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -487,7 +485,7 @@ export interface BusinessLocation {
 export interface SectionTitle {
   id: string;
   tenant?: (string | null) | Tenant;
-  sectionType: 'about' | 'contact' | 'social' | 'partners' | 'locations' | 'gallery' | 'services' | 'apps';
+  sectionType: 'about' | 'contact' | 'social' | 'partners' | 'locations' | 'gallery' | 'services' | 'apps' | 'payment';
   /**
    * Max 40 characters
    */
@@ -515,18 +513,6 @@ export interface Configuration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partners_carousel_settings".
- */
-export interface PartnersCarouselSetting {
-  id: string;
-  tenant?: (string | null) | Tenant;
-  autoplay?: boolean | null;
-  autoplaySpeed?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "download-links".
  */
 export interface DownloadLink {
@@ -539,12 +525,19 @@ export interface DownloadLink {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "default-language".
+ * via the `definition` "settings".
  */
-export interface DefaultLanguage {
+export interface Setting {
   id: string;
   tenant?: (string | null) | Tenant;
-  language: 'en' | 'ar';
+  title: string;
+  defaultLanguage: 'en' | 'ar';
+  partnersCarousel?: {
+    autoplay?: boolean | null;
+    autoplaySpeed?: number | null;
+  };
+  enableWhish?: boolean | null;
+  enableStripe?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -633,16 +626,12 @@ export interface PayloadLockedDocument {
         value: string | Configuration;
       } | null)
     | ({
-        relationTo: 'partners_carousel_settings';
-        value: string | PartnersCarouselSetting;
-      } | null)
-    | ({
         relationTo: 'download-links';
         value: string | DownloadLink;
       } | null)
     | ({
-        relationTo: 'default-language';
-        value: string | DefaultLanguage;
+        relationTo: 'settings';
+        value: string | Setting;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -978,17 +967,6 @@ export interface ConfigurationSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partners_carousel_settings_select".
- */
-export interface PartnersCarouselSettingsSelect<T extends boolean = true> {
-  tenant?: T;
-  autoplay?: T;
-  autoplaySpeed?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "download-links_select".
  */
 export interface DownloadLinksSelect<T extends boolean = true> {
@@ -1000,11 +978,20 @@ export interface DownloadLinksSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "default-language_select".
+ * via the `definition` "settings_select".
  */
-export interface DefaultLanguageSelect<T extends boolean = true> {
+export interface SettingsSelect<T extends boolean = true> {
   tenant?: T;
-  language?: T;
+  title?: T;
+  defaultLanguage?: T;
+  partnersCarousel?:
+    | T
+    | {
+        autoplay?: T;
+        autoplaySpeed?: T;
+      };
+  enableWhish?: T;
+  enableStripe?: T;
   updatedAt?: T;
   createdAt?: T;
 }

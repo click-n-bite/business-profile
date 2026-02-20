@@ -22,10 +22,9 @@ import { BusinessLocations } from "./collections/business_locations"
 import { SectionTitles } from "./collections/section-titles"
 import { Configuration } from "./collections/configuration"
 import { BusinessServices } from "./collections/business_services"
-import { PartnersCarouselSettings } from "./collections/partners_carousel_settings"
 import { DownloadLinks } from "./collections/apps_links"
-import { DefaultLanguage } from "./collections/default_language"
 import { BusinessProducts } from "./collections/business_products"
+import { Settings } from "./collections/settings"
 //#endregion
 
 const filename = fileURLToPath(import.meta.url)
@@ -84,9 +83,8 @@ export default buildConfig({
 		BusinessLocations,
 		SectionTitles,
 		Configuration,
-		PartnersCarouselSettings,
 		DownloadLinks,
-		DefaultLanguage
+		Settings
 	],
 	cors: [getServerSideURL()].filter(Boolean),
 	db: postgresAdapter({

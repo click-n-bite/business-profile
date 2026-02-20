@@ -296,5 +296,17 @@
                 }
             }
         }
+    },
+    "Payment": {
+        "whish": {
+            "title": "Whish Payment",
+            "description": "Pay using your Whish balance",
+            "alt": "Whish"
+        },
+        "stripe": {
+            "title": "Credit Card (Stripe)",
+            "description": "Pay securely with credit card",
+            "alt": "Stripe"
+        }
     }
 }

@@ -24,7 +24,8 @@ export const SectionTitles: CollectionConfig = {
 				{ label: "Business Locations", value: "locations" },
 				{ label: "Image Gallery", value: "gallery" },
 				{ label: "Business Services", value: "services" },
-				{ label: "Download Apps", value: "apps" }
+				{ label: "Download Apps", value: "apps" },
+				{ label: "Payment Section", value: "payment" }
 			]
 		},
 		{

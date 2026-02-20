@@ -2,14 +2,14 @@ import { CollectionConfig } from "payload"
 import { getUserTenantID } from "../utils"
 import { TenantUser } from "../types"
 
-export const DefaultLanguage: CollectionConfig = {
-	slug: "default-language",
+export const Settings: CollectionConfig = {
+	slug: "settings",
 	labels: {
-		singular: "Default Language",
-		plural: "Default Languages"
+		singular: "Setting",
+		plural: "Settings"
 	},
 	admin: {
-		useAsTitle: "language"
+		useAsTitle: "title"
 	},
 
 	hooks: {
@@ -28,7 +28,7 @@ export const DefaultLanguage: CollectionConfig = {
 
 					if (tenantId) {
 						const existing = await req.payload.find({
-							collection: "default-language",
+							collection: "settings",
 							where: {
 								tenant: {
 									equals: tenantId
@@ -38,7 +38,7 @@ export const DefaultLanguage: CollectionConfig = {
 						})
 
 						if (existing.totalDocs > 0) {
-							throw new Error("This tenant already has a default language configured")
+							throw new Error("This tenant already has settings configured")
 						}
 					}
 				}
@@ -58,7 +58,7 @@ export const DefaultLanguage: CollectionConfig = {
 
 			return (async () => {
 				const existing = await req.payload.find({
-					collection: "default-language",
+					collection: "settings",
 					where: {
 						tenant: {
 							equals: tenantId
@@ -97,7 +97,18 @@ export const DefaultLanguage: CollectionConfig = {
 
 	fields: [
 		{
-			name: "language",
+			name: "title",
+			type: "text",
+			required: true,
+			defaultValue: "Site Settings",
+			admin: {
+				hidden: true
+			}
+		},
+
+		// Language Settings
+		{
+			name: "defaultLanguage",
 			type: "select",
 			required: true,
 			label: "Default Language",
@@ -105,6 +116,48 @@ export const DefaultLanguage: CollectionConfig = {
 				{ label: "🇺🇸 English", value: "en" },
 				{ label: "🇸🇦 العربية", value: "ar" }
 			]
+		},
+
+		// Carousel Settings
+		{
+			name: "partnersCarousel",
+			type: "group",
+			label: "Partners Carousel Settings",
+			fields: [
+				{
+					name: "autoplay",
+					type: "checkbox",
+					label: "Enable Autoplay",
+					defaultValue: true
+				},
+				{
+					name: "autoplaySpeed",
+					type: "number",
+					label: "Autoplay Speed (milliseconds)",
+					defaultValue: 5000,
+					min: 1000,
+					max: 10000,
+					admin: {
+						condition: (data, siblingData) => siblingData?.autoplay === true
+					}
+				}
+			]
+		},
+
+		// Enable/Disable Wishlist
+		{
+			name: "enableWhish",
+			type: "checkbox",
+			label: "Enable Whish Payment",
+			defaultValue: true
+		},
+
+		// Enable/Disable Stripe
+		{
+			name: "enableStripe",
+			type: "checkbox",
+			label: "Enable Stripe Payment",
+			defaultValue: false
 		}
 	]
 }

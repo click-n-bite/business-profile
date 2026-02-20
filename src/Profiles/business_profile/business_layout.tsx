@@ -14,6 +14,8 @@ import BusinessServicesSection from "./components/business_services"
 import { useSaveContact } from "@/hooks/use-save-contact"
 import { Download } from "./components/android_ios"
 import BusinessProductsSection from "./components/business_products"
+import { PaymentMethods } from "./components/business_payment"
+import { useRouter } from "next/navigation"
 
 interface BusinessLayoutProps {
 	data: any
@@ -26,6 +28,16 @@ interface BusinessLayoutProps {
 
 export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 	const { saveContact, ContactModal } = useSaveContact()
+
+	const router = useRouter()
+
+	const selectMethod = (method: "whish" | "stripe") => {
+		if (method === "whish") {
+			router.push("/whish-payment")
+		} else if (method === "stripe") {
+			router.push("/stripe-payment")
+		}
+	}
 
 	return (
 		<div className='flex justify-center md:px-6 md:py-10'>
@@ -73,10 +85,10 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 					</div>
 				)}
 
-				{data.businessPartners?.length > 0 && (
+				{data.settings.length > 0 && (
 					<div className='mt-10 w-full max-w-xl'>
-						<SectionTitle title={data.sectionTitles?.partners || "Our Partners"} />
-						<PartnersCarousel partners={data.businessPartners} />
+						<SectionTitle title={data.sectionTitles?.payment || "Pay Online"} />
+						<PaymentMethods settings={data.settings[0]} onSelectMethod={selectMethod} theme={theme} />
 					</div>
 				)}
 
@@ -98,7 +110,7 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 				)}
 				{Array.isArray(data.businessService) && data.businessService.length > 0 && (
 					<div className='mt-10 w-full max-w-xl'>
-						<SectionTitle title={data.sectionTitles?.services || "Services"} />
+						<SectionTitle title={data.sectionTitles?.services || "Our Services"} />
 						<BusinessServicesSection services={data.businessService} theme={theme} />
 					</div>
 				)}
@@ -108,6 +120,18 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 						<BusinessProductsSection products={data.BusinessProduct} theme={theme} />
 					</div>
 				)}
+
+				{data.businessPartners?.length > 0 && (
+					<div className='mt-10 w-full max-w-xl'>
+						<SectionTitle title={data.sectionTitles?.partners || "Our Partners"} />
+						<PartnersCarousel
+							partners={data.businessPartners}
+							autoplay={data.Settings?.[0]?.partnersCarousel?.autoplay ?? true}
+							autoplaySpeed={data.Settings?.[0]?.partnersCarousel?.autoplaySpeed ?? 5000}
+						/>
+					</div>
+				)}
+
 				{data.Appdownload.length > 0 && (
 					<div className='mt-10 w-full max-w-xl'>
 						<SectionTitle title={data.sectionTitles?.apps} />
