@@ -24,77 +24,115 @@ interface PersonalPortfolioLayoutProps {
 export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayoutProps) {
 	const { saveContact, ContactModal } = useSaveContact()
 
+	let hasRenderedSection = false
+
+	const Divider = () => <hr className='my-8 w-full max-w-xl border-t border-gray-200 dark:border-gray-800' />
+
 	return (
 		<div className='flex min-h-screen justify-center'>
 			<div className='flex w-full max-w-4xl max-w-xl flex-col items-center'>
 				{data.imageGalleries?.[0]?.images && (
-					<div className='mb-6 w-full max-w-xl'>
+					<div className='w-full max-w-xl'>
 						<Gallery images={data.imageGalleries[0].images} />
 					</div>
 				)}
 
-				{data.businessProfile && <PersonalHero businessProfile={data.businessProfile} />}
+				{data.businessProfile && (
+					<div className='w-full max-w-xl'>
+						<PersonalHero businessProfile={data.businessProfile} />
+					</div>
+				)}
 
 				{data.aboutBusiness && (
-					<div className='mb-6 flex w-full max-w-xl flex-col items-center'>
-						<PersonalAbout aboutBusiness={data.aboutBusiness} />
-					</div>
+					<>
+						{hasRenderedSection && <Divider />}
+						<div className='w-full max-w-xl'>
+							<PersonalAbout aboutBusiness={data.aboutBusiness} />
+						</div>
+						{(hasRenderedSection = true)}
+					</>
 				)}
 
 				{data.contactDepartments.length > 0 && (
-					<div className='w-full md:max-w-xl'>
-						<div className='flex flex-col'>
-							{data.contactDepartments.map((dept: any) => (
-								<ContactDepartmentCard
-									id={dept.id}
-									key={dept.id}
-									title={dept.title}
-									phone={dept.phone}
-									whatsapp={!!dept.whatsapp}
-									telegram={!!dept.telegram}
-									telephone={!!dept.telephone}
-									onSaveContact={saveContact}
-								/>
-							))}
+					<>
+						{hasRenderedSection && <Divider />}
+						<div className='w-full md:max-w-xl'>
+							<div className='flex flex-col gap-3'>
+								{data.contactDepartments.map((dept: any) => (
+									<ContactDepartmentCard
+										id={dept.id}
+										key={dept.id}
+										title={dept.title}
+										phone={dept.phone}
+										whatsapp={!!dept.whatsapp}
+										telegram={!!dept.telegram}
+										telephone={!!dept.telephone}
+										onSaveContact={saveContact}
+									/>
+								))}
+							</div>
 						</div>
-					</div>
+						{(hasRenderedSection = true)}
+					</>
 				)}
 
 				{data.socialLinks?.length > 0 && (
-					<div className='mb-1 flex w-full max-w-xl flex-col items-center'>
-						<PersonalSocialLinks socialLinks={data.socialLinks} theme={theme} />
-					</div>
+					<>
+						{hasRenderedSection && <Divider />}
+						<div className='w-full max-w-xl'>
+							<PersonalSocialLinks socialLinks={data.socialLinks} theme={theme} />
+						</div>
+						{(hasRenderedSection = true)}
+					</>
 				)}
 
 				{data.businessLocations.length > 0 && (
-					<div className='mb-1 flex w-full max-w-xl flex-col items-center'>
-						{data.businessLocations.map((loc: any, idx: number) => (
-							<PersonalLocationCard
-								key={idx}
-								title={loc.title}
-								address={loc.description || ""}
-								googleMapLink={loc.googleMapLink || ""}
-							/>
-						))}
-					</div>
+					<>
+						{hasRenderedSection && <Divider />}
+						<div className='w-full max-w-xl'>
+							<div className='flex flex-col gap-3'>
+								{data.businessLocations.map((loc: any, idx: number) => (
+									<PersonalLocationCard
+										key={idx}
+										title={loc.title}
+										address={loc.description || ""}
+										googleMapLink={loc.googleMapLink || ""}
+									/>
+								))}
+							</div>
+						</div>
+						{(hasRenderedSection = true)}
+					</>
 				)}
 
 				{Array.isArray(data.businessService) && data.businessService.length > 0 && (
-					<div className='mb-2 w-full md:max-w-xl'>
-						<BusinessServicesSection services={data.businessService} theme={theme} />
-					</div>
+					<>
+						{hasRenderedSection && <Divider />}
+						<div className='w-full md:max-w-xl'>
+							<BusinessServicesSection services={data.businessService} theme={theme} />
+						</div>
+						{(hasRenderedSection = true)}
+					</>
 				)}
 
 				{Array.isArray(data.BusinessProduct) && data.BusinessProduct.length > 0 && (
-					<div className='mb-6 w-full md:max-w-xl'>
-						<BusinessProductsSection products={data.BusinessProduct} theme={theme} />
-					</div>
+					<>
+						{hasRenderedSection && <Divider />}
+						<div className='w-full md:max-w-xl'>
+							<BusinessProductsSection products={data.BusinessProduct} theme={theme} />
+						</div>
+						{(hasRenderedSection = true)}
+					</>
 				)}
 
 				{data.businessPartners?.length > 0 && (
-					<div className='mb-6 w-full max-w-xl'>
-						<PartnersCarousel partners={data.businessPartners} />
-					</div>
+					<>
+						{hasRenderedSection && <Divider />}
+						<div className='mb-4 w-full max-w-xl'>
+							<PartnersCarousel partners={data.businessPartners} />
+						</div>
+						{(hasRenderedSection = true)}
+					</>
 				)}
 			</div>
 			<ContactModal />

@@ -325,7 +325,7 @@ export interface AboutBusiness {
   id: string;
   tenant?: (string | null) | Tenant;
   /**
-   * Max 160 characters
+   * Max 250 characters
    */
   description: string;
   updatedAt: string;
@@ -487,7 +487,7 @@ export interface BusinessLocation {
 export interface SectionTitle {
   id: string;
   tenant?: (string | null) | Tenant;
-  sectionType: 'about' | 'contact' | 'social' | 'partners' | 'locations' | 'gallery' | 'services' | 'products' | 'apps';
+  sectionType: 'about' | 'contact' | 'social' | 'partners' | 'locations' | 'gallery' | 'services' | 'apps';
   /**
    * Max 40 characters
    */

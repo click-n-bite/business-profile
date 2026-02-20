@@ -43,16 +43,13 @@ export const AboutSections: CollectionConfig = {
 	},
 
 	access: {
-		// Fix: Handle null user
 		create: ({ req }) => {
 			if (!req.user) return false
 
 			const tenantId = getUserTenantID(req.user as TenantUser)
 
-			// Check if user has a tenant
 			if (!tenantId) return false
 
-			// Return a promise that resolves to boolean
 			return (async () => {
 				try {
 					const existing = await req.payload.find({
@@ -115,9 +112,9 @@ export const AboutSections: CollectionConfig = {
 			name: "description",
 			type: "textarea",
 			required: true,
-			maxLength: 160,
+			maxLength: 250,
 			admin: {
-				description: "Max 160 characters"
+				description: "Max 250 characters"
 			},
 			localized: true
 		}
