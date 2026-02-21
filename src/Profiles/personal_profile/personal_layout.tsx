@@ -20,7 +20,7 @@ interface PersonalPortfolioLayoutProps {
 		primaryColor?: string
 		secondaryColor?: string
 		lightTitleColor?: string
-		darkTitleColor?: string		
+		darkTitleColor?: string
 	}
 }
 
