@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { useField } from "@payloadcms/ui"
+import { useField, useLocale } from "@payloadcms/ui"
 import type { TextFieldClientComponent } from "payload"
 
 const countryCodes = [
@@ -15,7 +16,9 @@ const countryCodes = [
 const PhoneField: TextFieldClientComponent = (props) => {
 	const { field, path, readOnly } = props
 
-	const { value, setValue } = useField<string>({ path })
+	const { code: locale } = useLocale()
+
+	const { value, setValue } = useField<any>({ path })
 
 	const [selectedCode, setSelectedCode] = useState("+961")
 
@@ -25,59 +28,64 @@ const PhoneField: TextFieldClientComponent = (props) => {
 
 	const required = field?.required || false
 
-	// Load initial value
 	useEffect(() => {
 		if (!value) return
 
-		const matched = countryCodes.find((c) => value.startsWith(c.code))
+		const raw = typeof value === "object" ? value?.[locale] || value?.en || "" : value
+
+		const matched = countryCodes.find((c) => raw.startsWith(c.code))
 
 		if (matched) {
 			setSelectedCode(matched.code)
-			setLocalNumber(value.slice(matched.code.length))
+			setLocalNumber(raw.slice(matched.code.length))
 		} else {
-			setLocalNumber(value)
+			setLocalNumber(raw)
 		}
-	}, [value])
+	}, [value, locale])
 
 	const handleCodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const newCode = e.target.value
 
 		setSelectedCode(newCode)
-		setValue(newCode + localNumber.replace(/\s/g, ""))
+
+		const cleanNumber = localNumber.replace(/\s/g, "")
+
+		if (field.localized) {
+			setValue({
+				...value,
+				[locale]: newCode + cleanNumber
+			})
+		} else {
+			setValue(newCode + cleanNumber)
+		}
 	}
 
 	const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const input = e.target.value
 
-		// Allow only digits
-		const digitsOnly = input.replace(/[^\d]/g, "")
+		// allow Arabic + Western digits only
+		const digitsOnly = input.replace(/[^\d٠-٩]/g, "")
 
 		setLocalNumber(digitsOnly)
-		setValue(selectedCode + digitsOnly)
-	}
 
-	// Format display with spaces (every 2 digits for Lebanon, otherwise every 3)
-	const formatDisplayNumber = (num: string) => {
-		if (selectedCode === "+961") {
-			// Lebanese format: pairs
-			const pairs = []
+		const cleanNumber = digitsOnly.replace(/\s/g, "")
 
-			for (let i = 0; i < num.length; i += 2) {
-				pairs.push(num.slice(i, i + 2))
-			}
-
-			return pairs.join(" ")
+		// Handle localized storage
+		if (field.localized) {
+			setValue({
+				...value,
+				[locale]: selectedCode + cleanNumber
+			})
+		} else {
+			setValue(selectedCode + cleanNumber)
 		}
-
-		// Default: groups of 3
-		return num.replace(/(\d{3})(?=\d)/g, "$1 ")
 	}
 
 	return (
-		<div className='field-type' style={{ marginBottom: "20px" }}>
-			<label className='field-label'>
+		<div style={{ marginBottom: "20px" }}>
+			<label>
 				{label}
-				{required && <span className='required'>*</span>}
+				{required && <span>*</span>}
 			</label>
 
 			<div style={{ display: "flex", gap: "8px", direction: "ltr" }}>
@@ -88,10 +96,6 @@ const PhoneField: TextFieldClientComponent = (props) => {
 					style={{
 						width: "140px",
 						padding: "10px",
-						border: "1px solid #e2e8f0",
-						borderRadius: "4px",
-						backgroundColor: "white",
-						fontSize: "14px",
 						direction: "ltr"
 					}}>
 					{countryCodes.map((c) => (
@@ -103,47 +107,19 @@ const PhoneField: TextFieldClientComponent = (props) => {
 
 				<input
 					type='text'
-					value={formatDisplayNumber(localNumber)}
+					value={localNumber}
 					onChange={handleNumberChange}
 					disabled={readOnly}
-					placeholder={selectedCode === "+961" ? "03 05 43 35" : "050 123 4567"}
+					placeholder={locale === "ar" ? "٠٣ ٠٠ ٠٠ ٠٠" : "03 00 00 00"}
 					style={{
 						flex: 1,
 						padding: "10px",
-						border: "1px solid #e2e8f0",
-						borderRadius: "4px",
-						fontSize: "14px",
 						fontFamily: "monospace",
 						direction: "ltr",
-						textAlign: "left"
+						textAlign: "left",
+						unicodeBidi: "embed"
 					}}
 				/>
-			</div>
-
-			{/* Preview */}
-			<div
-				style={{
-					marginTop: "8px",
-					padding: "8px",
-					backgroundColor: "#f8f9fa",
-					borderRadius: "4px",
-					fontSize: "13px",
-					color: "#666",
-					display: "flex",
-					justifyContent: "space-between",
-					alignItems: "center"
-				}}>
-				<span>Preview:</span>
-				<span
-					style={{
-						fontFamily: "monospace",
-						direction: "ltr",
-						unicodeBidi: "embed",
-						textAlign: "left",
-						fontWeight: "500"
-					}}>
-					{selectedCode} {formatDisplayNumber(localNumber) || (selectedCode === "+961" ? "03 XX XX XX" : "XXX XXX XXX")}
-				</span>
 			</div>
 		</div>
 	)

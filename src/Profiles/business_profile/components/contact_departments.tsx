@@ -3,7 +3,7 @@
 import { ContactDepartment } from "@/Profiles/types"
 import { formatPhoneNumberSimple } from "@/utils/contact-utils"
 import { formatPhoneForDisplay, westernToArabic } from "@/utils/phone-utils"
-// import { Phone } from "lucide-react"
+import { useLocale } from "next-intl"
 import Image from "next/image"
 
 interface Props extends ContactDepartment {
@@ -25,6 +25,10 @@ export const ContactDepartmentCard = ({
 		onSaveContact(title, phone)
 	}
 
+	const locale = useLocale()
+
+	console.log(locale)
+
 	return (
 		<div
 			className={`dark:bg-card/20 dark:bg-card/40 relative mb-4 flex w-full cursor-pointer flex-col rounded-xl border border-slate-200 bg-slate-100 bg-white p-4 text-black transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-white/5 dark:bg-white/10 dark:text-white ${className}`}>
@@ -32,9 +36,13 @@ export const ContactDepartmentCard = ({
 				<div className='flex-1'>
 					<h3 className='text-md font-semibold text-slate-900 dark:text-white'>{title}</h3>
 					<p
-						className='mt-0.5 text-left font-mono text-sm text-slate-500 rtl:!text-end dark:text-slate-400'
+						className='mt-1 text-left font-mono text-sm text-slate-500 rtl:!text-end dark:text-slate-400'
 						style={{ direction: "ltr", unicodeBidi: "embed" }}>
-						{phone ? "" + westernToArabic(formatPhoneForDisplay(phone).replace(/\s/g, "")) : ""}
+						{locale === "ar"
+							? phone
+								? "" + westernToArabic(formatPhoneForDisplay(phone, locale).replace(/\s/g, ""))
+								: ""
+							: formatPhoneForDisplay(phone, locale)}{" "}
 					</p>
 				</div>
 			</div>
