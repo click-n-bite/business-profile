@@ -151,6 +151,30 @@ export const BusinessThemes: CollectionConfig = {
 			}
 		},
 		{
+			name: "lightTitleColor",
+			type: "text",
+			label: "Business Name Light Theme",
+			defaultValue: "#000",
+			admin: {
+				components: {
+					Field: "@/components/payload/ColorPickerField"
+				},
+				description: "Supporting brand color"
+			}
+		},
+		{
+			name: "darkTitleColor",
+			type: "text",
+			label: "Business Name Dark Theme",
+			defaultValue: "#fff",
+			admin: {
+				components: {
+					Field: "@/components/payload/ColorPickerField"
+				},
+				description: "Supporting brand color"
+			}
+		},
+		{
 			name: "lightBackground",
 			type: "group",
 			label: "Light Mode Background",

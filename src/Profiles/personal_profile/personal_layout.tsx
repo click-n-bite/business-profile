@@ -19,7 +19,8 @@ interface PersonalPortfolioLayoutProps {
 	theme: {
 		primaryColor?: string
 		secondaryColor?: string
-		accentColor?: string
+		lightTitleColor?: string
+		darkTitleColor?: string		
 	}
 }
 
@@ -51,7 +52,7 @@ export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayout
 
 				{data.businessProfile && (
 					<div className='w-full max-w-xl'>
-						<PersonalHero businessProfile={data.businessProfile} />
+						<PersonalHero businessProfile={data.businessProfile} theme={theme} />
 					</div>
 				)}
 

@@ -11,11 +11,11 @@ export default async function TenantPage({ params }: PageProps) {
 
 	const data = await fetchTenantData(slug)
 
-	console.log("data", data)
-
 	const theme = {
 		primaryColor: data.businessThemes?.primaryColor || "",
-		secondaryColor: data.businessThemes?.secondaryColor || ""
+		secondaryColor: data.businessThemes?.secondaryColor || "",
+		lightTitleColor: data.businessThemes?.lightTitleColor || "",
+		darkTitleColor: data.businessThemes?.darkTitleColor || ""
 	}
 
 	const isPersonalTheme = data.businessThemes?.themeType === "personal"

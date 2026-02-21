@@ -26,6 +26,16 @@ export const BusinessServices: CollectionConfig = {
 			}
 		},
 		{
+			name: "serviceImage",
+			label: "Service Image",
+			type: "upload",
+			relationTo: "media",
+			required: false,
+			admin: {
+				description: ""
+			}
+		},
+		{
 			name: "url_name",
 			type: "text",
 			required: false,

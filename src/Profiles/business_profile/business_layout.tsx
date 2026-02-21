@@ -22,7 +22,8 @@ interface BusinessLayoutProps {
 	theme: {
 		primaryColor?: string
 		secondaryColor?: string
-		accentColor?: string
+		lightTitleColor?: string
+		darkTitleColor?: string
 	}
 }
 
@@ -42,7 +43,7 @@ export function BusinessLayout({ data, theme }: BusinessLayoutProps) {
 	return (
 		<div className='flex justify-center md:px-6 md:py-10'>
 			<SectionBubbles className='flex w-full max-w-3xl flex-col items-center py-10'>
-				{data.businessProfile && <Hero businessProfile={data.businessProfile} />}
+				{data.businessProfile && <Hero businessProfile={data.businessProfile} theme={theme} />}
 
 				{data.aboutBusiness && (
 					<div className='mt-10 w-full max-w-xl'>

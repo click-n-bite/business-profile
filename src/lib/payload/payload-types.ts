@@ -227,6 +227,19 @@ export interface Tenant {
    * Used for URLs. Example: /[slug]
    */
   slug: string;
+  /**
+   * Whish payment channel ID
+   */
+  whish_channel?: string | null;
+  /**
+   * Whish secret key
+   */
+  whish_secret?: string | null;
+  /**
+   * Whish website callback / redirect URL
+   */
+  whish_website_url?: string | null;
+  whish_percent?: number | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -298,6 +311,14 @@ export interface BusinessTheme {
    * Supporting brand color
    */
   secondaryColor?: string | null;
+  /**
+   * Supporting brand color
+   */
+  lightTitleColor?: string | null;
+  /**
+   * Supporting brand color
+   */
+  darkTitleColor?: string | null;
   lightBackground: {
     type: 'color' | 'image';
     color?: string | null;
@@ -408,6 +429,7 @@ export interface BusinessService {
    * Max 160 characters
    */
   description?: string | null;
+  serviceImage?: (string | null) | Media;
   url_name?: string | null;
   url?: string | null;
   /**
@@ -432,6 +454,7 @@ export interface BusinessProduct {
    * Max 160 characters
    */
   description?: string | null;
+  productImage?: (string | null) | Media;
   url_name?: string | null;
   url?: string | null;
   /**
@@ -789,6 +812,10 @@ export interface UsersSelect<T extends boolean = true> {
 export interface TenantsSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  whish_channel?: T;
+  whish_secret?: T;
+  whish_website_url?: T;
+  whish_percent?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -815,6 +842,8 @@ export interface BusinessThemesSelect<T extends boolean = true> {
   name?: T;
   primaryColor?: T;
   secondaryColor?: T;
+  lightTitleColor?: T;
+  darkTitleColor?: T;
   lightBackground?:
     | T
     | {
@@ -897,6 +926,7 @@ export interface BusinessServicesSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
   description?: T;
+  serviceImage?: T;
   url_name?: T;
   url?: T;
   order?: T;
@@ -911,6 +941,7 @@ export interface BusinessProductsSelect<T extends boolean = true> {
   tenant?: T;
   title?: T;
   description?: T;
+  productImage?: T;
   url_name?: T;
   url?: T;
   order?: T;

@@ -7,11 +7,12 @@ interface HeroProps {
 	businessProfile?: BusinessProfile | null
 	theme?: {
 		primaryColor?: string
-		secondaryColor?: string
+		darkTitleColor?: string
+		lightTitleColor?: string
 	}
 }
 
-export const Hero = ({ businessProfile }: HeroProps) => {
+export const Hero = ({ businessProfile, theme }: HeroProps) => {
 	if (!businessProfile) return null
 
 	const businessName = businessProfile.businessName ?? null
@@ -24,8 +25,16 @@ export const Hero = ({ businessProfile }: HeroProps) => {
 
 	return (
 		<div className='relative z-10 flex w-full max-w-xl flex-col items-center gap-2 px-6 text-center'>
+			<style>{`
+				.hero-business-name {
+					color: ${theme?.lightTitleColor};
+				}
+				.dark .hero-business-name {
+					color: ${theme?.darkTitleColor};
+				}
+			`}</style>
 			{businessName && (
-				<h1 className='text-4xl font-semibold tracking-widest whitespace-nowrap text-slate-700 uppercase dark:text-slate-300'>
+				<h1 className='hero-business-name pb-2 text-4xl font-bold tracking-widest whitespace-nowrap uppercase md:text-5xl'>
 					{businessName}
 				</h1>
 			)}
