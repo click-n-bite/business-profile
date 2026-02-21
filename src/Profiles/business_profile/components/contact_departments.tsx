@@ -2,6 +2,7 @@
 
 import { ContactDepartment } from "@/Profiles/types"
 import { formatPhoneNumberSimple } from "@/utils/contact-utils"
+import { formatPhoneForDisplay, westernToArabic } from "@/utils/phone-utils"
 // import { Phone } from "lucide-react"
 import Image from "next/image"
 
@@ -33,7 +34,7 @@ export const ContactDepartmentCard = ({
 					<p
 						className='mt-0.5 text-left font-mono text-sm text-slate-500 rtl:!text-end dark:text-slate-400'
 						style={{ direction: "ltr", unicodeBidi: "embed" }}>
-						{phone}
+						{phone ? "" + westernToArabic(formatPhoneForDisplay(phone).replace(/\s/g, "")) : ""}
 					</p>
 				</div>
 			</div>

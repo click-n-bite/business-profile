@@ -23,9 +23,12 @@ export const ContactDepartments: CollectionConfig = {
 			name: "phone",
 			type: "text",
 			required: true,
-			localized: true,
+			localized: false,
 			admin: {
-				description: "Phone number"
+				description: "International format will be saved automatically",
+				components: {
+					Field: "@/components/payload/PhoneField"
+				}
 			}
 		},
 		{

@@ -114,9 +114,7 @@ const SimpleSortableBottom: React.FC = () => {
 
 	const getTitle = (item: any) => {
 		if (item.title || item.name) {
-			if (typeof item.title === "string") return item.title
-
-			if (typeof item.name === "string") return item.name
+			if (typeof item.title === "string") return item.title || item.name
 
 			return (
 				item.title.en ||
@@ -136,7 +134,7 @@ const SimpleSortableBottom: React.FC = () => {
 	}
 
 	if (items.length === 0) {
-		return null // Don't show anything if no items
+		return null
 	}
 
 	return (

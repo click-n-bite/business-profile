@@ -380,7 +380,7 @@ export interface ContactDepartment {
    */
   title: string;
   /**
-   * Phone number
+   * International format will be saved automatically
    */
   phone: string;
   whatsapp?: boolean | null;
