@@ -3,7 +3,10 @@ import { CollectionConfig } from "payload"
 export const BusinessServices: CollectionConfig = {
 	slug: "business_services",
 	admin: {
-		useAsTitle: "title"
+		useAsTitle: "title",
+		components: {
+			afterList: ["@/components/payload/SimpleSortableBottom"]
+		}
 	},
 	fields: [
 		{
@@ -49,8 +52,10 @@ export const BusinessServices: CollectionConfig = {
 		{
 			name: "order",
 			type: "number",
+			index: true,
+			defaultValue: 0,
 			admin: {
-				description: "Display order"
+				hidden: true
 			}
 		}
 	]

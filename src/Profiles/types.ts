@@ -41,7 +41,7 @@ export interface SocialLink {
 	id: string
 	image: Media | string
 	url: string
-	label?: string
+	title?: string
 	order?: number
 }
 

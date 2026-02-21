@@ -2,9 +2,16 @@ import { CollectionConfig } from "payload"
 
 export const SocialLinks: CollectionConfig = {
 	slug: "social_links",
+	admin: {
+		useAsTitle: "title",
+		defaultColumns: ["title", "url", "updatedAt"],
+		components: {
+			afterList: ["@/components/payload/SimpleSortableBottom"]
+		}
+	},
 	fields: [
 		{
-			name: "label",
+			name: "title",
 			type: "text",
 			required: true,
 			localized: true,
@@ -33,9 +40,10 @@ export const SocialLinks: CollectionConfig = {
 		{
 			name: "order",
 			type: "number",
+			index: true,
 			defaultValue: 0,
 			admin: {
-				description: "Order in which links appear (lower numbers first)"
+				hidden: true
 			}
 		}
 	]

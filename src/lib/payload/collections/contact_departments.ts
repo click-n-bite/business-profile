@@ -2,7 +2,12 @@ import { CollectionConfig } from "payload"
 
 export const ContactDepartments: CollectionConfig = {
 	slug: "contact_departments",
-
+	admin: {
+		useAsTitle: "title",
+		components: {
+			afterList: ["@/components/payload/SimpleSortableBottom"]
+		}
+	},
 	fields: [
 		{
 			name: "title",
@@ -14,7 +19,15 @@ export const ContactDepartments: CollectionConfig = {
 				description: "Max 60 characters"
 			}
 		},
-		{ name: "phone", type: "text", required: true, localized: true },
+		{
+			name: "phone",
+			type: "text",
+			required: true,
+			localized: true,
+			admin: {
+				description: "Phone number"
+			}
+		},
 		{
 			name: "whatsapp",
 			type: "checkbox",
@@ -39,7 +52,14 @@ export const ContactDepartments: CollectionConfig = {
 			label: "Available by Telephone",
 			defaultValue: false
 		},
-
-		{ name: "order", type: "number" }
+		{
+			name: "order",
+			type: "number",
+			index: true,
+			defaultValue: 0,
+			admin: {
+				hidden: true
+			}
+		}
 	]
 }

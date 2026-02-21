@@ -7,7 +7,7 @@ import { getServerSideURL } from "@/utils/getURL"
 import { seoPlugin } from "@payloadcms/plugin-seo"
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob"
 import { customTenantPlugin } from "./custom-tenant-plugin"
-
+// import { docsOrder } from "@haidong2099/payload-plugin-collection-docs-order"
 //#end region
 
 const generateTitle: GenerateTitle<Tenant> = ({ doc }) => {
@@ -38,6 +38,24 @@ export const plugins: Plugin[] = [
 		"download-links",
 		"settings"
 	]),
+	// docsOrder({
+	// 	collections: [
+	// 		"business_services",
+	// 		"business_products",
+	// 		"business_partners",
+	// 		"business_locations",
+	// 		"image_galleries",
+	// 		"contact_departments",
+	// 		"social_links",
+	// 		"about_sections",
+	// 		"business_themes",
+	// 		"section_titles",
+	// 		"configuration",
+	// 		"download_links",
+	// 		"settings"
+	// 	], // Add all your collections here
+	// 	enabled: true
+	// }),
 	...(process.env.BLOB_READ_WRITE_TOKEN
 		? [
 				vercelBlobStorage({

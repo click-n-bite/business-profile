@@ -40,7 +40,7 @@ export function PersonalSocialLinks({ socialLinks }: SocialLinksProps) {
 	return (
 		<div className='w-full space-y-3'>
 			{sortedLinks.map((link) => {
-				const label = link.label || ""
+				const label = link.title || ""
 
 				const imageUrl = getImageUrl(link.image)
 

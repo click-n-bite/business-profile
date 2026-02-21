@@ -30,7 +30,7 @@ export const SocialLinksSection = ({ socialLinks, theme }: SocialLinksProps) => 
 	return (
 		<section className='grid w-full grid-cols-2 gap-4 md:max-w-xl'>
 			{activeLinks.map((link) => {
-				const label = link.label
+				const label = link.title
 
 				const imageUrl = getImageUrl(link.image)
 

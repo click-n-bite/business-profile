@@ -379,6 +379,9 @@ export interface ContactDepartment {
    * Max 60 characters
    */
   title: string;
+  /**
+   * Phone number
+   */
   phone: string;
   whatsapp?: boolean | null;
   telegram?: boolean | null;
@@ -398,7 +401,7 @@ export interface SocialLink {
   /**
    * Display name for the social link (max 60 characters)
    */
-  label: string;
+  title: string;
   /**
    * Custom icon/image for this social link
    */
@@ -407,9 +410,6 @@ export interface SocialLink {
    * Full URL to the social profile/page
    */
   url: string;
-  /**
-   * Order in which links appear (lower numbers first)
-   */
   order?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -432,9 +432,6 @@ export interface BusinessService {
   serviceImage?: (string | null) | Media;
   url_name?: string | null;
   url?: string | null;
-  /**
-   * Display order
-   */
   order?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -457,9 +454,6 @@ export interface BusinessProduct {
   productImage?: (string | null) | Media;
   url_name?: string | null;
   url?: string | null;
-  /**
-   * Display order
-   */
   order?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -472,10 +466,16 @@ export interface BusinessPartner {
   id: string;
   tenant?: (string | null) | Tenant;
   /**
-   * Max 160 characters
+   * Partner/Company name (max 160 characters)
    */
   name: string;
+  /**
+   * Company logo or partner image
+   */
   logo: string | Media;
+  /**
+   * Partner's website URL (optional)
+   */
   website?: string | null;
   order?: number | null;
   updatedAt: string;
@@ -489,13 +489,16 @@ export interface BusinessLocation {
   id: string;
   tenant?: (string | null) | Tenant;
   /**
-   * Max 160 characters
+   * Location name/title (max 60 characters)
    */
   title: string;
   /**
-   * Max 160 characters
+   * Location description (max 160 characters)
    */
   description?: string | null;
+  /**
+   * Google Maps embed link or URL
+   */
   googleMapLink?: string | null;
   order?: number | null;
   updatedAt: string;
@@ -911,7 +914,7 @@ export interface ContactDepartmentsSelect<T extends boolean = true> {
  */
 export interface SocialLinksSelect<T extends boolean = true> {
   tenant?: T;
-  label?: T;
+  title?: T;
   image?: T;
   url?: T;
   order?: T;

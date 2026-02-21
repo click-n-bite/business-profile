@@ -30,7 +30,11 @@ export const ContactDepartmentCard = ({
 			<div className='flex items-center gap-4'>
 				<div className='flex-1'>
 					<h3 className='text-md font-semibold text-slate-900 dark:text-white'>{title}</h3>
-					<p className='mt-0.5 font-mono text-sm text-slate-500 dark:text-slate-400'>{phone}</p>
+					<p
+						className='mt-0.5 text-left font-mono text-sm text-slate-500 rtl:!text-end dark:text-slate-400'
+						style={{ direction: "ltr", unicodeBidi: "embed" }}>
+						{phone}
+					</p>
 				</div>
 			</div>
 

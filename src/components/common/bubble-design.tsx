@@ -4,7 +4,6 @@ interface ProfileCardProps {
 	theme?: {
 		primaryColor?: string
 		secondaryColor?: string
-		accentColor?: string
 	}
 	className?: string
 	children?: React.ReactNode
