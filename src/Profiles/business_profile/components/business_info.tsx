@@ -34,7 +34,7 @@ export const Hero = ({ businessProfile, theme }: HeroProps) => {
 				}
 			`}</style>
 			{businessName && (
-				<h1 className='hero-business-name pb-2 text-4xl font-bold tracking-widest whitespace-nowrap uppercase md:text-5xl'>
+				<h1 className='hero-business-name pb-2 text-4xl font-bold tracking-widest whitespace-nowrap uppercase'>
 					{businessName}
 				</h1>
 			)}

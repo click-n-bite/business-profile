@@ -28,10 +28,16 @@ const SimpleSortableBottom: React.FC = () => {
 
 	const [collectionSlug, setCollectionSlug] = useState<string>("")
 
+	const [mounted, setMounted] = useState(false)
+
 	const router = useRouter()
 
 	useEffect(() => {
-		if (typeof window !== "undefined") {
+		setMounted(true)
+	}, [])
+
+	useEffect(() => {
+		if (mounted && typeof window !== "undefined") {
 			const pathParts = window.location.pathname.split("/")
 
 			const collectionsIndex = pathParts.indexOf("collections")
@@ -40,9 +46,8 @@ const SimpleSortableBottom: React.FC = () => {
 				setCollectionSlug(pathParts[collectionsIndex + 1])
 			}
 		}
-	}, [])
+	}, [mounted])
 
-	// Fetch items
 	useEffect(() => {
 		if (collectionSlug) {
 			fetchItems()
@@ -113,24 +118,39 @@ const SimpleSortableBottom: React.FC = () => {
 	}
 
 	const getTitle = (item: any) => {
-		if (item.title || item.name) {
-			if (typeof item.title === "string") return item.title || item.name
+		if (item.title) {
+			if (typeof item.title === "string") return item.title
 
-			return (
-				item.title.en ||
-				item.title.fr ||
-				Object.values(item.title)[0] ||
-				"Untitled" ||
-				item.name.en ||
-				Object.values(item.name)[0]
-			)
+			return item.title.en || item.title.fr || Object.values(item.title)[0] || "Untitled"
+		}
+
+		if (item.name) {
+			if (typeof item.name === "string") return item.name
+
+			return item.name.en || item.name.fr || Object.values(item.name)[0] || "Untitled"
 		}
 
 		return "Untitled"
 	}
 
+	if (!mounted) {
+		return null
+	}
+
 	if (loading) {
-		return <div style={{ padding: "20px", textAlign: "center", color: "#666" }}>Loading sortable list...</div>
+		return (
+			<div
+				style={{
+					padding: "20px",
+					textAlign: "center",
+					color: "#666",
+					background: "#f9f9f9",
+					borderRadius: "4px",
+					marginTop: "20px"
+				}}>
+				Loading sortable list...
+			</div>
+		)
 	}
 
 	if (items.length === 0) {
