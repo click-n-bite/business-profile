@@ -2,7 +2,7 @@
 
 import { ContactDepartment } from "@/Profiles/types"
 import { formatPhoneNumberSimple } from "@/utils/contact-utils"
-import { formatPhoneForDisplay, westernToArabic } from "@/utils/phone-utils"
+import { formatPhoneForDisplay } from "@/utils/phone-utils"
 import { useLocale } from "next-intl"
 import Image from "next/image"
 
@@ -36,13 +36,13 @@ export const ContactDepartmentCard = ({
 				<div className='flex-1'>
 					<h3 className='text-md font-semibold text-slate-900 dark:text-white'>{title}</h3>
 					<p
-						className='mt-1 text-left font-mono text-sm text-slate-500 rtl:!text-end dark:text-slate-400'
-						style={{ direction: "ltr", unicodeBidi: "embed" }}>
-						{locale === "ar"
-							? phone
-								? "" + westernToArabic(formatPhoneForDisplay(phone, locale).replace(/\s/g, ""))
-								: ""
-							: formatPhoneForDisplay(phone, locale)}{" "}
+						className='mt-1 font-mono text-sm text-slate-500 dark:text-slate-400'
+						style={{
+							direction: "ltr",
+							unicodeBidi: "bidi-override",
+							textAlign: "end"
+						}}>
+						{formatPhoneForDisplay(phone, locale)}
 					</p>
 				</div>
 			</div>

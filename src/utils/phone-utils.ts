@@ -14,19 +14,9 @@ export const formatPhoneForDisplay = (phone: string, locale: string = "en") => {
 	if (countryCode === "+961") {
 		number = number.replace(/\s/g, "")
 
-		if (!number.startsWith("0")) {
-			number = "0" + number
-		}
-
-		if (number.startsWith("00")) {
-			number = number.slice(1)
-		}
-
 		const groups = []
 
-		groups.push(number.slice(0, 2))
-
-		for (let i = 2; i < number.length; i += 2) {
+		for (let i = 0; i < number.length; i += 2) {
 			groups.push(number.slice(i, i + 2))
 		}
 
