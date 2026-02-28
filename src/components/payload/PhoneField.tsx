@@ -63,7 +63,6 @@ const PhoneField: TextFieldClientComponent = (props) => {
 	const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const input = e.target.value
 
-		// allow Arabic + Western digits only
 		const digitsOnly = input.replace(/[^\d٠-٩]/g, "")
 
 		setLocalNumber(digitsOnly)
@@ -120,6 +119,9 @@ const PhoneField: TextFieldClientComponent = (props) => {
 						unicodeBidi: "embed"
 					}}
 				/>
+				<div>
+					{locale === "ar" ? "أدخل رقم هاتفك (بالأرقام الإنجليزية)" : "Enter your phone number (in English digits)"}
+				</div>
 			</div>
 		</div>
 	)
