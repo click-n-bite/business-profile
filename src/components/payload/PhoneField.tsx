@@ -69,7 +69,6 @@ const PhoneField: TextFieldClientComponent = (props) => {
 
 		const cleanNumber = digitsOnly.replace(/\s/g, "")
 
-		// Handle localized storage
 		if (field.localized) {
 			setValue({
 				...value,
@@ -119,9 +118,9 @@ const PhoneField: TextFieldClientComponent = (props) => {
 						unicodeBidi: "embed"
 					}}
 				/>
-				<div>
-					{locale === "ar" ? "أدخل رقم هاتفك (بالأرقام الإنجليزية)" : "Enter your phone number (in English digits)"}
-				</div>
+			</div>
+			<div>
+				{locale === "ar" ? "أدخل رقم هاتفك (بالأرقام الإنجليزية)" : "Enter your phone number (in English digits)"}
 			</div>
 		</div>
 	)
