@@ -31,9 +31,9 @@ export function PersonalHero({ businessProfile, theme }: PersonalHeroProps) {
 			`}</style>
 
 			<div>
-				{businessName && <h1 className='hero-business-name my-4 text-4xl font-bold md:text-5xl'>{businessName}</h1>}
+				{businessName && <h1 className='hero-business-name mt-4 text-xl font-bold md:text-5xl'>{businessName}</h1>}
 
-				{slogan && <p className='text-xl text-gray-600 dark:text-gray-300'>{slogan}</p>}
+				{slogan && <p className='text-md text-gray-600 md:text-xl dark:text-gray-300'>{slogan}</p>}
 			</div>
 		</div>
 	)

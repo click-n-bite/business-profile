@@ -39,11 +39,11 @@ export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayout
 
 	let hasRenderedSection = false
 
-	const Divider = () => <hr className='my-8 w-full max-w-xl border-t border-gray-200 dark:border-gray-800' />
+	const Divider = () => <hr className='my-6 w-full max-w-xl border-t border-gray-200 dark:border-gray-800' />
 
 	return (
 		<div className='flex min-h-screen justify-center'>
-			<div className='flex w-full max-w-4xl max-w-xl flex-col items-center'>
+			<div className='flex w-full max-w-4xl max-w-xl flex-col items-center px-4'>
 				{data.imageGalleries?.[0]?.images && (
 					<div className='w-full max-w-xl'>
 						<Gallery images={data.imageGalleries[0].images} />
