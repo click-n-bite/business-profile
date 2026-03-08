@@ -26,7 +26,7 @@ export function PersonalHero({ businessProfile, theme }: PersonalHeroProps) {
 	const hasLogoDark = businessProfile.logoDark && typeof businessProfile.logoDark !== "string"
 
 	return (
-		<div className='flex flex-col items-center justify-center gap-2 pb-4 text-center'>
+		<div className='flex flex-col items-center justify-center gap-4 pb-6 text-center'>
 			<style>{`
 				.hero-business-name {
 					color: ${theme?.lightTitleColor || "#111827"};
@@ -36,7 +36,8 @@ export function PersonalHero({ businessProfile, theme }: PersonalHeroProps) {
 				}
 			`}</style>
 
-			{businessName && <h1 className='hero-business-name text-2xl font-bold md:text-5xl'>{businessName}</h1>}
+			{businessName && <h1 className='hero-business-name text-3xl font-bold md:text-5xl'>{businessName}</h1>}
+			{slogan && <p className='text-sm text-gray-600 md:text-xl dark:text-gray-300'>{slogan}</p>}
 
 			{(hasLogoLight || hasLogoDark) && (
 				<div className='relative h-42 w-42'>
@@ -70,7 +71,6 @@ export function PersonalHero({ businessProfile, theme }: PersonalHeroProps) {
 				</div>
 			)}
 
-			{slogan && <p className='text-sm text-gray-600 md:text-xl dark:text-gray-300'>{slogan}</p>}
 		</div>
 	)
 }
