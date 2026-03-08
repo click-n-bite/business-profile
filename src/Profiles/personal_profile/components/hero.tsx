@@ -70,7 +70,6 @@ export function PersonalHero({ businessProfile, theme }: PersonalHeroProps) {
 					)}
 				</div>
 			)}
-
 		</div>
 	)
 }

@@ -133,9 +133,13 @@ export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayout
 				)}
 
 				{data.imageGalleries?.[0]?.images && (
-					<div className='w-full max-w-xl'>
-						<Gallery images={data.imageGalleries[0].images} />
-					</div>
+					<>
+						{hasRenderedSection && <Divider />}
+						<div className='w-full max-w-xl'>
+							<Gallery images={data.imageGalleries[0].images} />
+						</div>
+						{(hasRenderedSection = true)}
+					</>
 				)}
 
 				{Array.isArray(data.BusinessProduct) && data.BusinessProduct.length > 0 && (
