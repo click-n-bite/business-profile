@@ -47,7 +47,7 @@ export const ImageMedia = ({
 		if (srcFromProps) {
 			return {
 				src: srcFromProps,
-				width: undefined, // Let NextImage handle it for StaticImageData
+				width: undefined,
 				height: undefined,
 				alt: altFromProps || "image"
 			}

@@ -44,26 +44,10 @@ export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayout
 	return (
 		<div className='flex min-h-screen justify-center'>
 			<div className='flex w-full max-w-4xl max-w-xl flex-col items-center px-4'>
-				{data.imageGalleries?.[0]?.images && (
-					<div className='w-full max-w-xl'>
-						<Gallery images={data.imageGalleries[0].images} />
-					</div>
-				)}
-
 				{data.businessProfile && (
 					<div className='w-full max-w-xl'>
 						<PersonalHero businessProfile={data.businessProfile} theme={theme} />
 					</div>
-				)}
-
-				{data.aboutBusiness && (
-					<>
-						{hasRenderedSection && <Divider />}
-						<div className='w-full max-w-xl'>
-							<PersonalAbout aboutBusiness={data.aboutBusiness} />
-						</div>
-						{(hasRenderedSection = true)}
-					</>
 				)}
 
 				{data.contactDepartments.length > 0 && (
@@ -94,6 +78,16 @@ export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayout
 						{hasRenderedSection && <Divider />}
 						<div className='w-full max-w-xl'>
 							<PersonalSocialLinks socialLinks={data.socialLinks} theme={theme} />
+						</div>
+						{(hasRenderedSection = true)}
+					</>
+				)}
+
+				{data.aboutBusiness && (
+					<>
+						{hasRenderedSection && <Divider />}
+						<div className='w-full max-w-xl'>
+							<PersonalAbout aboutBusiness={data.aboutBusiness} />
 						</div>
 						{(hasRenderedSection = true)}
 					</>
@@ -136,6 +130,12 @@ export function PersonalPortfolioLayout({ data, theme }: PersonalPortfolioLayout
 						</div>
 						{(hasRenderedSection = true)}
 					</>
+				)}
+
+				{data.imageGalleries?.[0]?.images && (
+					<div className='w-full max-w-xl'>
+						<Gallery images={data.imageGalleries[0].images} />
+					</div>
 				)}
 
 				{Array.isArray(data.BusinessProduct) && data.BusinessProduct.length > 0 && (
